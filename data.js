@@ -1,0 +1,69 @@
+/*
+  ==========================================================
+  ফটিকছড়ি উত্তর / ভূজপুর: সাইটের তথ্য এই ফাইলে থাকে
+  শুধু এই ফাইলের লেখা বদলালেই সাইটের তথ্য বদলে যাবে।
+  কোনো তথ্য যোগ করার সময় কমা (,) আর উদ্ধৃতিচিহ্ন ('...') ঠিক রাখবে।
+  bn = বাংলা লেখা, en = English লেখা
+  ==========================================================
+*/
+window.SITE_DATA = {
+
+  /* ---------- ১. ছবির স্লাইডার ----------
+     নিজের তোলা ছবি GitHub-এ images ফোল্ডারে আপলোড করে src এ নাম দাও।
+     উদাহরণ: src: 'images/bhujpur1.jpg'
+     src ফাঁকা থাকলে নমুনা ব্যানার দেখাবে। */
+  slides: [
+    { src: '', bn: 'ভূজপুরের ছবি শীঘ্রই যোগ হবে', en: 'Photos of Bhujpur coming soon' },
+    { src: '', bn: 'আমাদের এলাকা, আমাদের গর্ব', en: 'Our area, our pride' },
+    { src: '', bn: 'একসাথে গড়ি তথ্যসমৃদ্ধ কমিউনিটি', en: 'Together we build an informed community' }
+  ],
+
+  /* ---------- ২. নোটিশ ----------
+     নতুন নোটিশ সবার উপরে যোগ করো। date: বছর-মাস-দিন (যেমন 2026-10-18) */
+  notices: [
+    {
+      date: '2026-10-18',
+      bn: 'নোটিশ বোর্ড চালু হয়েছে',
+      en: 'Notice board is now live',
+      textBn: 'এলাকার যাচাই করা নোটিশ এখানে প্রকাশ করা হবে।',
+      textEn: 'Verified local notices will be published here.'
+    }
+  ],
+
+  /* ---------- ৩. ইউনিয়ন, ওয়ার্ড, চেয়ারম্যান ও মেম্বার ----------
+     নিচের ইউনিয়নগুলো নমুনা। আসল ইউনিয়নের নাম ও জনপ্রতিনিধির নাম যাচাই করে বসাও।
+     একজন মেম্বারের নাম এভাবে লেখা যায়:
+       'রহিম উদ্দিন'
+     অথবা ইংরেজি নাম ও ফোনসহ:
+       { bn: 'রহিম উদ্দিন', en: 'Rahim Uddin', phone: '01XXXXXXXXX' }
+     ফোন নম্বর শুধু সংশ্লিষ্ট ব্যক্তির অনুমতি নিয়ে দাও। */
+  unions: [
+    {
+      bn: 'ইউনিয়ন ১ (নাম যোগ হবে)', en: 'Union 1 (name to be added)',
+      chairman: '',
+      wards: [
+        { no: 1, members: [''] }, { no: 2, members: [''] }, { no: 3, members: [''] },
+        { no: 4, members: [''] }, { no: 5, members: [''] }, { no: 6, members: [''] },
+        { no: 7, members: [''] }, { no: 8, members: [''] }, { no: 9, members: [''] }
+      ]
+    },
+    {
+      bn: 'ইউনিয়ন ২ (নাম যোগ হবে)', en: 'Union 2 (name to be added)',
+      chairman: '',
+      wards: [
+        { no: 1, members: [''] }, { no: 2, members: [''] }, { no: 3, members: [''] },
+        { no: 4, members: [''] }, { no: 5, members: [''] }, { no: 6, members: [''] },
+        { no: 7, members: [''] }, { no: 8, members: [''] }, { no: 9, members: [''] }
+      ]
+    },
+    {
+      bn: 'ইউনিয়ন ৩ (নাম যোগ হবে)', en: 'Union 3 (name to be added)',
+      chairman: '',
+      wards: [
+        { no: 1, members: [''] }, { no: 2, members: [''] }, { no: 3, members: [''] },
+        { no: 4, members: [''] }, { no: 5, members: [''] }, { no: 6, members: [''] },
+        { no: 7, members: [''] }, { no: 8, members: [''] }, { no: 9, members: [''] }
+      ]
+    }
+  ]
+};
