@@ -7,7 +7,7 @@
 */
 window.SITE_CONFIG = {
   supabaseUrl: 'https://yjlkbzkhqmggcmqhilhd.supabase.co',
-  supabaseKey: ''
+  supabaseKey: 'sb_publishable_p6lYipLu2vLy3RJj7IKS3w_A9Z-urGE'
 };
 
 /*
