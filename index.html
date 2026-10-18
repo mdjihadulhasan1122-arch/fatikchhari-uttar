@@ -111,16 +111,191 @@
 <div class="bottom-space"></div>
 <footer class="footer"><div class="wrap"><div class="footer-grid"><div><div class="brand"><div class="logo">🌿</div><div><strong>ফটিকছড়ি উত্তর</strong><small style="color:#b7d4c2">ডিজিটাল কমিউনিটি</small></div></div><p>স্থানীয় তথ্য ও সেবাকে সহজে সবার কাছে পৌঁছে দেওয়ার একটি উদ্যোগ।</p></div><div><h3>দরকারি বিভাগ</h3><a href="#health">স্বাস্থ্য ও জরুরি সেবা</a><a href="#education">শিক্ষা</a><a href="#market">বাজার ও ব্যবসা</a><a href="#community">কমিউনিটি</a></div><div><h3>যোগাযোগ ও নীতিমালা</h3><a href="#contact">তথ্য জমা দিন</a><a href="#about">আমাদের সম্পর্কে</a><a href="#notice">তথ্য যাচাই সংক্রান্ত নোটিশ</a></div></div><div class="copyright">© <span id="year"></span> ফটিকছড়ি উত্তর কমিউনিটি পোর্টাল · এটি একটি স্বাধীন ডেমো ওয়েবসাইট; সরকারি ওয়েবসাইট নয়।</div></div></footer>
 <nav class="bottomnav"><a href="#home"><b>⌂</b>হোম</a><a href="#services"><b>▦</b>সেবা</a><a href="#health"><b>✚</b>জরুরি</a><a href="#market"><b>🛍</b>বাজার</a><a href="#contact"><b>＋</b>তথ্য দিন</a></nav>
-<div class="modal" id="infoModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal-card"><h2 id="modalTitle">তথ্য জমা দিন</h2><p>নিচের তথ্য লিখুন। এটি আপাতত ডেমো ফর্ম—সার্ভার/অ্যাডমিনের সঙ্গে যুক্ত নয়।</p><form id="infoForm"><label for="kind">তথ্যের ধরন</label><select id="kind"><option>সাধারণ তথ্য</option><option>ব্যবসা/দোকান</option><option>শিক্ষা প্রতিষ্ঠান</option><option>স্বাস্থ্যসেবা</option><option>জরুরি নম্বর সংশোধন</option><option>চাকরির বিজ্ঞপ্তি</option><option>অন্য কিছু</option></select><label for="name">আপনার নাম (ঐচ্ছিক)</label><input id="name" placeholder="নাম লিখুন"><label for="detail">তথ্য / পরামর্শ</label><textarea id="detail" rows="3" required placeholder="যতটা সম্ভব পরিষ্কারভাবে লিখুন"></textarea><div class="modal-actions"><button type="button" class="btn btn-light" onclick="closeModal()">বন্ধ করুন</button><button type="submit" class="btn btn-green">তথ্য তৈরি করুন</button></div></form></div></div>
+<div class="modal" id="infoModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal-card"><h2 id="modalTitle">তথ্য জমা দিন</h2><p>নিচের তথ্য লিখুন। এটি আপাতত ডেমো ফর্ম—সার্ভার/অ্যাডমিনের সঙ্গে যুক্ত নয়।</p><form id="infoForm"><label for="kind">তথ্যের ধরন</label><select id="kind"><option value="সাধারণ তথ্য">সাধারণ তথ্য</option><option value="ব্যবসা/দোকান">ব্যবসা/দোকান</option><option value="শিক্ষা প্রতিষ্ঠান">শিক্ষা প্রতিষ্ঠান</option><option value="স্বাস্থ্যসেবা">স্বাস্থ্যসেবা</option><option value="জরুরি নম্বর সংশোধন">জরুরি নম্বর সংশোধন</option><option value="চাকরির বিজ্ঞপ্তি">চাকরির বিজ্ঞপ্তি</option><option value="অন্য কিছু">অন্য কিছু</option></select><label for="name">আপনার নাম (ঐচ্ছিক)</label><input id="name" placeholder="নাম লিখুন"><label for="detail">তথ্য / পরামর্শ</label><textarea id="detail" rows="3" required placeholder="যতটা সম্ভব পরিষ্কারভাবে লিখুন"></textarea><div class="modal-actions"><button type="button" class="btn btn-light" onclick="closeModal()">বন্ধ করুন</button><button type="submit" class="btn btn-green">তথ্য তৈরি করুন</button></div></form></div></div>
 <div class="toast" id="toast" role="status"></div>
 <script>
-const translations={
- en:{lang:'বাংলা',title:'Fatikchhari North',subtitle:'Our area, our digital home',hero:'Fatikchhari North',desc:'A community initiative to bring useful local information, services, education, health, business and connections together in one place.',services:'Useful Services',health:'Health & Emergency Services',education:'Education & Skills',market:'Local Market & Business',community:'Community Corner',about:'About Us',notice:'Important Notice'},
- bn:{lang:'EN'}
+const I18N={
+"ফটিকছড়ি উত্তর": "Fatikchhari North",
+"আমাদের এলাকার ডিজিটাল ঠিকানা": "Our community's digital home",
+"＋ তথ্য দিন": "＋ Submit Info",
+"সেবাসমূহ": "Services",
+"নোটিশ": "Notices",
+"স্বাস্থ্য ও জরুরি": "Health & Emergency",
+"শিক্ষা": "Education",
+"বাজার ও ব্যবসা": "Market & Business",
+"কমিউনিটি": "Community",
+"আমাদের সম্পর্কে": "About Us",
+"● আমাদের এলাকা, আমাদের প্ল্যাটফর্ম": "● Our area, our platform",
+"ফটিকছড়ি উত্তরের": "Fatikchhari North",
+"ডিজিটাল কমিউনিটি": "Digital Community",
+"এলাকার দরকারি তথ্য, সেবা, শিক্ষা, স্বাস্থ্য, ব্যবসা ও মানুষের সঙ্গে যোগাযোগ—সবকিছু এক জায়গায় আনার একটি উদ্যোগ।": "A community initiative to bring useful local information, services, education, health, business and connections together in one place.",
+"কী খুঁজছেন? যেমন: হাসপাতাল, স্কুল, দোকান…": "What are you looking for? e.g. hospital, school, shop…",
+"সার্চ করুন": "Search",
+"খুঁজুন": "Search",
+"২৪/৭": "24/7",
+"তথ্য দেখার সুবিধা": "Access information anytime",
+"স্থানীয়": "Local",
+"এলাকাভিত্তিক সেবা": "Area-based services",
+"সবার জন্য": "For everyone",
+"কমিউনিটি উদ্যোগ": "Community initiative",
+"আমাদের এলাকা, আমাদের গর্ব": "Our area, our pride",
+"একসাথে গড়ি আরও তথ্যসমৃদ্ধ কমিউনিটি": "Together, let's build a more informed community",
+"গুরুত্বপূর্ণ ঘোষণা": "Important Announcement",
+"এটি একটি নতুন কমিউনিটি ওয়েবসাইটের ডেমো। স্থানীয় নোটিশ, সরকারি তথ্য ও যোগাযোগ নম্বর যাচাই করে যুক্ত করতে হবে। ভুল বা অসম্পূর্ণ তথ্য দেখলে ব্যবহার করার আগে নিশ্চিত হয়ে নিন।": "This is a demo of a new community website. Local notices, government information and contact numbers must be verified before being added. If you see incorrect or incomplete information, please confirm before using it.",
+"🧭 দরকারি সেবাসমূহ": "🧭 Essential Services",
+"এক নজরে প্রয়োজনীয় বিভাগ": "Key categories at a glance",
+"তথ্য যোগ করুন →": "Add info →",
+"বিস্তারিত দেখুন →": "View details →",
+"স্বাস্থ্যসেবা": "Healthcare",
+"হাসপাতাল, ক্লিনিক ও ফার্মেসির তথ্য": "Hospital, clinic and pharmacy information",
+"জরুরি সহায়তা": "Emergency Help",
+"জরুরি যোগাযোগের তথ্য": "Emergency contact information",
+"শিক্ষা প্রতিষ্ঠান": "Educational Institutions",
+"স্কুল, কলেজ ও মাদ্রাসা": "Schools, colleges and madrasas",
+"স্থানীয় দোকান ও সেবাদাতা": "Local shops and service providers",
+"চাকরি ও কাজ": "Jobs & Work",
+"স্থানীয় চাকরির বিজ্ঞপ্তি": "Local job notices",
+"রক্তদাতা": "Blood Donors",
+"রক্তদাতা খুঁজে পাওয়ার উদ্যোগ": "Initiative to find blood donors",
+"যাতায়াত": "Transport",
+"পরিবহন ও রুটের তথ্য": "Transport and route information",
+"মসজিদ ও কমিউনিটি": "Mosques & Community",
+"স্থানীয় সামাজিক তথ্য": "Local social information",
+"এই শব্দের সঙ্গে মেলে এমন বিভাগ পাওয়া যায়নি। অন্য শব্দ দিয়ে খুঁজুন।": "No category matches this word. Try a different word.",
+"🩺 স্বাস্থ্য ও জরুরি সেবা": "🩺 Health & Emergency Services",
+"জরুরি অবস্থায় নির্ভরযোগ্য তথ্য ব্যবহার করুন": "Use reliable information in an emergency",
+"🚑 জরুরি যোগাযোগ": "🚑 Emergency Contacts",
+"জাতীয় জরুরি সেবা": "National Emergency Service",
+"বাংলাদেশে জরুরি সহায়তার জন্য ৯৯৯ — প্রয়োজনে অফিসিয়াল সূত্রে যাচাই করুন": "Dial 999 for emergency help in Bangladesh. Verify with official sources if needed.",
+"কল": "Call",
+"নিকটস্থ হাসপাতাল": "Nearest Hospital",
+"হাসপাতালের নাম ও নম্বর এখানে যাচাই করে যোগ করা হবে": "Hospital names and numbers will be verified and added here",
+"তথ্য বাকি": "Info pending",
+"রক্তদাতা তালিকা": "Blood Donor List",
+"স্বেচ্ছায় নিবন্ধন ও সম্মতি নিয়ে তালিকা তৈরি করতে হবে": "The list must be built through voluntary registration and consent",
+"জানুন": "Learn more",
+"📍 এলাকার সেবা খুঁজুন": "📍 Find Local Services",
+"ম্যাপের মাধ্যমে হাসপাতাল, ফার্মেসি বা জরুরি সেবার অবস্থান দেখানোর সুবিধা যুক্ত করা যাবে। এই ডেমোতে নির্দিষ্ট প্রতিষ্ঠানের অবস্থান যাচাই করা হয়নি।": "Map-based locations of hospitals, pharmacies and emergency services can be added. In this demo, the locations of specific institutions have not been verified.",
+"ম্যাপে হাসপাতাল খুঁজুন ↗": "Find hospitals on map ↗",
+"নোট: ম্যাপের ফলাফল দেখে প্রতিষ্ঠানের ঠিকানা, খোলার সময় ও ফোন নম্বর নিশ্চিত করুন।": "Note: Please confirm the address, opening hours and phone number from the map results.",
+"📚 শিক্ষা ও দক্ষতা": "📚 Education & Skills",
+"শিক্ষার্থী, অভিভাবক ও চাকরিপ্রার্থীদের জন্য": "For students, parents and job seekers",
+"স্কুল ও কলেজ": "Schools & Colleges",
+"প্রতিষ্ঠানের নাম, ঠিকানা ও যোগাযোগ যোগ করার জায়গা।": "A place to add institution names, addresses and contacts.",
+"মাদ্রাসা": "Madrasas",
+"যাচাইকৃত শিক্ষা প্রতিষ্ঠানের তালিকা প্রকাশ করা হবে।": "A verified list of institutions will be published.",
+"দক্ষতা প্রশিক্ষণ": "Skills Training",
+"কম্পিউটার, কারিগরি ও ভাষা প্রশিক্ষণের তথ্য।": "Information on computer, technical and language training.",
+"পরীক্ষা ও ভর্তি": "Exams & Admission",
+"সরকারি/প্রতিষ্ঠানিক ঘোষণার যাচাইকৃত লিংক।": "Verified links to government/institutional announcements.",
+"🛒 স্থানীয় বাজার ও ব্যবসা": "🛒 Local Market & Business",
+"স্থানীয় ব্যবসাকে পরিচিত করার জায়গা": "A place to promote local businesses",
+"ব্যবসা যোগ করুন": "Add Business",
+"কাঁচাবাজার": "Fresh Market",
+"বাজারের অবস্থান ও সময় যোগ করা হবে।": "Market locations and timings will be added.",
+"মিস্ত্রি ও সার্ভিস": "Technicians & Services",
+"ইলেকট্রিশিয়ান, প্লাম্বার, মেরামত সেবা।": "Electricians, plumbers, repair services.",
+"খাবার ও রেস্টুরেন্ট": "Food & Restaurants",
+"স্থানীয় খাবারের দোকান ও যোগাযোগ।": "Local food shops and contacts.",
+"দোকানপাট": "Shops",
+"দোকানের নাম, সময়, ঠিকানা ও নম্বর।": "Shop name, hours, address and number.",
+"🤝 কমিউনিটি কর্নার": "🤝 Community Corner",
+"এলাকার মানুষকে একসঙ্গে যুক্ত করার উদ্যোগ": "An initiative to connect local people together",
+"চাকরি ও নিয়োগ": "Jobs & Recruitment",
+"নিয়োগদাতার পরিচয় যাচাই করে চাকরির বিজ্ঞপ্তি প্রকাশ করুন। চাকরি পেতে অগ্রিম টাকা দেওয়ার আগে সতর্ক থাকুন।": "Verify the employer's identity before posting job notices. Be careful before paying any advance money to get a job.",
+"রক্তদাতা নেটওয়ার্ক": "Blood Donor Network",
+"ব্যক্তির স্পষ্ট সম্মতি নিয়ে নাম ও যোগাযোগ প্রকাশ করতে হবে। ব্যক্তিগত তথ্য সবার সামনে প্রকাশ করবেন না।": "Names and contacts may be published only with the person's clear consent. Do not publish personal information publicly.",
+"ধর্মীয় ও সামাজিক তথ্য": "Religious & Social Information",
+"মসজিদ, সামাজিক সংগঠন, অনুষ্ঠান ও জনকল্যাণমূলক কার্যক্রমের যাচাইকৃত তথ্য।": "Verified information on mosques, social organizations, events and public welfare activities.",
+"✨ স্মার্ট টুলস": "✨ Smart Tools",
+"পরবর্তী ধাপে আরও সুবিধা যোগ করা যাবে": "More features can be added in the next phase",
+"এলাকার ম্যাপ": "Area Map",
+"ম্যাপে ফটিকছড়ি খুঁজুন": "Find Fatikchhari on the map",
+"ম্যাপ খুলুন ↗": "Open map ↗",
+"আবহাওয়া": "Weather",
+"সর্বশেষ আবহাওয়ার তথ্য খুঁজুন": "Find the latest weather information",
+"আবহাওয়া দেখুন ↗": "View weather ↗",
+"নামাজের সময়": "Prayer Times",
+"স্থান অনুযায়ী সময় যাচাই করুন": "Check times by location",
+"সময় দেখুন ↗": "View times ↗",
+"স্থানীয় খবর": "Local News",
+"বিশ্বস্ত সংবাদমাধ্যমে খুঁজুন": "Search trusted news sources",
+"খবর দেখুন ↗": "View news ↗",
+"📩 আপনার তথ্য বা পরামর্শ পাঠান": "📩 Send Your Information or Suggestions",
+"স্থানীয় প্রতিষ্ঠান, জরুরি নম্বর বা সংশোধিত তথ্য যুক্ত করতে চাইলে নিচের বাটনে তথ্য দিন। এই ডেমোতে ফর্মটি সরাসরি অনলাইনে জমা হয় না; এটি আপনার ডিভাইসে ইমেইল অ্যাপ খোলার চেষ্টা করবে। প্রকাশের আগে সাইটের মালিকের ইমেইল সেট করতে হবে।": "To add a local institution, emergency number or corrected information, use the button below. In this demo, the form is not submitted online directly. Before launch, the site owner's email must be set.",
+"তথ্য জমা দেওয়ার ফর্ম খুলুন": "Open the info submission form",
+"🌱 আমাদের সম্পর্কে": "🌱 About Us",
+"একটি স্থানীয় কমিউনিটি পোর্টালের প্রাথমিক সংস্করণ": "An early version of a local community portal",
+"“ফটিকছড়ি উত্তর” ওয়েবসাইটের লক্ষ্য হলো এলাকার মানুষের জন্য প্রয়োজনীয় তথ্য এক জায়গায় সহজে পৌঁছে দেওয়া। স্বাস্থ্য, শিক্ষা, ব্যবসা, চাকরি, জরুরি সেবা ও সামাজিক উদ্যোগের যাচাইকৃত তথ্য এখানে রাখা যেতে পারে।": "The goal of the \"Fatikchhari North\" website is to bring essential information to local people easily in one place. Verified information on health, education, business, jobs, emergency services and social initiatives can be kept here.",
+"প্রকাশের আগে জরুরি:": "Before launch:",
+"এলাকার সঠিক প্রশাসনিক নাম/সীমানা নিশ্চিত করুন; সরকারি লোগো বা অনুমোদন ছাড়া সাইটকে সরকারি ওয়েবসাইট হিসেবে উপস্থাপন করবেন না; সব ফোন নম্বর ও প্রতিষ্ঠানের তথ্য যাচাই করুন; তথ্য জমা দেওয়ার জন্য একটি প্রকৃত যোগাযোগ ইমেইল বা অ্যাডমিন ব্যবস্থা যুক্ত করুন।": "confirm the correct administrative name/boundary of the area; do not present the site as a government website without official logos or approval; verify all phone numbers and institution details; set up a real contact email or admin system for submissions.",
+"স্থানীয় তথ্য ও সেবাকে সহজে সবার কাছে পৌঁছে দেওয়ার একটি উদ্যোগ।": "An initiative to bring local information and services to everyone easily.",
+"দরকারি বিভাগ": "Useful Sections",
+"স্বাস্থ্য ও জরুরি সেবা": "Health & Emergency Services",
+"যোগাযোগ ও নীতিমালা": "Contact & Policies",
+"তথ্য জমা দিন": "Submit Info",
+"তথ্য যাচাই সংক্রান্ত নোটিশ": "Information Verification Notice",
+"ফটিকছড়ি উত্তর কমিউনিটি পোর্টাল · এটি একটি স্বাধীন ডেমো ওয়েবসাইট; সরকারি ওয়েবসাইট নয়।": "Fatikchhari North Community Portal · This is an independent demo website; not a government website.",
+"হোম": "Home",
+"সেবা": "Services",
+"জরুরি": "Emergency",
+"বাজার": "Market",
+"তথ্য দিন": "Submit Info",
+"নিচের তথ্য লিখুন। এটি আপাতত ডেমো ফর্ম—সার্ভার/অ্যাডমিনের সঙ্গে যুক্ত নয়।": "Fill in the details below. This is currently a demo form and is not connected to a server or admin.",
+"তথ্যের ধরন": "Type of information",
+"সাধারণ তথ্য": "General information",
+"ব্যবসা/দোকান": "Business / shop",
+"জরুরি নম্বর সংশোধন": "Emergency number correction",
+"চাকরির বিজ্ঞপ্তি": "Job notice",
+"অন্য কিছু": "Other",
+"আপনার নাম (ঐচ্ছিক)": "Your name (optional)",
+"নাম লিখুন": "Enter your name",
+"তথ্য / পরামর্শ": "Information / suggestion",
+"যতটা সম্ভব পরিষ্কারভাবে লিখুন": "Write as clearly as possible",
+"বন্ধ করুন": "Close",
+"তথ্য তৈরি করুন": "Create info file",
+"ফটিকছড়ি উত্তর | ডিজিটাল কমিউনিটি": "Fatikchhari North | Digital Community",
+"ফটিকছড়ি উত্তরের স্থানীয় তথ্য, জরুরি সেবা, শিক্ষা, স্বাস্থ্য, বাজার ও কমিউনিটি পোর্টাল।": "Local information, emergency services, education, health, market and community portal for Fatikchhari North.",
+"রক্তদাতা নিবন্ধন ফর্ম পরবর্তী সংস্করণে যুক্ত হবে।": "The blood donor registration form will be added in a later version.",
+"বাংলা প্রদর্শন চালু হয়েছে।": "Bengali display enabled.",
+"ডেমো ফর্ম: তথ্যটি কপি করে সাইটের অ্যাডমিনকে পাঠান।": "Demo form: copy this info and send it to the site admin.",
+"সব বিভাগ দেখানো হচ্ছে।": "Showing all categories.",
+"মিল পাওয়া যায়নি—অন্য শব্দ দিয়ে খুঁজুন।": "No match found. Try a different word."
 };
 let english=false;
-function toggleLanguage(){english=!english;document.getElementById('langBtn').textContent=english?'বাংলা':'EN';document.documentElement.lang=english?'en':'bn';document.querySelector('.brand strong').textContent=english?'Fatikchhari North':'ফটিকছড়ি উত্তর';document.querySelector('.brand small').textContent=english?'Our community digital home':'আমাদের এলাকার ডিজিটাল ঠিকানা';document.querySelector('.hero h1').innerHTML=english?'Fatikchhari North<br><span>Digital Community</span>':'ফটিকছড়ি উত্তরের<br><span>ডিজিটাল কমিউনিটি</span>';document.querySelector('.hero p').textContent=english?translations.en.desc:'এলাকার দরকারি তথ্য, সেবা, শিক্ষা, স্বাস্থ্য, ব্যবসা ও মানুষের সঙ্গে যোগাযোগ—সবকিছু এক জায়গায় আনার একটি উদ্যোগ।';showToast(english?'English preview enabled. Some content remains in Bengali.':'বাংলা প্রদর্শন চালু হয়েছে।');}
-function showToast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000)}
+const _orig=new WeakMap();
+function _tr(s){return english?(I18N[s.normalize('NFC')]||s):s}
+function applyLanguage(){
+  const tw=document.createTreeWalker(document.body,NodeFilter.SHOW_TEXT);
+  const nodes=[];while(tw.nextNode())nodes.push(tw.currentNode);
+  nodes.forEach(n=>{
+    if(!_orig.has(n))_orig.set(n,n.nodeValue);
+    const o=_orig.get(n),t=o.trim(),k=t.normalize('NFC');
+    if(!t)return;
+    n.nodeValue=(english&&I18N[k])?o.replace(t,I18N[k]):o;
+  });
+  document.querySelectorAll('[placeholder],[aria-label]').forEach(el=>{
+    ['placeholder','aria-label'].forEach(a=>{
+      if(!el.hasAttribute(a))return;
+      const k='bn'+a;
+      if(!el.dataset[k])el.dataset[k]=el.getAttribute(a);
+      const o=el.dataset[k];
+      el.setAttribute(a,english?(I18N[o.normalize('NFC')]||o):o);
+    });
+  });
+  if(!window._bnTitle){window._bnTitle=document.title;window._bnDesc=document.querySelector('meta[name=description]').content}
+  document.title=english?(I18N[window._bnTitle.normalize('NFC')]||window._bnTitle):window._bnTitle;
+  document.querySelector('meta[name=description]').content=english?(I18N[window._bnDesc.normalize('NFC')]||window._bnDesc):window._bnDesc;
+  document.documentElement.lang=english?'en':'bn';
+  document.getElementById('langBtn').textContent=english?'বাংলা':'EN';
+}
+function toggleLanguage(){
+  english=!english;
+  applyLanguage();
+  try{localStorage.setItem('lang',english?'en':'bn')}catch(e){}
+  showToast(english?'English enabled.':'বাংলা প্রদর্শন চালু হয়েছে।');
+}
+function showToast(msg){const t=document.getElementById('toast');t.textContent=_tr(msg);t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000)}
 function openModal(type){document.getElementById('infoModal').classList.add('show');if(type==='business')document.getElementById('kind').value='ব্যবসা/দোকান';}
 function closeModal(){document.getElementById('infoModal').classList.remove('show')}
 document.getElementById('infoModal').addEventListener('click',e=>{if(e.target.id==='infoModal')closeModal()});
@@ -128,6 +303,7 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal()});
 document.getElementById('infoForm').addEventListener('submit',e=>{e.preventDefault();const kind=document.getElementById('kind').value,name=document.getElementById('name').value,detail=document.getElementById('detail').value;const body=`ধরন: ${kind}%0D%0Aনাম: ${name}%0D%0Aতথ্য: ${detail}`;showToast('ডেমো ফর্ম: তথ্যটি কপি করে সাইটের অ্যাডমিনকে পাঠান।');const blob=new Blob([`ধরন: ${kind}\nনাম: ${name}\nতথ্য: ${detail}`],{type:'text/plain;charset=utf-8'});const url=URL.createObjectURL(blob);const a=document.createElement('a');a.href=url;a.download='fatikchhari-uttar-info.txt';a.click();URL.revokeObjectURL(url);closeModal();document.getElementById('detail').value='';});
 document.getElementById('searchForm').addEventListener('submit',e=>{e.preventDefault();const q=document.getElementById('searchInput').value.trim().toLowerCase();let n=0;document.querySelectorAll('.searchable .tile').forEach(el=>{const match=!q||(el.innerText+' '+el.dataset.search).toLowerCase().includes(q);el.style.display=match?'':'none';if(match)n++});document.getElementById('emptyState').style.display=n?'none':'block';if(!q)showToast('সব বিভাগ দেখানো হচ্ছে।');else if(!n)showToast('মিল পাওয়া যায়নি—অন্য শব্দ দিয়ে খুঁজুন।');else document.getElementById('services').scrollIntoView({behavior:'smooth'});});
 document.getElementById('year').textContent=new Date().getFullYear();
+try{if(localStorage.getItem('lang')==='en'){english=true;applyLanguage()}}catch(e){}
 </script>
 </body>
 </html>
