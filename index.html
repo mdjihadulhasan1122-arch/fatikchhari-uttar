@@ -574,6 +574,14 @@ function initDonorForm(){
   });
   document.getElementById('donorSearch').addEventListener('input',renderDonors);
 }
+function lockDonorForm(){
+  const f=document.getElementById('donorForm');if(!f||document.getElementById('donorDone'))return;
+  let ph='';try{ph=localStorage.getItem('donorDone')||''}catch(x){}
+  if(!ph)return;
+  f.style.display='none';
+  const m=el('div','form-msg ok','✅ আপনি রক্তদাতা হিসেবে নিবন্ধিত। ধন্যবাদ! একজন একবারই নিবন্ধন করতে পারবেন।','✅ You are registered as a blood donor. Thank you! Each person can register only once.');
+  m.id='donorDone';f.parentNode.appendChild(m);
+}
 async function submitDonor(e){
   e.preventDefault();
   if(document.getElementById('dHp').value)return;
@@ -599,8 +607,11 @@ async function submitDonor(e){
     if(r.ok){
       try{localStorage.setItem('donorTs',String(Date.now()))}catch(x){}
       document.getElementById('donorForm').reset();
-      setMsg('donorMsg','ধন্যবাদ! আপনি রক্তদাতা হিসেবে নিবন্ধিত হয়েছেন।','Thank you! You are now registered as a blood donor.','ok');
+      try{localStorage.setItem('donorDone',phone)}catch(x){}
+      lockDonorForm();
       loadDonors();
+    }else if(r.status===400&&(await r.text()).indexOf('too many')>-1){
+      setMsg('donorMsg','এই ইন্টারনেট সংযোগ থেকে আজ অনেক নিবন্ধন হয়েছে। আগামীকাল আবার চেষ্টা করুন।','Too many registrations from this connection today. Please try again tomorrow.','err');
     }else if(r.status===409){
       setMsg('donorMsg','এই মোবাইল নম্বর আগেই নিবন্ধিত আছে।','This mobile number is already registered.','err');
     }else{
@@ -674,7 +685,7 @@ function renderDir(){
     list.appendChild(c);
   });
 }
-initDonorForm();loadDonors();initDir();
+initDonorForm();lockDonorForm();loadDonors();initDir();
 try{if(localStorage.getItem('lang')==='en'){english=true;applyLanguage()}}catch(e){}
 </script>
 </body>
