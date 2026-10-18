@@ -1,5 +1,17 @@
 /*
   ==========================================================
+  Supabase সংযোগ (রক্তদাতা নিবন্ধন ও তালিকার জন্য)
+  supabaseKey এ শুধু anon / publishable key বসাও।
+  service_role বা secret key কখনো এখানে বসাবে না।
+  ==========================================================
+*/
+window.SITE_CONFIG = {
+  supabaseUrl: 'https://yjlkbzkhqmggcmqhilhd.supabase.co',
+  supabaseKey: ''
+};
+
+/*
+  ==========================================================
   ফটিকছড়ি উত্তর / ভূজপুর: সাইটের তথ্য এই ফাইলে থাকে
   শুধু এই ফাইলের লেখা বদলালেই সাইটের তথ্য বদলে যাবে।
   কোনো তথ্য যোগ করার সময় কমা (,) আর উদ্ধৃতিচিহ্ন ('...') ঠিক রাখবে।
@@ -66,4 +78,21 @@ window.SITE_DATA = {
       ]
     }
   ]
+  ,
+
+  /* ---------- ৪. স্কুল ও কলেজ ----------
+     উদাহরণ (এই ধাঁচে [ ] এর ভেতরে নিজের তথ্য বসাও):
+     { bn: 'নমুনা উচ্চ বিদ্যালয়', en: 'Sample High School', type: 'স্কুল', typeEn: 'School',
+       union: 'ইউনিয়নের নাম', unionEn: 'Union name', address: 'গ্রামের নাম', addressEn: 'Village', phone: '01XXXXXXXXX' } */
+  schools: [],
+
+  /* ---------- ৫. হাসপাতাল ও ক্লিনিক ----------
+     { bn: 'নমুনা ক্লিনিক', en: 'Sample Clinic', type: 'ক্লিনিক', typeEn: 'Clinic',
+       address: 'ঠিকানা', addressEn: 'Address', phone: '01XXXXXXXXX' } */
+  hospitals: [],
+
+  /* ---------- ৬. ডাক্তার ----------
+     { bn: 'ডা. নমুনা', en: 'Dr. Sample', speciality: 'মেডিসিন', specialityEn: 'Medicine',
+       chamber: 'চেম্বারের ঠিকানা', chamberEn: 'Chamber address', time: 'বিকাল ৫টা - রাত ৯টা', timeEn: '5 PM - 9 PM', phone: '01XXXXXXXXX' } */
+  doctors: []
 };

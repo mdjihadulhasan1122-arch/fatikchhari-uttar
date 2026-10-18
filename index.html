@@ -50,6 +50,24 @@
 .n-card strong{display:block;font-size:14px;margin:3px 0}
 .n-card p{margin:0;font-size:12px;color:#52675a}
 .mapbox{border:0;width:100%;height:340px;border-radius:15px}
+
+.fl{display:block;font-size:12px;font-weight:700;margin:12px 0 5px}
+.fi{width:100%;border:1px solid var(--line);border-radius:10px;padding:10px;background:#fbfdfb}
+.chk{display:flex;gap:9px;align-items:flex-start;font-size:12px;margin:14px 0;color:#42584b;line-height:1.5}
+.chk input{margin-top:3px;flex-shrink:0}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;opacity:0}
+.form-msg{margin-top:10px;font-size:13px;font-weight:700}
+.form-msg.ok{color:var(--green)}.form-msg.err{color:var(--red)}
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin:8px 0 12px}
+.chip{border:1px solid var(--line);background:#fff;border-radius:20px;padding:6px 12px;font-size:12px;font-weight:800;color:var(--deep);white-space:nowrap}
+.chip.on{background:var(--green);color:#fff;border-color:var(--green)}
+.d-card{display:flex;align-items:center;gap:11px;padding:11px 0;border-top:1px solid #edf2ee}
+.d-card:first-child{border-top:0}
+.bg{width:44px;height:44px;border-radius:13px;background:#ffe9ea;color:var(--red);display:grid;place-items:center;font-weight:900;font-size:15px;flex-shrink:0}
+.bg.ic{background:var(--mint);font-size:22px}
+.d-info{flex:1;min-width:0}.d-info strong{display:block;font-size:14px}.d-info small{display:block;font-size:11px;color:var(--muted)}
+.tabs{display:flex;gap:6px;overflow-x:auto;margin-bottom:10px;scrollbar-width:none}
+.count{font-size:12px;color:var(--muted);font-weight:700}
 </style>
 </head>
 <body>
@@ -66,7 +84,7 @@
       </div>
     </div>
     <nav class="nav">
-      <a href="#services">সেবাসমূহ</a><a href="#unions">ইউনিয়ন</a><a href="#noticeboard">নোটিশ</a><a href="#health">স্বাস্থ্য ও জরুরি</a><a href="#education">শিক্ষা</a><a href="#market">বাজার ও ব্যবসা</a><a href="#community">কমিউনিটি</a><a href="#map">ম্যাপ</a><a href="#about">আমাদের সম্পর্কে</a>
+      <a href="#services">সেবাসমূহ</a><a href="#unions">ইউনিয়ন</a><a href="#blood">রক্তদাতা</a><a href="#institutions">প্রতিষ্ঠান</a><a href="#noticeboard">নোটিশ</a><a href="#health">স্বাস্থ্য ও জরুরি</a><a href="#education">শিক্ষা</a><a href="#market">বাজার ও ব্যবসা</a><a href="#community">কমিউনিটি</a><a href="#map">ম্যাপ</a><a href="#about">আমাদের সম্পর্কে</a>
     </nav>
   </div>
 </header>
@@ -97,7 +115,7 @@
    <a class="tile" data-search="school college madrasa education স্কুল কলেজ মাদ্রাসা শিক্ষা" href="#education"><div class="icon">🎓</div><h3>শিক্ষা প্রতিষ্ঠান</h3><p>স্কুল, কলেজ ও মাদ্রাসা</p><span class="mini-link">বিস্তারিত দেখুন →</span></a>
    <a class="tile" data-search="business shop market bazar ব্যবসা দোকান বাজার" href="#market"><div class="icon">🛍️</div><h3>বাজার ও ব্যবসা</h3><p>স্থানীয় দোকান ও সেবাদাতা</p><span class="mini-link">বিস্তারিত দেখুন →</span></a>
    <a class="tile" data-search="jobs employment চাকরি কাজ" href="#community"><div class="icon">💼</div><h3>চাকরি ও কাজ</h3><p>স্থানীয় চাকরির বিজ্ঞপ্তি</p><span class="mini-link">বিস্তারিত দেখুন →</span></a>
-   <a class="tile" data-search="blood donor blood group রক্ত রক্তদাতা" href="#community"><div class="icon">🩸</div><h3>রক্তদাতা</h3><p>রক্তদাতা খুঁজে পাওয়ার উদ্যোগ</p><span class="mini-link">বিস্তারিত দেখুন →</span></a>
+   <a class="tile" data-search="blood donor blood group রক্ত রক্তদাতা" href="#blood"><div class="icon">🩸</div><h3>রক্তদাতা</h3><p>রক্তদাতা খুঁজে পাওয়ার উদ্যোগ</p><span class="mini-link">বিস্তারিত দেখুন →</span></a>
    <a class="tile" data-search="transport bus cng vehicle পরিবহন বাস সিএনজি" href="#community"><div class="icon">🚌</div><h3>যাতায়াত</h3><p>পরিবহন ও রুটের তথ্য</p><span class="mini-link">বিস্তারিত দেখুন →</span></a>
    <a class="tile" data-search="mosque prayer islam মসজিদ নামাজ ইসলাম" href="#community"><div class="icon">🕌</div><h3>মসজিদ ও কমিউনিটি</h3><p>স্থানীয় সামাজিক তথ্য</p><span class="mini-link">বিস্তারিত দেখুন →</span></a>
   </div>
@@ -112,10 +130,39 @@
   <div class="section-head"><div><h2>📋 নোটিশ বোর্ড</h2><p>এলাকার সর্বশেষ ঘোষণা ও নোটিশ</p></div></div>
   <div id="noticeList"></div>
  </section>
+ <section class="section" id="blood">
+  <div class="section-head"><div><h2>🩸 রক্তদাতা</h2><p>জরুরি প্রয়োজনে রক্তদাতা খুঁজুন বা নিজে রক্তদাতা হোন</p></div></div>
+  <div class="panel">
+   <h3>রক্তদাতা হিসেবে নিবন্ধন করুন</h3>
+   <form id="donorForm" novalidate>
+    <label class="fl" for="dName">আপনার নাম *</label><input class="fi" id="dName" maxlength="60" autocomplete="name">
+    <label class="fl" for="dPhone">মোবাইল নম্বর *</label><input class="fi" id="dPhone" inputmode="tel" placeholder="01XXXXXXXXX" maxlength="16" autocomplete="tel">
+    <label class="fl" for="dGroup">রক্তের গ্রুপ *</label><select class="fi" id="dGroup"></select>
+    <label class="fl" for="dUnion">ইউনিয়ন (ঐচ্ছিক)</label><select class="fi" id="dUnion"></select>
+    <label class="fl" for="dWard">ওয়ার্ড (ঐচ্ছিক)</label><select class="fi" id="dWard"></select>
+    <label class="chk"><input type="checkbox" id="dConsent">আমি রক্ত দিতে রাজি, আমার বয়স ১৮ বছর বা তার বেশি, এবং আমার নাম, মোবাইল নম্বর ও রক্তের গ্রুপ এই সাইটে সবার সামনে দেখানো হবে।</label>
+    <input class="hp" id="dHp" tabindex="-1" autocomplete="off" aria-hidden="true">
+    <button class="btn btn-green" type="submit" id="dSubmit">নিবন্ধন করুন</button>
+    <div class="form-msg" id="donorMsg" role="status"></div>
+   </form>
+  </div>
+  <div class="panel" style="margin-top:14px">
+   <h3>রক্তদাতার তালিকা <span class="count" id="donorCount"></span></h3>
+   <div class="chips" id="gChips"></div>
+   <input class="fi" id="donorSearch" placeholder="নাম, নম্বর বা ওয়ার্ড দিয়ে খুঁজুন">
+   <div id="donorList" style="margin-top:8px"></div>
+  </div>
+ </section>
+ <section class="section" id="institutions">
+  <div class="section-head"><div><h2>🏫 প্রতিষ্ঠান ও চিকিৎসা</h2><p>স্কুল, কলেজ, হাসপাতাল ও ডাক্তারের তালিকা</p></div></div>
+  <div class="tabs" id="dirTabs"></div>
+  <input class="fi" id="dirSearch" placeholder="নাম বা এলাকা লিখে খুঁজুন">
+  <div class="panel" style="margin-top:10px"><div id="dirList"></div></div>
+ </section>
  <section class="section" id="health">
   <div class="section-head"><div><h2>🩺 স্বাস্থ্য ও জরুরি সেবা</h2><p>জরুরি অবস্থায় নির্ভরযোগ্য তথ্য ব্যবহার করুন</p></div></div>
   <div class="two-col">
-   <div class="panel"><h3>🚑 জরুরি যোগাযোগ</h3><div class="row"><div class="icon">☎️</div><div><strong>জাতীয় জরুরি সেবা</strong><small>বাংলাদেশে জরুরি সহায়তার জন্য ৯৯৯ — প্রয়োজনে অফিসিয়াল সূত্রে যাচাই করুন</small></div><a class="pill" href="tel:999">কল</a></div><div class="row"><div class="icon">🏥</div><div><strong>নিকটস্থ হাসপাতাল</strong><small>হাসপাতালের নাম ও নম্বর এখানে যাচাই করে যোগ করা হবে</small></div><span class="pill">তথ্য বাকি</span></div><div class="row"><div class="icon">🩸</div><div><strong>রক্তদাতা তালিকা</strong><small>স্বেচ্ছায় নিবন্ধন ও সম্মতি নিয়ে তালিকা তৈরি করতে হবে</small></div><button class="pill" onclick="showToast('রক্তদাতা নিবন্ধন ফর্ম পরবর্তী সংস্করণে যুক্ত হবে।')">জানুন</button></div></div>
+   <div class="panel"><h3>🚑 জরুরি যোগাযোগ</h3><div class="row"><div class="icon">☎️</div><div><strong>জাতীয় জরুরি সেবা</strong><small>বাংলাদেশে জরুরি সহায়তার জন্য ৯৯৯ — প্রয়োজনে অফিসিয়াল সূত্রে যাচাই করুন</small></div><a class="pill" href="tel:999">কল</a></div><div class="row"><div class="icon">🏥</div><div><strong>নিকটস্থ হাসপাতাল</strong><small>হাসপাতালের নাম ও নম্বর এখানে যাচাই করে যোগ করা হবে</small></div><span class="pill">তথ্য বাকি</span></div><div class="row"><div class="icon">🩸</div><div><strong>রক্তদাতা তালিকা</strong><small>স্বেচ্ছায় নিবন্ধন ও সম্মতি নিয়ে তালিকা তৈরি করতে হবে</small></div><button class="pill" onclick="location.hash='#blood'">জানুন</button></div></div>
    <div class="panel"><h3>📍 এলাকার সেবা খুঁজুন</h3><p style="font-size:13px;color:var(--muted)">ম্যাপের মাধ্যমে হাসপাতাল, ফার্মেসি বা জরুরি সেবার অবস্থান দেখানোর সুবিধা যুক্ত করা যাবে। এই ডেমোতে নির্দিষ্ট প্রতিষ্ঠানের অবস্থান যাচাই করা হয়নি।</p><a class="btn btn-green" style="display:inline-block;margin-top:8px" target="_blank" rel="noopener" href="https://www.google.com/maps/search/hospital+Fatikchhari+Bangladesh">ম্যাপে হাসপাতাল খুঁজুন ↗</a><div class="placeholder" style="margin-top:13px">নোট: ম্যাপের ফলাফল দেখে প্রতিষ্ঠানের ঠিকানা, খোলার সময় ও ফোন নম্বর নিশ্চিত করুন।</div></div>
   </div>
  </section>
@@ -325,6 +372,7 @@ const I18N={
 "মিল পাওয়া যায়নি—অন্য শব্দ দিয়ে খুঁজুন।": "No match found. Try a different word."
 };
 Object.assign(I18N,{"ইউনিয়ন": "Unions", "ম্যাপ": "Map", "🏛️ ইউনিয়ন ও জনপ্রতিনিধি": "🏛️ Unions & Representatives", "ইউনিয়ন বেছে নিয়ে ওয়ার্ড, মেম্বার ও চেয়ারম্যানের নাম দেখুন": "Choose a union to see its wards, members and chairman", "নমুনা তথ্য: যাচাই করা আসল নাম পরে যোগ করা হবে।": "Sample data: verified real names will be added later.", "📋 নোটিশ বোর্ড": "📋 Notice Board", "এলাকার সর্বশেষ ঘোষণা ও নোটিশ": "Latest announcements and notices", "🗺️ ভূজপুর উত্তরের ম্যাপ": "🗺️ Bhujpur North Map", "ম্যাপে এলাকা দেখুন ও দিকনির্দেশনা পান": "See the area on the map and get directions", "বড় ম্যাপে খুলুন ↗": "Open in larger map ↗", "🆘 অভিযোগ ও সহায়তা": "🆘 Complaints & Help", "কোনো সমস্যা বা অন্যায়ের শিকার হলে সঠিক কর্তৃপক্ষকে জানান। এই সাইটে কোনো ব্যক্তির ছবি বা নাম প্রকাশ্যে পোস্ট করা হয় না।": "If you face a problem or injustice, report it to the proper authority. This site does not publicly post any person's photo or name.", "নম্বর ব্যবহারের আগে অফিসিয়াল সূত্রে যাচাই করুন। এলাকার সমস্যায় ইউনিয়ন পরিষদ ও স্থানীয় থানায় সরাসরি যোগাযোগ করুন।": "Verify numbers with official sources before use. For local problems, contact the Union Parishad and the local police station directly."});
+Object.assign(I18N,{"প্রতিষ্ঠান": "Institutions", "🩸 রক্তদাতা": "🩸 Blood Donors", "জরুরি প্রয়োজনে রক্তদাতা খুঁজুন বা নিজে রক্তদাতা হোন": "Find a blood donor in an emergency, or become a donor yourself", "রক্তদাতা হিসেবে নিবন্ধন করুন": "Register as a blood donor", "আপনার নাম *": "Your name *", "মোবাইল নম্বর *": "Mobile number *", "রক্তের গ্রুপ *": "Blood group *", "ইউনিয়ন (ঐচ্ছিক)": "Union (optional)", "ওয়ার্ড (ঐচ্ছিক)": "Ward (optional)", "আমি রক্ত দিতে রাজি, আমার বয়স ১৮ বছর বা তার বেশি, এবং আমার নাম, মোবাইল নম্বর ও রক্তের গ্রুপ এই সাইটে সবার সামনে দেখানো হবে।": "I am willing to donate blood, I am 18 years or older, and I agree that my name, mobile number and blood group will be shown publicly on this site.", "নিবন্ধন করুন": "Register", "রক্তদাতার তালিকা": "Donor List", "নাম, নম্বর বা ওয়ার্ড দিয়ে খুঁজুন": "Search by name, number or ward", "🏫 প্রতিষ্ঠান ও চিকিৎসা": "🏫 Institutions & Healthcare", "স্কুল, কলেজ, হাসপাতাল ও ডাক্তারের তালিকা": "List of schools, colleges, hospitals and doctors", "নাম বা এলাকা লিখে খুঁজুন": "Search by name or area"});
 let english=false;
 const _orig=new WeakMap();
 function _tr(s){return english?(I18N[s.normalize('NFC')]||s):s}
@@ -492,6 +540,141 @@ function refreshDynamic(){
 }
 renderSlider();renderUnions();renderNotices();renderHelp();refreshDynamic();
 setInterval(tick,1000);
+
+/* ===== রক্তদাতা নিবন্ধন ও তালিকা (Supabase) ===== */
+const CFG=window.SITE_CONFIG||{};
+const SB_URL=String(CFG.supabaseUrl||'').replace(/\/+$/,'');
+const SB_OK=!!(SB_URL&&CFG.supabaseKey);
+function sbH(extra){const x=Object.assign({apikey:CFG.supabaseKey},extra||{});if(/^eyJ/.test(CFG.supabaseKey))x.Authorization='Bearer '+CFG.supabaseKey;return x}
+function setMsg(id,bn,en,kind){const e=document.getElementById(id);if(!e)return;e.dataset.bn=bn;e.dataset.en=en;e.textContent=english?en:bn;e.className='form-msg '+(kind||'')}
+function normPhone(v){
+  let s=String(v||'').replace(/[০-৯]/g,d=>BN_DIG.indexOf(d)).replace(/[\s\-()]/g,'');
+  if(s.indexOf('+88')===0)s=s.slice(3);else if(s.indexOf('88')===0&&s.length===13)s=s.slice(2);
+  return s;
+}
+const GROUPS=['A+','A-','B+','B-','AB+','AB-','O+','O-'];
+let donors=[],gFilter='all';
+function opt(v,bn,en){const o=el('option',null,bn,en);o.value=v;return o}
+function initDonorForm(){
+  const g=document.getElementById('dGroup');if(!g)return;
+  g.appendChild(opt('','বেছে নিন','Select'));GROUPS.forEach(x=>g.appendChild(opt(x,x,x)));
+  const u=document.getElementById('dUnion');
+  u.appendChild(opt('','— উল্লেখ করতে চাই না —','— Prefer not to say —'));
+  (SD.unions||[]).forEach(x=>u.appendChild(opt(x.bn,x.bn,x.en||x.bn)));
+  u.appendChild(opt('অন্য এলাকা','অন্য এলাকা','Other area'));
+  const w=document.getElementById('dWard');
+  w.appendChild(opt('','— উল্লেখ করতে চাই না —','— Prefer not to say —'));
+  for(let i=1;i<=9;i++)w.appendChild(opt(String(i),'ওয়ার্ড '+toBn(i),'Ward '+i));
+  document.getElementById('donorForm').addEventListener('submit',submitDonor);
+  const chips=document.getElementById('gChips');
+  [['all','সব','All']].concat(GROUPS.map(x=>[x,x,x])).forEach(c=>{
+    const b=el('button','chip'+(c[0]==='all'?' on':''),c[1],c[2]);b.type='button';
+    b.addEventListener('click',()=>{gFilter=c[0];chips.querySelectorAll('.chip').forEach(x=>x.classList.toggle('on',x===b));renderDonors()});
+    chips.appendChild(b);
+  });
+  document.getElementById('donorSearch').addEventListener('input',renderDonors);
+}
+async function submitDonor(e){
+  e.preventDefault();
+  if(document.getElementById('dHp').value)return;
+  if(!SB_OK){setMsg('donorMsg','নিবন্ধন ব্যবস্থা এখনো চালু হয়নি। কিছুক্ষণ পরে চেষ্টা করুন।','Registration is not active yet. Please try again later.','err');return}
+  const name=document.getElementById('dName').value.trim();
+  const phone=normPhone(document.getElementById('dPhone').value);
+  const group=document.getElementById('dGroup').value;
+  const union=document.getElementById('dUnion').value;
+  const ward=document.getElementById('dWard').value;
+  const consent=document.getElementById('dConsent').checked;
+  if(name.length<2){setMsg('donorMsg','অনুগ্রহ করে আপনার নাম লিখুন।','Please enter your name.','err');return}
+  if(!/^01[3-9]\d{8}$/.test(phone)){setMsg('donorMsg','সঠিক ১১ সংখ্যার মোবাইল নম্বর দিন (যেমন 01712345678)।','Enter a valid 11-digit mobile number (e.g. 01712345678).','err');return}
+  if(!group){setMsg('donorMsg','রক্তের গ্রুপ বেছে নিন।','Please choose your blood group.','err');return}
+  if(!consent){setMsg('donorMsg','নিবন্ধন করতে সম্মতির টিক চিহ্ন দিতে হবে।','Please tick the consent box to register.','err');return}
+  try{const last=+localStorage.getItem('donorTs')||0;if(Date.now()-last<20000){setMsg('donorMsg','কিছুক্ষণ পরে আবার চেষ্টা করুন।','Please wait a moment and try again.','err');return}}catch(x){}
+  const btn=document.getElementById('dSubmit');btn.disabled=true;
+  setMsg('donorMsg','জমা হচ্ছে…','Submitting…','');
+  try{
+    const body={name:name,phone:phone,blood_group:group,consent:true};
+    if(union)body.union_name=union;
+    if(ward)body.ward=parseInt(ward,10);
+    const r=await fetch(SB_URL+'/rest/v1/blood_donors',{method:'POST',headers:sbH({'Content-Type':'application/json',Prefer:'return=minimal'}),body:JSON.stringify(body)});
+    if(r.ok){
+      try{localStorage.setItem('donorTs',String(Date.now()))}catch(x){}
+      document.getElementById('donorForm').reset();
+      setMsg('donorMsg','ধন্যবাদ! আপনি রক্তদাতা হিসেবে নিবন্ধিত হয়েছেন।','Thank you! You are now registered as a blood donor.','ok');
+      loadDonors();
+    }else if(r.status===409){
+      setMsg('donorMsg','এই মোবাইল নম্বর আগেই নিবন্ধিত আছে।','This mobile number is already registered.','err');
+    }else{
+      setMsg('donorMsg','জমা দেওয়া যায়নি। তথ্য ঠিক আছে কি না দেখে আবার চেষ্টা করুন।','Could not submit. Please check your details and try again.','err');
+    }
+  }catch(x){
+    setMsg('donorMsg','ইন্টারনেট সংযোগে সমস্যা। আবার চেষ্টা করুন।','Network problem. Please try again.','err');
+  }
+  btn.disabled=false;
+}
+async function loadDonors(){
+  const list=document.getElementById('donorList');if(!list)return;
+  if(!SB_OK){list.textContent='';list.appendChild(el('div','placeholder','রক্তদাতার তালিকা শীঘ্রই চালু হবে।','The donor list will be available soon.'));return}
+  try{
+    const r=await fetch(SB_URL+'/rest/v1/blood_donors_public?select=name,phone,blood_group,union_name,ward&order=blood_group.asc,name.asc&limit=1000',{headers:sbH()});
+    if(!r.ok)throw new Error(r.status);
+    donors=await r.json();renderDonors();
+  }catch(x){
+    list.textContent='';list.appendChild(el('div','placeholder','তালিকা লোড করা যায়নি। পরে আবার চেষ্টা করুন।','Could not load the list. Please try again later.'));
+  }
+}
+function renderDonors(){
+  const list=document.getElementById('donorList'),cnt=document.getElementById('donorCount');if(!list)return;
+  const q=document.getElementById('donorSearch').value.trim().toLowerCase();
+  const rows=donors.filter(d=>(gFilter==='all'||d.blood_group===gFilter)&&(!q||[d.name,d.phone,d.union_name,d.ward&&('ward '+d.ward),d.ward&&('ওয়ার্ড '+toBn(d.ward))].join(' ').toLowerCase().indexOf(q)>-1));
+  list.textContent='';
+  cnt.dataset.bn='('+toBn(rows.length)+' জন)';cnt.dataset.en='('+rows.length+')';cnt.textContent=english?cnt.dataset.en:cnt.dataset.bn;
+  if(!rows.length){list.appendChild(el('div','placeholder','এই শর্তে কোনো রক্তদাতা পাওয়া যায়নি।','No donors found for this filter.'));return}
+  rows.forEach(d=>{
+    const c=el('div','d-card');
+    c.appendChild(el('div','bg',d.blood_group));
+    const info=el('div','d-info');
+    info.appendChild(el('strong',null,d.name));
+    const sm=document.createElement('small');
+    if(d.union_name){const u=(SD.unions||[]).find(x=>x.bn===d.union_name);sm.appendChild(el('span',null,d.union_name,u?(u.en||d.union_name):(d.union_name==='অন্য এলাকা'?'Other area':d.union_name)))}
+    if(d.ward){if(d.union_name)sm.appendChild(document.createTextNode(' · '));sm.appendChild(el('span',null,'ওয়ার্ড '+toBn(d.ward),'Ward '+d.ward))}
+    info.appendChild(sm);c.appendChild(info);
+    const a=el('a','pill','কল','Call');a.href='tel:'+String(d.phone).replace(/[^\d+]/g,'');c.appendChild(a);
+    list.appendChild(c);
+  });
+}
+/* ===== স্কুল / হাসপাতাল / ডাক্তারের তালিকা ===== */
+let dirTab='schools';
+const DIRS={
+  schools:{icon:'🏫',bn:'স্কুল ও কলেজ',en:'Schools & Colleges',empty:['স্কুল ও কলেজের তথ্য শীঘ্রই যোগ হবে।','School and college information will be added soon.'],fields:['type','union','address']},
+  hospitals:{icon:'🏥',bn:'হাসপাতাল ও ক্লিনিক',en:'Hospitals & Clinics',empty:['হাসপাতাল ও ক্লিনিকের তথ্য শীঘ্রই যোগ হবে।','Hospital and clinic information will be added soon.'],fields:['type','address']},
+  doctors:{icon:'🩺',bn:'ডাক্তার',en:'Doctors',empty:['ডাক্তারদের তথ্য শীঘ্রই যোগ হবে।','Doctor information will be added soon.'],fields:['speciality','chamber','time']}
+};
+function initDir(){
+  const tabs=document.getElementById('dirTabs');if(!tabs)return;
+  Object.keys(DIRS).forEach(k=>{
+    const b=el('button','chip'+(k===dirTab?' on':''),DIRS[k].bn,DIRS[k].en);b.type='button';
+    b.addEventListener('click',()=>{dirTab=k;tabs.querySelectorAll('.chip').forEach(x=>x.classList.toggle('on',x===b));renderDir()});
+    tabs.appendChild(b);
+  });
+  document.getElementById('dirSearch').addEventListener('input',renderDir);
+  renderDir();
+}
+function renderDir(){
+  const list=document.getElementById('dirList');if(!list)return;list.textContent='';
+  const cfg=DIRS[dirTab],items=SD[dirTab]||[];
+  const q=document.getElementById('dirSearch').value.trim().toLowerCase();
+  const rows=items.filter(it=>!q||JSON.stringify(it).toLowerCase().indexOf(q)>-1);
+  if(!rows.length){list.appendChild(el('div','placeholder',q&&items.length?'কিছু পাওয়া যায়নি।':cfg.empty[0],q&&items.length?'Nothing found.':cfg.empty[1]));return}
+  rows.forEach(it=>{
+    const c=el('div','d-card');c.appendChild(el('div','bg ic',cfg.icon));
+    const info=el('div','d-info');info.appendChild(el('strong',null,it.bn,it.en||it.bn));
+    cfg.fields.forEach(f=>{if(it[f])info.appendChild(el('small',null,it[f],it[f+'En']||it[f]))});
+    c.appendChild(info);
+    if(it.phone){const a=el('a','pill','কল','Call');a.href='tel:'+String(it.phone).replace(/[^\d+]/g,'');c.appendChild(a)}
+    list.appendChild(c);
+  });
+}
+initDonorForm();loadDonors();initDir();
 try{if(localStorage.getItem('lang')==='en'){english=true;applyLanguage()}}catch(e){}
 </script>
 </body>
