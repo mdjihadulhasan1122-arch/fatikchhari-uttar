@@ -51,40 +51,49 @@ window.SITE_DATA = {
      ফোন নম্বর শুধু সংশ্লিষ্ট ব্যক্তির অনুমতি নিয়ে দাও। */
   unions: [
     {
-      bn: 'ইউনিয়ন ১ (নাম যোগ হবে)', en: 'Union 1 (name to be added)',
+      bn: 'ভূজপুর ইউনিয়ন', en: 'Bhujpur Union',
       chairman: '',
-      wards: [
-        { no: 1, members: [''] }, { no: 2, members: [''] }, { no: 3, members: [''] },
-        { no: 4, members: [''] }, { no: 5, members: [''] }, { no: 6, members: [''] },
-        { no: 7, members: [''] }, { no: 8, members: [''] }, { no: 9, members: [''] }
-      ]
+      wards: [ { no: 1, members: [''] }, { no: 2, members: [''] }, { no: 3, members: [''] }, { no: 4, members: [''] }, { no: 5, members: [''] }, { no: 6, members: [''] }, { no: 7, members: [''] }, { no: 8, members: [''] }, { no: 9, members: [''] } ]
     },
     {
-      bn: 'ইউনিয়ন ২ (নাম যোগ হবে)', en: 'Union 2 (name to be added)',
+      bn: 'নারায়ণহাট ইউনিয়ন', en: 'Narayanhat Union',
       chairman: '',
-      wards: [
-        { no: 1, members: [''] }, { no: 2, members: [''] }, { no: 3, members: [''] },
-        { no: 4, members: [''] }, { no: 5, members: [''] }, { no: 6, members: [''] },
-        { no: 7, members: [''] }, { no: 8, members: [''] }, { no: 9, members: [''] }
-      ]
+      wards: [ { no: 1, members: [''] }, { no: 2, members: [''] }, { no: 3, members: [''] }, { no: 4, members: [''] }, { no: 5, members: [''] }, { no: 6, members: [''] }, { no: 7, members: [''] }, { no: 8, members: [''] }, { no: 9, members: [''] } ]
     },
     {
-      bn: 'ইউনিয়ন ৩ (নাম যোগ হবে)', en: 'Union 3 (name to be added)',
+      bn: 'দাঁতমারা ইউনিয়ন', en: 'Dantmara Union',
       chairman: '',
-      wards: [
-        { no: 1, members: [''] }, { no: 2, members: [''] }, { no: 3, members: [''] },
-        { no: 4, members: [''] }, { no: 5, members: [''] }, { no: 6, members: [''] },
-        { no: 7, members: [''] }, { no: 8, members: [''] }, { no: 9, members: [''] }
-      ]
+      wards: [ { no: 1, members: [''] }, { no: 2, members: [''] }, { no: 3, members: [''] }, { no: 4, members: [''] }, { no: 5, members: [''] }, { no: 6, members: [''] }, { no: 7, members: [''] }, { no: 8, members: [''] }, { no: 9, members: [''] } ]
+    },
+    {
+      bn: 'হারুয়ালছড়ি ইউনিয়ন', en: 'Harualchhari Union',
+      chairman: '',
+      wards: [ { no: 1, members: [''] }, { no: 2, members: [''] }, { no: 3, members: [''] }, { no: 4, members: [''] }, { no: 5, members: [''] }, { no: 6, members: [''] }, { no: 7, members: [''] }, { no: 8, members: [''] }, { no: 9, members: [''] } ]
+    },
+    {
+      bn: 'সুয়াবিল ইউনিয়ন', en: 'Suabil Union',
+      chairman: '',
+      wards: [ { no: 1, members: [''] }, { no: 2, members: [''] }, { no: 3, members: [''] }, { no: 4, members: [''] }, { no: 5, members: [''] }, { no: 6, members: [''] }, { no: 7, members: [''] }, { no: 8, members: [''] }, { no: 9, members: [''] } ]
+    },
+    {
+      bn: 'বাগানবাজার ইউনিয়ন', en: 'Baganbazar Union',
+      chairman: '',
+      wards: [ { no: 1, members: [''] }, { no: 2, members: [''] }, { no: 3, members: [''] }, { no: 4, members: [''] }, { no: 5, members: [''] }, { no: 6, members: [''] }, { no: 7, members: [''] }, { no: 8, members: [''] }, { no: 9, members: [''] } ]
     }
-  ]
-  ,
+  ],
 
   /* ---------- ৪. স্কুল ও কলেজ ----------
      উদাহরণ (এই ধাঁচে [ ] এর ভেতরে নিজের তথ্য বসাও):
      { bn: 'নমুনা উচ্চ বিদ্যালয়', en: 'Sample High School', type: 'স্কুল', typeEn: 'School',
        union: 'ইউনিয়নের নাম', unionEn: 'Union name', address: 'গ্রামের নাম', addressEn: 'Village', phone: '01XXXXXXXXX' } */
-  schools: [],
+  schools: [
+    { bn: 'ভূজপুর ন্যাশনাল স্কুল অ্যান্ড কলেজ', en: 'Bhujpur National School & College', type: 'স্কুল ও কলেজ', typeEn: 'School & College', union: 'ভূজপুর', unionEn: 'Bhujpur' },
+    { bn: 'ভূজপুর মডেল উচ্চ বিদ্যালয়', en: 'Bhujpur Model High School', type: 'উচ্চ বিদ্যালয়', typeEn: 'High School', union: 'ভূজপুর', unionEn: 'Bhujpur' },
+    { bn: 'মির্জার হাট উচ্চ বিদ্যালয়', en: 'Mirzar Hat High School', type: 'উচ্চ বিদ্যালয়', typeEn: 'High School', union: 'ভূজপুর', unionEn: 'Bhujpur' },
+    { bn: 'পূর্ব ভূজপুর সরকারি প্রাথমিক বিদ্যালয়', en: 'East Bhujpur Government Primary School', type: 'প্রাথমিক বিদ্যালয়', typeEn: 'Primary School', union: 'ভূজপুর', unionEn: 'Bhujpur' },
+    { bn: 'পশ্চিম ভূজপুর এ. গণি প্রাথমিক বিদ্যালয়', en: 'West Bhujpur A. Gani Primary School', type: 'প্রাথমিক বিদ্যালয়', typeEn: 'Primary School', union: 'ভূজপুর', unionEn: 'Bhujpur' },
+    { bn: 'আমতলী প্রাথমিক বিদ্যালয়', en: 'Amtali Primary School', type: 'প্রাথমিক বিদ্যালয়', typeEn: 'Primary School', union: 'ভূজপুর', unionEn: 'Bhujpur' }
+  ],
 
   /* ---------- ৫. হাসপাতাল ও ক্লিনিক ----------
      { bn: 'নমুনা ক্লিনিক', en: 'Sample Clinic', type: 'ক্লিনিক', typeEn: 'Clinic',
