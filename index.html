@@ -88,6 +88,15 @@ body.gated{overflow:hidden}
 .fact:first-child{border-top:0}.fact b{flex:0 0 96px;color:var(--green)}.fact span{flex:1}
 .hist-img{height:130px;font-size:40px}
 .g-head{font-weight:900;font-size:13px;color:var(--red);background:#fff1f2;border-radius:9px;padding:6px 10px;margin:10px 0 2px}
+.d-card.click{cursor:pointer}.d-card.click:active{background:#f3faf5}
+.more{color:var(--green)!important;font-weight:800}
+.dm{position:fixed;inset:0;z-index:9000;background:rgba(0,0,0,.55);display:flex;align-items:flex-end;justify-content:center}
+.dm-card{background:#fff;width:100%;max-width:480px;max-height:90vh;overflow-y:auto;border-radius:20px 20px 0 0;padding:16px 16px 22px;position:relative}
+.dm-card h3{font-size:17px;margin:2px 0 8px;color:var(--deep)}
+.dm-x{position:absolute;top:10px;right:10px;z-index:2;border:0;background:rgba(255,255,255,.92);border-radius:50%;width:34px;height:34px;font-size:16px;font-weight:900;box-shadow:0 1px 6px rgba(0,0,0,.25)}
+.dm-hist{margin-top:12px;background:#f6fbf8;border-radius:12px;padding:11px 13px}
+.dm-hist p{margin:6px 0 0;font-size:13px;line-height:1.65;color:#33473b}
+@media(min-width:600px){.dm{align-items:center}.dm-card{border-radius:20px}}
 </style>
 </head>
 <body>
@@ -709,9 +718,36 @@ function renderDir(){
     const info=el('div','d-info');info.appendChild(el('strong',null,it.bn,it.en||it.bn));
     cfg.fields.forEach(f=>{if(it[f])info.appendChild(el('small',null,it[f],it[f+'En']||it[f]))});
     c.appendChild(info);
-    if(it.phone){const a=el('a','pill','কল','Call');a.href='tel:'+String(it.phone).replace(/[^\d+]/g,'');c.appendChild(a)}
+    info.appendChild(el('small','more','বিস্তারিত দেখুন ›','View details ›'));
+    if(it.phone){const a=el('a','pill','কল','Call');a.href='tel:'+String(it.phone).replace(/[^\d+]/g,'');a.addEventListener('click',e=>e.stopPropagation());c.appendChild(a)}
+    c.classList.add('click');c.tabIndex=0;c.setAttribute('role','button');
+    const open=()=>openDetail(it,cfg);
+    c.addEventListener('click',open);c.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open()}});
     list.appendChild(c);
   });
+}
+function closeDetail(){const d=document.getElementById('detailModal');if(d)d.remove();document.body.classList.remove('gated');document.removeEventListener('keydown',_escDetail)}
+function _escDetail(e){if(e.key==='Escape')closeDetail()}
+function openDetail(it,cfg){
+  closeDetail();
+  const ov=document.createElement('div');ov.className='dm';ov.id='detailModal';
+  ov.addEventListener('click',e=>{if(e.target===ov)closeDetail()});
+  const card=el('div','dm-card');ov.appendChild(card);
+  const x=el('button','dm-x','✕','✕');x.type='button';x.setAttribute('aria-label','close');x.addEventListener('click',closeDetail);card.appendChild(x);
+  card.appendChild(imgBox(it.photo,cfg.icon));
+  card.appendChild(el('h3',null,it.bn,it.en||it.bn));
+  const rows=[['ধরন','Type','type'],['ইউনিয়ন','Union','union'],['ঠিকানা','Address','address'],['বিভাগ','Speciality','speciality'],['চেম্বার','Chamber','chamber'],['সময়','Time','time'],['প্রতিষ্ঠা','Established','est']];
+  rows.forEach(r=>{if(it[r[2]]){const f=el('div','fact');f.appendChild(el('b',null,r[0],r[1]));f.appendChild(el('span',null,it[r[2]],it[r[2]+'En']||it[r[2]]));card.appendChild(f)}});
+  const pf=el('div','fact');pf.appendChild(el('b',null,'ফোন','Phone'));
+  const ps=document.createElement('span');
+  if(it.phone){const a=document.createElement('a');a.href='tel:'+String(it.phone).replace(/[^\d+]/g,'');a.textContent='📞 '+it.phone;a.style.cssText='color:var(--green);font-weight:700';ps.appendChild(a)}
+  else ps.appendChild(el('span','tbd','নম্বর যোগ হবে','Number to be added'));
+  pf.appendChild(ps);card.appendChild(pf);
+  const h=el('div','dm-hist');h.appendChild(el('b',null,'📜 ইতিহাস ও পরিচিতি','📜 History & about'));
+  h.appendChild(it.historyBn?el('p',null,it.historyBn,it.historyEn||it.historyBn):el('p','tbd','ইতিহাস যোগ হবে।','History to be added.'));
+  card.appendChild(h);
+  document.body.appendChild(ov);document.body.classList.add('gated');document.addEventListener('keydown',_escDetail);
+  if(english)applyLanguage();
 }
 initDonorForm();lockDonorForm();loadDonors();initDir();
 try{if(localStorage.getItem('lang')==='en'){english=true;applyLanguage()}}catch(e){}

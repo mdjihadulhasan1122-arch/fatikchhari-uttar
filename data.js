@@ -99,6 +99,11 @@ window.SITE_DATA = {
      উদাহরণ (এই ধাঁচে [ ] এর ভেতরে নিজের তথ্য বসাও):
      { bn: 'নমুনা উচ্চ বিদ্যালয়', en: 'Sample High School', type: 'স্কুল', typeEn: 'School',
        union: 'ইউনিয়নের নাম', unionEn: 'Union name', address: 'গ্রামের নাম', addressEn: 'Village', phone: '01XXXXXXXXX' } */
+
+  /* প্রতিটি স্কুল/মাদ্রাসা/হাসপাতাল/ডাক্তারের জন্য ঐচ্ছিক বাড়তি ঘর (ক্লিক করলে বিস্তারিত পাতায় দেখাবে):
+       photo: 'images/school1.jpg',  phone: '01XXXXXXXXX',  address: 'ঠিকানা', addressEn: 'Address',
+       est: 'প্রতিষ্ঠা সাল', estEn: 'Established',
+       historyBn: 'ইতিহাস বাংলায়', historyEn: 'History in English' */
   schools: [
     { bn: 'ভূজপুর ন্যাশনাল স্কুল অ্যান্ড কলেজ', en: 'Bhujpur National School & College', type: 'স্কুল ও কলেজ', typeEn: 'School & College', union: 'ভূজপুর', unionEn: 'Bhujpur' },
     { bn: 'ভূজপুর মডেল উচ্চ বিদ্যালয়', en: 'Bhujpur Model High School', type: 'উচ্চ বিদ্যালয়', typeEn: 'High School', union: 'ভূজপুর', unionEn: 'Bhujpur' },
@@ -106,6 +111,13 @@ window.SITE_DATA = {
     { bn: 'পূর্ব ভূজপুর সরকারি প্রাথমিক বিদ্যালয়', en: 'East Bhujpur Government Primary School', type: 'প্রাথমিক বিদ্যালয়', typeEn: 'Primary School', union: 'ভূজপুর', unionEn: 'Bhujpur' },
     { bn: 'পশ্চিম ভূজপুর এ. গণি প্রাথমিক বিদ্যালয়', en: 'West Bhujpur A. Gani Primary School', type: 'প্রাথমিক বিদ্যালয়', typeEn: 'Primary School', union: 'ভূজপুর', unionEn: 'Bhujpur' },
     { bn: 'আমতলী প্রাথমিক বিদ্যালয়', en: 'Amtali Primary School', type: 'প্রাথমিক বিদ্যালয়', typeEn: 'Primary School', union: 'ভূজপুর', unionEn: 'Bhujpur' }
+,
+    { bn: 'ভূজপুর পাবলিক উচ্চ বিদ্যালয়', en: 'Bhujpur Public High School', type: 'উচ্চ বিদ্যালয়', typeEn: 'High School', union: 'ভূজপুর', unionEn: 'Bhujpur' },
+    { bn: 'কাজীর হাট এমদাদুল ইসলাম মাদ্রাসা', en: 'Kazir Hat Emdadul Islam Madrasa', type: 'মাদ্রাসা', typeEn: 'Madrasa', union: 'ভূজপুর', unionEn: 'Bhujpur' },
+    { bn: 'শরীয়তুল উলুম মাদ্রাসা', en: 'Shariatul Uloom Madrasa', type: 'মাদ্রাসা', typeEn: 'Madrasa', union: 'ভূজপুর', unionEn: 'Bhujpur' },
+    { bn: 'শরীয়তুল উলুম প্রাথমিক বিদ্যালয়', en: 'Shariatul Uloom Primary School', type: 'প্রাথমিক বিদ্যালয়', typeEn: 'Primary School', union: 'ভূজপুর', unionEn: 'Bhujpur' },
+    { bn: 'পূর্ব ভূজপুর প্রাথমিক বিদ্যালয়', en: 'East Bhujpur Primary School', type: 'প্রাথমিক বিদ্যালয়', typeEn: 'Primary School', union: 'ভূজপুর', unionEn: 'Bhujpur' },
+    { bn: 'গাছবাড়িয়া প্রাথমিক বিদ্যালয়', en: 'Gasbaria Primary School', type: 'প্রাথমিক বিদ্যালয়', typeEn: 'Primary School', union: 'ভূজপুর', unionEn: 'Bhujpur' }
   ],
 
   /* ---------- ৫. হাসপাতাল ও ক্লিনিক ----------
