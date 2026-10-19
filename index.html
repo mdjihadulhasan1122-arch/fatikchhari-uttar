@@ -97,6 +97,22 @@ body.gated{overflow:hidden}
 .dm-hist{margin-top:12px;background:#f6fbf8;border-radius:12px;padding:11px 13px}
 .dm-hist p{margin:6px 0 0;font-size:13px;line-height:1.65;color:#33473b}
 @media(min-width:600px){.dm{align-items:center}.dm-card{border-radius:20px}}
+
+.footer,.nav,.hero,#services,#education,#market,#community,#tools{display:none!important}
+.folders{padding:14px 14px 4px}
+.folders h2{font-size:15px;margin:2px 2px 10px;color:var(--deep)}
+.fgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.fold{background:#fff;border:1px solid var(--line);border-radius:16px;padding:14px 6px 11px;text-align:center;cursor:pointer;font:inherit;color:var(--ink);display:flex;flex-direction:column;align-items:center;gap:5px;box-shadow:0 2px 8px rgba(11,93,59,.06)}
+.fold:active{background:#f1f9f4;transform:scale(.97)}
+.fold .fi2{font-size:28px;line-height:1;width:50px;height:50px;border-radius:15px;background:var(--mint);display:grid;place-items:center}
+.fold b{font-size:12.5px;line-height:1.3;font-weight:800}
+.fold small{font-size:10.5px;color:var(--muted);font-weight:700;min-height:12px}
+.vbar{position:sticky;top:0;z-index:50;background:#fff;border-bottom:1px solid var(--line);display:none;align-items:center;gap:10px;padding:10px 14px}
+.vbar button{border:0;background:var(--mint);color:var(--deep);font:inherit;font-weight:800;border-radius:20px;padding:7px 13px;font-size:13px}
+.vbar strong{font-size:15px;color:var(--deep)}
+body.inview .vbar{display:flex}
+body.inview .top-widget,body.inview .ticker,body.inview .footer,body.inview .folders{display:none!important}
+body.inhome .vbar{display:none}
 </style>
 </head>
 <body>
@@ -692,13 +708,15 @@ function renderDonors(){
 }
 /* ===== স্কুল / হাসপাতাল / ডাক্তারের তালিকা ===== */
 let dirTab='schools';
+function isMad(x){return /মাদ্রাসা|মাদরাসা/.test(x.type||'')||/madras/i.test(x.typeEn||'')}
 const DIRS={
-  schools:{icon:'🏫',bn:'স্কুল ও কলেজ',en:'Schools & Colleges',empty:['স্কুল ও কলেজের তথ্য শীঘ্রই যোগ হবে।','School and college information will be added soon.'],fields:['type','union','address']},
+  madrasas:{icon:'📖',bn:'মাদ্রাসা',en:'Madrasas',empty:['মাদ্রাসার তথ্য শীঘ্রই যোগ হবে।','Madrasa information will be added soon.'],fields:['type','union','address'],src:()=>(SD.schools||[]).filter(isMad)},
+  schools:{icon:'🏫',bn:'স্কুল ও কলেজ',en:'Schools & Colleges',empty:['স্কুল ও কলেজের তথ্য শীঘ্রই যোগ হবে।','School and college information will be added soon.'],fields:['type','union','address'],src:()=>(SD.schools||[]).filter(x=>!isMad(x))},
   hospitals:{icon:'🏥',bn:'হাসপাতাল ও ক্লিনিক',en:'Hospitals & Clinics',empty:['হাসপাতাল ও ক্লিনিকের তথ্য শীঘ্রই যোগ হবে।','Hospital and clinic information will be added soon.'],fields:['type','address']},
   doctors:{icon:'🩺',bn:'ডাক্তার',en:'Doctors',empty:['ডাক্তারদের তথ্য শীঘ্রই যোগ হবে।','Doctor information will be added soon.'],fields:['speciality','chamber','time']}
 };
 function initDir(){
-  const tabs=document.getElementById('dirTabs');if(!tabs)return;
+  const tabs=document.getElementById('dirTabs');if(!tabs)return;tabs.style.display='none';
   Object.keys(DIRS).forEach(k=>{
     const b=el('button','chip'+(k===dirTab?' on':''),DIRS[k].bn,DIRS[k].en);b.type='button';
     b.addEventListener('click',()=>{dirTab=k;tabs.querySelectorAll('.chip').forEach(x=>x.classList.toggle('on',x===b));renderDir()});
@@ -709,7 +727,7 @@ function initDir(){
 }
 function renderDir(){
   const list=document.getElementById('dirList');if(!list)return;list.textContent='';
-  const cfg=DIRS[dirTab],items=SD[dirTab]||[];
+  const cfg=DIRS[dirTab],items=cfg.src?cfg.src():(SD[dirTab]||[]);
   const q=document.getElementById('dirSearch').value.trim().toLowerCase();
   const rows=items.filter(it=>!q||JSON.stringify(it).toLowerCase().indexOf(q)>-1);
   if(!rows.length){list.appendChild(el('div','placeholder',q&&items.length?'কিছু পাওয়া যায়নি।':cfg.empty[0],q&&items.length?'Nothing found.':cfg.empty[1]));return}
@@ -883,6 +901,71 @@ function renderTourism(){
 renderThana();renderHistory();renderTourism();
 (function(){const n=document.querySelector('.nav');if(!n)return;
  [['#thana','থানা','Thana'],['#history','ইতিহাস','History'],['#tourism','পর্যটন','Tourism']].forEach(x=>{const a=el('a',null,x[1],x[2]);a.href=x[0];n.appendChild(a)})})();
+
+/* ===== হোম: ফোল্ডার-গ্রিড ও আলাদা পাতা ===== */
+const VIEWS={
+  schools:{icon:'🏫',bn:'স্কুল ও কলেজ',en:'Schools & Colleges',secs:['institutions'],dir:'schools'},
+  madrasas:{icon:'📖',bn:'মাদ্রাসা',en:'Madrasas',secs:['institutions'],dir:'madrasas'},
+  hospitals:{icon:'🏥',bn:'হাসপাতাল ও ক্লিনিক',en:'Hospitals & Clinics',secs:['institutions'],dir:'hospitals'},
+  doctors:{icon:'🩺',bn:'ডাক্তার',en:'Doctors',secs:['institutions'],dir:'doctors'},
+  unions:{icon:'🏛️',bn:'ইউনিয়ন ও জনপ্রতিনিধি',en:'Unions & Members',secs:['unions']},
+  blood:{icon:'🩸',bn:'রক্তদাতা',en:'Blood Donors',secs:['blood']},
+  notices:{icon:'📋',bn:'নোটিশ বোর্ড',en:'Notice Board',secs:['noticeboard']},
+  thana:{icon:'🚓',bn:'ভূজপুর থানা',en:'Bhujpur Thana',secs:['thana']},
+  history:{icon:'📜',bn:'ভূজপুরের ইতিহাস',en:'History',secs:['history']},
+  tourism:{icon:'🏞️',bn:'পর্যটন স্থান',en:'Tourist Places',secs:['tourism']},
+  map:{icon:'🗺️',bn:'ম্যাপ',en:'Map',secs:['map']},
+  emergency:{icon:'🚨',bn:'জরুরি ও সহায়তা',en:'Emergency & Help',secs:['health','help']},
+  contact:{icon:'✉️',bn:'যোগাযোগ',en:'Contact',secs:['contact','about']}
+};
+const ID2VIEW={home:'home',services:'home',unions:'unions',blood:'blood',institutions:'schools',noticeboard:'notices',health:'emergency',education:'schools',market:'home',community:'home',tools:'home',map:'map',help:'emergency',contact:'contact',about:'contact',thana:'thana',history:'history',tourism:'tourism'};
+function dirCount(k){const c=DIRS[k];if(!c)return null;const n=(c.src?c.src():(SD[k]||[])).length;return n}
+function buildHome(){
+  const main=document.querySelector('main')||document.body;
+  const f=document.createElement('section');f.className='folders';f.id='folders';
+  f.appendChild(el('h2',null,'📂 কী দেখতে চান?','📂 What would you like to see?'));
+  const g=el('div','fgrid');f.appendChild(g);
+  Object.keys(VIEWS).forEach(k=>{
+    const v=VIEWS[k],b=el('button','fold');b.type='button';
+    b.appendChild(el('span','fi2',v.icon));b.appendChild(el('b',null,v.bn,v.en));
+    const n=dirCount(k);
+    if(n!==null)b.appendChild(n?el('small',null,toBn(n)+'টি',n+' listed'):el('small',null,'শীঘ্রই','Soon'));else b.appendChild(el('small',null,' ',''));
+    b.addEventListener('click',()=>go(k));g.appendChild(b);
+  });
+  const tw=document.querySelector('.top-widget');tw.parentNode.insertBefore(f,tw.nextSibling);
+  const bar=el('div','vbar');
+  const back=el('button',null,'← হোম','← Home');back.type='button';back.addEventListener('click',()=>go('home'));
+  bar.appendChild(back);const t=el('strong',null,'','');t.id='vTitle';bar.appendChild(t);
+  const hd=document.querySelector('.header');hd.parentNode.insertBefore(bar,hd.nextSibling);
+  // নিচের মেনু নতুন করে
+  const bn=document.querySelector('.bottomnav');
+  if(bn){bn.textContent='';[['home','⌂','হোম','Home'],['unions','🏛','ইউনিয়ন','Unions'],['blood','🩸','রক্তদাতা','Blood'],['emergency','🚨','জরুরি','Emergency'],['contact','✉','যোগাযোগ','Contact']].forEach(x=>{
+    const a=document.createElement('a');a.href='#'+x[0];a.dataset.v=x[0];const bb=document.createElement('b');bb.textContent=x[1];a.appendChild(bb);a.appendChild(el('span',null,x[2],x[3]));bn.appendChild(a)})}
+}
+function showView(k,push){
+  const v=VIEWS[k];
+  document.querySelectorAll('main .section').forEach(sec=>{sec.style.display=(v&&v.secs.indexOf(sec.id)>-1)?'':'none'});
+  document.body.classList.toggle('inview',!!v);document.body.classList.toggle('inhome',!v);
+  if(v){
+    const t=document.getElementById('vTitle');t.dataset.bn=v.icon+' '+v.bn;t.dataset.en=v.icon+' '+v.en;t.textContent=english?t.dataset.en:t.dataset.bn;
+    if(v.dir){
+      dirTab=v.dir;const sec=document.getElementById('institutions');
+      const h=sec.querySelector('.section-head');if(h)h.style.display='none';
+      const d=document.getElementById('dirSearch');if(d)d.value='';renderDir();
+    }
+  }
+  if(push!==false){try{history.pushState({v:k},'','#'+(v?k:'home'))}catch(e){}}
+  window.scrollTo(0,0);
+}
+function go(k){showView(k==='home'?'':k)}
+function viewFromHash(){const h=(location.hash||'').replace('#','');if(VIEWS[h])return h;return ''}
+document.addEventListener('click',e=>{
+  const a=e.target.closest&&e.target.closest('a[href^="#"]');if(!a)return;
+  const id=a.getAttribute('href').slice(1);if(!(id in ID2VIEW)&&!VIEWS[id])return;
+  e.preventDefault();const k=VIEWS[id]?id:ID2VIEW[id];go(k==='home'?'':k);
+});
+window.addEventListener('popstate',()=>showView(viewFromHash(),false));
+buildHome();showView(viewFromHash(),false);
 if(english)applyLanguage();
 openGate();
 
