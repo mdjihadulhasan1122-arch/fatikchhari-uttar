@@ -92,27 +92,28 @@ function renderAbout(){
 const bi=(k,k2,l,t,req)=>({k:k,k2:k2,l:l,t:t||'text',req:req});
 const one=(k,l,t)=>({k:k,l:l,t:t||'text'});
 const photo=(k,l)=>({k:k||'photo',l:l||'ছবি',t:'photo'});
+const photos=()=>({k:'photos',l:'ছবি (একাধিক দেওয়া যাবে — প্রথমটি প্রচ্ছদ)',t:'photos'});
 const sel=(k,l,opts)=>({k:k,l:l,t:'sel',opts:opts});
 const unionOpts=()=>(SD.unions||[]).map(u=>[u.bn,u.en||u.bn]);
 const COLS={
   slides:{icon:'🖼️',t:'হোমের স্লাইডার ছবি',title:'bn',img:'src',fields:[photo('src','ছবি *'),bi('bn','en','ক্যাপশন (ছবির নিচের লেখা)')]},
   notices:{icon:'📋',t:'নোটিশ',title:'bn',fields:[one('date','তারিখ','date'),bi('bn','en','নোটিশের শিরোনাম *','text',1),bi('textBn','textEn','বিস্তারিত','area')]},
-  schools:{icon:'🏫',t:'স্কুল / কলেজ / মাদ্রাসা',title:'bn',fields:[photo(),bi('bn','en','নাম *','text',1),
+  schools:{icon:'🏫',t:'স্কুল / কলেজ / মাদ্রাসা',title:'bn',fields:[photos(),bi('bn','en','নাম *','text',1),
     sel('type','ধরন',[['স্কুল ও কলেজ','School & College'],['উচ্চ বিদ্যালয়','High School'],['প্রাথমিক বিদ্যালয়','Primary School'],['কলেজ','College'],['মাদ্রাসা','Madrasa'],['কিন্ডারগার্টেন','Kindergarten']]),
     sel('union','ইউনিয়ন',unionOpts()),bi('address','addressEn','ঠিকানা'),one('phone','ফোন (একাধিক হলে কমা দিয়ে)','tel'),one('est','প্রতিষ্ঠা সাল'),one('eiin','EIIN নম্বর'),
     bi('historyBn','historyEn','ইতিহাস ও পরিচিতি','area')]},
-  hospitals:{icon:'🏥',t:'হাসপাতাল ও ক্লিনিক',title:'bn',fields:[photo(),bi('bn','en','নাম *','text',1),
+  hospitals:{icon:'🏥',t:'হাসপাতাল ও ক্লিনিক',title:'bn',fields:[photos(),bi('bn','en','নাম *','text',1),
     sel('type','ধরন',[['সরকারি স্বাস্থ্য কমপ্লেক্স','Government health complex'],['হাসপাতাল','Hospital'],['ক্লিনিক','Clinic'],['ডায়াগনস্টিক সেন্টার','Diagnostic centre'],['ফার্মেসি','Pharmacy']]),
     bi('address','addressEn','ঠিকানা'),one('phone','ফোন','tel'),bi('historyBn','historyEn','বিবরণ / ইতিহাস','area')]},
-  doctors:{icon:'🩺',t:'ডাক্তার',title:'bn',fields:[photo(),bi('bn','en','নাম *','text',1),bi('speciality','specialityEn','বিভাগ / বিশেষজ্ঞতা'),
+  doctors:{icon:'🩺',t:'ডাক্তার',title:'bn',fields:[photos(),bi('bn','en','নাম *','text',1),bi('speciality','specialityEn','বিভাগ / বিশেষজ্ঞতা'),
     bi('chamber','chamberEn','চেম্বারের ঠিকানা'),bi('time','timeEn','চেম্বারের সময়'),one('phone','ফোন','tel'),bi('historyBn','historyEn','পরিচিতি','area')]},
-  history:{icon:'📜',t:'ভূজপুরের ইতিহাস',title:'bn',fields:[photo(),bi('bn','en','শিরোনাম *','text',1),bi('textBn','textEn','ইতিহাস (লেখা)','area')]},
-  tourism:{icon:'🏞️',t:'পর্যটন স্থান',title:'bn',fields:[photo(),bi('bn','en','স্থানের নাম *','text',1),bi('placeBn','placeEn','অবস্থান'),bi('howBn','howEn','কীভাবে যাবেন'),
+  history:{icon:'📜',t:'ভূজপুরের ইতিহাস',title:'bn',fields:[photos(),bi('bn','en','শিরোনাম *','text',1),bi('textBn','textEn','ইতিহাস (লেখা)','area')]},
+  tourism:{icon:'🏞️',t:'পর্যটন স্থান',title:'bn',fields:[photos(),bi('bn','en','স্থানের নাম *','text',1),bi('placeBn','placeEn','অবস্থান'),bi('howBn','howEn','কীভাবে যাবেন'),
     bi('historyBn','historyEn','স্থানের ইতিহাস','area'),one('icon','আইকন (একটি ইমোজি, যেমন 🏞️)')]},
-  transport:{icon:'🚌',t:'যাতায়াত',title:'bn',fields:[photo(),bi('bn','en','নাম / রুট *','text',1),
+  transport:{icon:'🚌',t:'যাতায়াত',title:'bn',fields:[photos(),bi('bn','en','নাম / রুট *','text',1),
     sel('type','ধরন',[['বাস','Bus'],['সিএনজি / অটোরিকশা','CNG / Auto-rickshaw'],['লেগুনা','Leguna'],['মাইক্রোবাস / গাড়ি ভাড়া','Microbus / Car rental'],['অন্যান্য','Other']]),
     bi('route','routeEn','রুট (কোথা থেকে কোথায়)'),bi('time','timeEn','সময়'),bi('fare','fareEn','ভাড়া'),one('phone','ফোন','tel'),bi('historyBn','historyEn','বিবরণ','area')]},
-  market:{icon:'🛍️',t:'বাজার ও ব্যবসা',title:'bn',fields:[photo(),bi('bn','en','দোকান / ব্যবসার নাম *','text',1),
+  market:{icon:'🛍️',t:'বাজার ও ব্যবসা',title:'bn',fields:[photos(),bi('bn','en','দোকান / ব্যবসার নাম *','text',1),
     sel('type','ধরন',[['কাঁচাবাজার','Fresh market'],['মুদি দোকান','Grocery'],['রেস্টুরেন্ট ও খাবার','Restaurant & food'],['মিস্ত্রি ও সার্ভিস','Services & repair'],['ফার্মেসি','Pharmacy'],['কাপড় ও ফ্যাশন','Clothing & fashion'],['ইলেকট্রনিক্স','Electronics'],['অন্যান্য','Other']]),
     bi('address','addressEn','ঠিকানা'),bi('time','timeEn','খোলার সময়'),bi('products','productsEn','কী কী পাওয়া যায়','area'),one('phone','ফোন','tel'),bi('historyBn','historyEn','অন্য বিবরণ','area')]},
   thana:{icon:'🚓',t:'থানার ছবি ও ওসির নম্বর',single:true,fields:[photo(),one('phone','ওসি / ডিউটি অফিসারের ফোন','tel')]},
@@ -167,6 +168,28 @@ function editor(colKey,row,preset,done){
   const f=document.createElement('form');ov.body.appendChild(f);const get={};
   C.fields.forEach((fd,ix)=>{
     const id='af'+ix;
+    if(fd.t==='photos'){
+      let arr=Array.isArray(d.photos)&&d.photos.length?d.photos.slice():(d.photo?[d.photo]:[]);
+      get.photos=()=>arr;get.photo=()=>arr[0]||'';
+      f.appendChild(el('div','fl',fd.l));
+      const box=el('div','adm-ph');const grid=el('div','adm-grid');box.appendChild(grid);
+      const paint=()=>{grid.textContent='';
+        if(!arr.length)grid.appendChild(el('div','adm-prev','🖼️ ছবি নেই'));
+        arr.forEach((u,ix)=>{const c=el('div','adm-cell');const i=document.createElement('img');i.src=u;c.appendChild(i);
+          if(ix===0)c.appendChild(el('span','adm-cover','প্রচ্ছদ'));
+          const x=el('button','adm-x','✕');x.type='button';x.onclick=()=>{arr.splice(ix,1);paint()};c.appendChild(x);
+          if(ix>0){const m=el('button','adm-m','◀');m.type='button';m.onclick=()=>{const v=arr.splice(ix,1)[0];arr.splice(ix-1,0,v);paint()};c.appendChild(m)}
+          grid.appendChild(c)})};paint();
+      const inp=document.createElement('input');inp.type='file';inp.accept='image/*';inp.multiple=true;inp.style.display='none';
+      const pick=el('button','adm-btn','📷 ছবি যোগ করুন (একাধিক বাছতে পারবেন)');pick.type='button';pick.onclick=()=>inp.click();
+      const msg=el('div','form-msg');
+      inp.onchange=async()=>{const fs=Array.from(inp.files);if(!fs.length)return;pick.disabled=true;let n=0;
+        for(const fl of fs){n++;msg.className='form-msg';msg.textContent='আপলোড হচ্ছে… ('+n+'/'+fs.length+')';
+          try{arr.push(await uploadPhoto(fl,colKey));paint()}catch(e){msg.className='form-msg err';msg.textContent=e.message;break}}
+        if(!msg.classList.contains('err')){msg.className='form-msg ok';msg.textContent='✅ আপলোড হয়েছে (সেভ করুন)'}pick.disabled=false;inp.value=''};
+      const bar=el('div','adm-row');bar.appendChild(pick);box.appendChild(bar);box.appendChild(inp);box.appendChild(msg);f.appendChild(box);
+      return;
+    }
     if(fd.t==='photo'){
       const box=el('div','adm-ph');const prev=el('div','adm-prev');box.appendChild(prev);
       const st={url:d[fd.k]||''};get[fd.k]=()=>st.url;
@@ -198,9 +221,10 @@ function editor(colKey,row,preset,done){
   const sv=el('button','adm-btn','💾 সেভ করুন');sv.type='submit';sv.style.cssText='width:100%;margin-top:14px';f.appendChild(sv);
   f.addEventListener('submit',async ev=>{ev.preventDefault();
     const data=Object.assign({},(row&&row.data)||{},preset||{});
-    for(const k in get){const v=get[k]();if(v===''||v==null)delete data[k];else data[k]=v}
+    for(const k in get){const v=get[k]();if(v===''||v==null||(Array.isArray(v)&&!v.length))delete data[k];else data[k]=v}
     for(const fd of C.fields){if(fd.req&&!data[fd.k]){m.className='form-msg err';m.textContent='"'+fd.l.replace(' *','')+'" লিখুন।';return}
-      if(fd.t==='photo'&&row&&row.data&&row.data[fd.k]&&row.data[fd.k]!==data[fd.k])dropPhoto(row.data[fd.k])}
+      if(fd.t==='photo'&&row&&row.data&&row.data[fd.k]&&row.data[fd.k]!==data[fd.k])dropPhoto(row.data[fd.k])
+      if(fd.t==='photos'&&row&&row.data){const old=(row.data.photos||[]).concat(row.data.photo||[]),now=data.photos||[];old.forEach(u=>{if(now.indexOf(u)<0&&data.photo!==u)dropPhoto(u)})}}
     if(colKey==='slides'&&!data.src){m.className='form-msg err';m.textContent='ছবি বাছুন।';return}
     sv.disabled=true;m.className='form-msg';m.textContent='সেভ হচ্ছে…';
     try{await saveRow(colKey,row,data);ov.close();toast('✅ সেভ হয়েছে');if(done)done()}catch(e){m.className='form-msg err';m.textContent=e.message;sv.disabled=false}
