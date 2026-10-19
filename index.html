@@ -525,7 +525,10 @@ function renderHelp(){
   [['☎️','৯৯৯ জাতীয় জরুরি সেবা','999 National Emergency Service','পুলিশ, ফায়ার সার্ভিস ও অ্যাম্বুলেন্স','Police, fire service and ambulance','999'],
    ['👩‍👧','১০৯ নারী ও শিশু সহায়তা','109 Women & Children Helpline','নারী ও শিশু নির্যাতনের অভিযোগ','Report violence against women and children','109'],
    ['📞','৩৩৩ জাতীয় তথ্য ও সেবা','333 National Information Service','সরকারি সেবা ও অভিযোগ সম্পর্কিত তথ্য','Information on government services and complaints','333'],
-   ['⚖️','১৬৪৩০ আইনি সহায়তা','16430 Legal Aid','বিনামূল্যে আইনি পরামর্শ','Free legal advice','16430']
+   ['⚖️','১৬৪৩০ আইনি সহায়তা','16430 Legal Aid','বিনামূল্যে আইনি পরামর্শ','Free legal advice','16430'],
+   ['🚒','১০২ ফায়ার সার্ভিস হটলাইন','102 Fire Service Hotline','আগুন লাগলে জাতীয় হটলাইন','National hotline for fire emergencies','102'],
+   ['🚒','ফটিকছড়ি ফায়ার সার্ভিস ও সিভিল ডিফেন্স স্টেশন','Fatikchhari Fire Service & Civil Defence Station','+৮৮০ ১৭৭২-২৪১৫১০','+880 1772-241510','+8801772241510'],
+   ['🏥','ফটিকছড়ি উপজেলা স্বাস্থ্য কমপ্লেক্স (২৪ ঘণ্টা হটলাইন)','Fatikchhari Upazila Health Complex (24h hotline)','০১৭৩০-৩২৪৪৪৭ — সরকারি ওয়েবসাইটে নিশ্চিত করা যায়নি; জরুরি অবস্থায় আগে ৯৯৯','01730-324447 — not confirmed on the official site; in an emergency dial 999 first','01730324447']
   ].forEach(r=>{
     const row=el('div','row');
     row.appendChild(el('div','icon',r[0]));
@@ -737,7 +740,7 @@ function renderDir(){
     cfg.fields.forEach(f=>{if(it[f])info.appendChild(el('small',null,it[f],it[f+'En']||it[f]))});
     c.appendChild(info);
     info.appendChild(el('small','more','বিস্তারিত দেখুন ›','View details ›'));
-    if(it.phone){const a=el('a','pill','কল','Call');a.href='tel:'+String(it.phone).replace(/[^\d+]/g,'');a.addEventListener('click',e=>e.stopPropagation());c.appendChild(a)}
+    if(it.phone){const a=el('a','pill','কল','Call');a.href='tel:'+String(it.phone).split(/\s*[,/|]\s*/)[0].replace(/[^\d+]/g,'');a.addEventListener('click',e=>e.stopPropagation());c.appendChild(a)}
     c.classList.add('click');c.tabIndex=0;c.setAttribute('role','button');
     const open=()=>openDetail(it,cfg);
     c.addEventListener('click',open);c.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();open()}});
@@ -754,11 +757,12 @@ function openDetail(it,cfg){
   const x=el('button','dm-x','✕','✕');x.type='button';x.setAttribute('aria-label','close');x.addEventListener('click',closeDetail);card.appendChild(x);
   card.appendChild(imgBox(it.photo,cfg.icon));
   card.appendChild(el('h3',null,it.bn,it.en||it.bn));
-  const rows=[['ধরন','Type','type'],['ইউনিয়ন','Union','union'],['ঠিকানা','Address','address'],['বিভাগ','Speciality','speciality'],['চেম্বার','Chamber','chamber'],['সময়','Time','time'],['প্রতিষ্ঠা','Established','est']];
+  const rows=[['ধরন','Type','type'],['ইউনিয়ন','Union','union'],['ঠিকানা','Address','address'],['বিভাগ','Speciality','speciality'],['চেম্বার','Chamber','chamber'],['সময়','Time','time'],['প্রতিষ্ঠা','Established','est'],['EIIN','EIIN','eiin'],['স্তর','Level','level'],['বিভাগ','Streams','streams'],['শিক্ষা বোর্ড','Board','board'],['কার্যক্রম','Activities','activities']];
   rows.forEach(r=>{if(it[r[2]]){const f=el('div','fact');f.appendChild(el('b',null,r[0],r[1]));f.appendChild(el('span',null,it[r[2]],it[r[2]+'En']||it[r[2]]));card.appendChild(f)}});
   const pf=el('div','fact');pf.appendChild(el('b',null,'ফোন','Phone'));
   const ps=document.createElement('span');
-  if(it.phone){const a=document.createElement('a');a.href='tel:'+String(it.phone).replace(/[^\d+]/g,'');a.textContent='📞 '+it.phone;a.style.cssText='color:var(--green);font-weight:700';ps.appendChild(a)}
+  const plist=(it.phones&&it.phones.length)?it.phones:String(it.phone||'').split(/\s*[,/|]\s*/).filter(Boolean);
+  if(plist.length){plist.forEach(ph=>{const a=document.createElement('a');a.href='tel:'+String(ph).replace(/[^\d+]/g,'');a.textContent='📞 '+ph;a.style.cssText='color:var(--green);font-weight:700;display:block;margin-bottom:3px';ps.appendChild(a)})}
   else ps.appendChild(el('span','tbd','নম্বর যোগ হবে','Number to be added'));
   pf.appendChild(ps);card.appendChild(pf);
   const h=el('div','dm-hist');h.appendChild(el('b',null,'📜 ইতিহাস ও পরিচিতি','📜 History & about'));

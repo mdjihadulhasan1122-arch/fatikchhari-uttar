@@ -105,7 +105,18 @@ window.SITE_DATA = {
        est: 'প্রতিষ্ঠা সাল', estEn: 'Established',
        historyBn: 'ইতিহাস বাংলায়', historyEn: 'History in English' */
   schools: [
-    { bn: 'ভূজপুর ন্যাশনাল স্কুল অ্যান্ড কলেজ', en: 'Bhujpur National School & College', type: 'স্কুল ও কলেজ', typeEn: 'School & College', union: 'ভূজপুর', unionEn: 'Bhujpur' },
+    { bn: 'ভূজপুর ন্যাশনাল স্কুল অ্যান্ড কলেজ', en: 'Bhujpur National School & College', type: 'স্কুল ও কলেজ', typeEn: 'School & College', union: 'ভূজপুর', unionEn: 'Bhujpur',
+      address: 'ভূজপুর, ফটিকছড়ি, চট্টগ্রাম', addressEn: 'Bhujpur, Fatikchhari, Chattogram',
+      photo: 'images/bhujpur-national-school.jpg',
+      phone: '01624612392, 01815171379, 01819632565',
+      est: '১৯৬৭ সাল', estEn: '1967',
+      eiin: '104310',
+      level: 'মাধ্যমিক (স্কুল শাখা) ও উচ্চ মাধ্যমিক (কলেজ শাখা)', levelEn: 'Secondary (school) and Higher secondary (college)',
+      streams: 'কলেজ শাখায় মানবিক ও ব্যবসায় শিক্ষা', streamsEn: 'Humanities and Business Studies in the college section',
+      board: 'মাধ্যমিক ও উচ্চ মাধ্যমিক শিক্ষা বোর্ড, চট্টগ্রাম', boardEn: 'Board of Intermediate and Secondary Education, Chattogram',
+      activities: 'মাদকবিরোধী র‍্যালি, ক্রীড়া প্রতিযোগিতা, সচেতনতামূলক ও সাংস্কৃতিক অনুষ্ঠান', activitiesEn: 'Anti-drug rallies, sports competitions, awareness and cultural programmes',
+      historyBn: 'ভূজপুর ন্যাশনাল স্কুল এন্ড কলেজ ফটিকছড়ি উপজেলার ভূজপুর ইউনিয়নে অবস্থিত একটি ঐতিহ্যবাহী ও স্বনামধন্য শিক্ষা প্রতিষ্ঠান। এটি ১৯৬৭ সালে প্রতিষ্ঠিত হয় এবং মাধ্যমিক ও উচ্চ মাধ্যমিক শিক্ষা বোর্ড, চট্টগ্রামের অধীনে পরিচালিত হয়। এখানে মাধ্যমিক (স্কুল শাখা) ও উচ্চ মাধ্যমিক (কলেজ শাখা) উভয় স্তরেই পাঠদান করা হয়। প্রতিষ্ঠানটি নিয়মিত মাদকবিরোধী র‍্যালি, ক্রীড়া প্রতিযোগিতা এবং বিভিন্ন সচেতনতামূলক ও সাংস্কৃতিক অনুষ্ঠান আয়োজন করে থাকে।',
+      historyEn: 'Bhujpur National School & College is a well-known, traditional institution in Bhujpur Union, Fatikchhari. Established in 1967, it runs under the Board of Intermediate and Secondary Education, Chattogram, and teaches at both secondary (school) and higher secondary (college) levels. It regularly organises anti-drug rallies, sports competitions and awareness and cultural events.' },
     { bn: 'ভূজপুর মডেল উচ্চ বিদ্যালয়', en: 'Bhujpur Model High School', type: 'উচ্চ বিদ্যালয়', typeEn: 'High School', union: 'ভূজপুর', unionEn: 'Bhujpur' },
     { bn: 'মির্জার হাট উচ্চ বিদ্যালয়', en: 'Mirzar Hat High School', type: 'উচ্চ বিদ্যালয়', typeEn: 'High School', union: 'ভূজপুর', unionEn: 'Bhujpur' },
     { bn: 'পূর্ব ভূজপুর সরকারি প্রাথমিক বিদ্যালয়', en: 'East Bhujpur Government Primary School', type: 'প্রাথমিক বিদ্যালয়', typeEn: 'Primary School', union: 'ভূজপুর', unionEn: 'Bhujpur' },
@@ -123,7 +134,12 @@ window.SITE_DATA = {
   /* ---------- ৫. হাসপাতাল ও ক্লিনিক ----------
      { bn: 'নমুনা ক্লিনিক', en: 'Sample Clinic', type: 'ক্লিনিক', typeEn: 'Clinic',
        address: 'ঠিকানা', addressEn: 'Address', phone: '01XXXXXXXXX' } */
-  hospitals: [],
+  hospitals: [
+    { bn: 'ফটিকছড়ি উপজেলা স্বাস্থ্য কমপ্লেক্স', en: 'Fatikchhari Upazila Health Complex', type: 'সরকারি স্বাস্থ্য কমপ্লেক্স', typeEn: 'Government health complex',
+      address: 'ফটিকছড়ি', addressEn: 'Fatikchhari', phone: '01730324447',
+      historyBn: 'নোট: ২৪ ঘণ্টার হটলাইন হিসেবে এই নম্বরটি পাওয়া গেছে, কিন্তু সরকারি হাসপাতালের ওয়েবসাইটে সরাসরি নিশ্চিত করা যায়নি। জরুরি অবস্থায় প্রথমে ৯৯৯ ডায়াল করুন।',
+      historyEn: 'Note: this number was found as a 24-hour hotline but could not be confirmed directly on the official hospital website. In an emergency, dial 999 first.' }
+  ],
 
   /* ---------- ৬. ডাক্তার ----------
      { bn: 'ডা. নমুনা', en: 'Dr. Sample', speciality: 'মেডিসিন', specialityEn: 'Medicine',
