@@ -113,6 +113,34 @@ body.gated{overflow:hidden}
 body.inview .vbar{display:flex}
 body.inview .top-widget,body.inview .ticker,body.inview .footer,body.inview .folders{display:none!important}
 body.inhome .vbar{display:none}
+
+.about-me{background:#fff;border:1px solid var(--line);border-radius:18px;padding:18px 16px;margin-bottom:16px}
+.about-me h2{font-size:18px;margin:0 0 12px;color:var(--deep)}
+.am-photo{width:150px;height:150px;border-radius:22px;overflow:hidden;background:linear-gradient(135deg,#e3f3e8,#c6e6d2);display:grid;place-items:center;font-size:54px;margin-bottom:12px}
+.am-photo img{width:100%;height:100%;object-fit:cover}
+.am-name{margin:0;font-size:16px}.am-role{font-size:12.5px;color:var(--green);font-weight:800;margin:2px 0 8px}
+.am-bio{margin:0 0 12px;font-size:13.5px;line-height:1.7;color:#33473b}
+.am-soc{display:flex;gap:10px;flex-wrap:wrap}
+.am-soc a{width:46px;height:46px;border-radius:50%;border:2px solid #b9dcc6;background:#eef8f1;color:var(--deep);display:grid;place-items:center;font-weight:900;font-size:17px;text-decoration:none}
+.adm{position:fixed;inset:0;z-index:10000;background:#f4f7f5;overflow-y:auto}
+.adm-hd{position:sticky;top:0;z-index:2;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 14px}
+.adm-body{padding:14px;max-width:560px;margin:0 auto 80px}
+.adm-btn{border:0;background:var(--green);color:#fff;font:inherit;font-weight:800;border-radius:12px;padding:11px 15px;font-size:14px;cursor:pointer}
+.adm-btn.light{background:var(--mint);color:var(--deep)}.adm-btn:disabled{opacity:.6}
+.adm-row{display:flex;gap:8px;flex-wrap:wrap;margin-top:8px}
+.adm-ph{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px}
+.adm-prev{height:150px;border-radius:10px;overflow:hidden;background:#eef3ef;display:grid;place-items:center;color:var(--muted);font-size:13px}
+.adm-prev img{width:100%;height:100%;object-fit:cover}
+.adm-item{display:flex;align-items:center;gap:10px;background:#fff;border:1px solid var(--line);border-radius:13px;padding:9px;margin-bottom:8px}
+.adm-th{width:52px;height:52px;border-radius:10px;overflow:hidden;background:var(--mint);display:grid;place-items:center;font-size:22px;flex-shrink:0}
+.adm-th img{width:100%;height:100%;object-fit:cover}
+.adm-mid{flex:1;min-width:0}.adm-mid b{display:block;font-size:13.5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.adm-mid small{color:var(--muted);font-size:11px}
+.adm-act{display:flex;gap:4px}
+.adm-ic{border:1px solid var(--line);background:#fff;border-radius:9px;width:34px;height:34px;font-size:14px;font-weight:900}.adm-ic.del{border-color:#f3b8b4}
+.adm-fab{position:fixed;right:14px;bottom:84px;z-index:800;border:0;background:#0b5d3b;color:#fff;font:inherit;font-weight:800;font-size:13px;border-radius:24px;padding:11px 16px;box-shadow:0 4px 14px rgba(0,0,0,.3)}
+.adm-note{font-size:13px;color:#52675a;margin:0 0 12px}
+.adm-toast{position:fixed;left:50%;bottom:90px;transform:translateX(-50%);background:#0b5d3b;color:#fff;padding:10px 16px;border-radius:12px;z-index:10050;font-size:13px;font-weight:700;max-width:90%}
+.adm-link{text-align:center;margin:18px 0 6px;font-size:12px}.adm-link a{color:var(--muted);text-decoration:none}
 </style>
 </head>
 <body>
@@ -542,7 +570,7 @@ function renderHelp(){
 /* ----- স্লাইডার ----- */
 let slideIdx=0,slideTimer=null;
 function renderSlider(){
-  const box=document.getElementById('slider');if(!box)return;box.textContent='';
+  let box=document.getElementById('slider');if(!box)return;{const nb=box.cloneNode(false);box.parentNode.replaceChild(nb,box);box=nb}
   const slides=(SD.slides&&SD.slides.length)?SD.slides:[{src:'',bn:'ভূজপুর',en:'Bhujpur'}];
   const dots=el('div','dots');
   slides.forEach((s,i)=>{
@@ -713,6 +741,8 @@ function renderDonors(){
 let dirTab='schools';
 function isMad(x){return /মাদ্রাসা|মাদরাসা/.test(x.type||'')||/madras/i.test(x.typeEn||'')}
 const DIRS={
+  transport:{icon:'🚌',bn:'যাতায়াত',en:'Transport',empty:['যাতায়াতের তথ্য শীঘ্রই যোগ হবে।','Transport information will be added soon.'],fields:['type','route','fare']},
+  market:{icon:'🛍️',bn:'বাজার ও ব্যবসা',en:'Market & Business',empty:['বাজার ও ব্যবসার তথ্য শীঘ্রই যোগ হবে।','Market and business listings will be added soon.'],fields:['type','address','time'],hist:['ℹ️ বিবরণ','ℹ️ Details']},
   madrasas:{icon:'📖',bn:'মাদ্রাসা',en:'Madrasas',empty:['মাদ্রাসার তথ্য শীঘ্রই যোগ হবে।','Madrasa information will be added soon.'],fields:['type','union','address'],src:()=>(SD.schools||[]).filter(isMad)},
   schools:{icon:'🏫',bn:'স্কুল ও কলেজ',en:'Schools & Colleges',empty:['স্কুল ও কলেজের তথ্য শীঘ্রই যোগ হবে।','School and college information will be added soon.'],fields:['type','union','address'],src:()=>(SD.schools||[]).filter(x=>!isMad(x))},
   hospitals:{icon:'🏥',bn:'হাসপাতাল ও ক্লিনিক',en:'Hospitals & Clinics',empty:['হাসপাতাল ও ক্লিনিকের তথ্য শীঘ্রই যোগ হবে।','Hospital and clinic information will be added soon.'],fields:['type','address']},
@@ -757,7 +787,7 @@ function openDetail(it,cfg){
   const x=el('button','dm-x','✕','✕');x.type='button';x.setAttribute('aria-label','close');x.addEventListener('click',closeDetail);card.appendChild(x);
   card.appendChild(imgBox(it.photo,cfg.icon));
   card.appendChild(el('h3',null,it.bn,it.en||it.bn));
-  const rows=[['ধরন','Type','type'],['ইউনিয়ন','Union','union'],['ঠিকানা','Address','address'],['বিভাগ','Speciality','speciality'],['চেম্বার','Chamber','chamber'],['সময়','Time','time'],['প্রতিষ্ঠা','Established','est'],['EIIN','EIIN','eiin'],['স্তর','Level','level'],['বিভাগ','Streams','streams'],['শিক্ষা বোর্ড','Board','board'],['কার্যক্রম','Activities','activities']];
+  const rows=[['ধরন','Type','type'],['ইউনিয়ন','Union','union'],['ঠিকানা','Address','address'],['বিভাগ','Speciality','speciality'],['চেম্বার','Chamber','chamber'],['সময়','Time','time'],['প্রতিষ্ঠা','Established','est'],['রুট','Route','route'],['ভাড়া','Fare','fare'],['পণ্য ও সেবা','Products & services','products'],['EIIN','EIIN','eiin'],['স্তর','Level','level'],['বিভাগ','Streams','streams'],['শিক্ষা বোর্ড','Board','board'],['কার্যক্রম','Activities','activities']];
   rows.forEach(r=>{if(it[r[2]]){const f=el('div','fact');f.appendChild(el('b',null,r[0],r[1]));f.appendChild(el('span',null,it[r[2]],it[r[2]+'En']||it[r[2]]));card.appendChild(f)}});
   const pf=el('div','fact');pf.appendChild(el('b',null,'ফোন','Phone'));
   const ps=document.createElement('span');
@@ -765,7 +795,7 @@ function openDetail(it,cfg){
   if(plist.length){plist.forEach(ph=>{const a=document.createElement('a');a.href='tel:'+String(ph).replace(/[^\d+]/g,'');a.textContent='📞 '+ph;a.style.cssText='color:var(--green);font-weight:700;display:block;margin-bottom:3px';ps.appendChild(a)})}
   else ps.appendChild(el('span','tbd','নম্বর যোগ হবে','Number to be added'));
   pf.appendChild(ps);card.appendChild(pf);
-  const h=el('div','dm-hist');h.appendChild(el('b',null,'📜 ইতিহাস ও পরিচিতি','📜 History & about'));
+  const h=el('div','dm-hist');h.appendChild(el('b',null,(cfg.hist||['📜 ইতিহাস ও পরিচিতি','📜 History & about'])[0],(cfg.hist||['','📜 History & about'])[1]));
   h.appendChild(it.historyBn?el('p',null,it.historyBn,it.historyEn||it.historyBn):el('p','tbd','ইতিহাস যোগ হবে।','History to be added.'));
   card.appendChild(h);
   document.body.appendChild(ov);document.body.classList.add('gated');document.addEventListener('keydown',_escDetail);
@@ -854,6 +884,7 @@ function imgBox(src,icon,cls){
   return b;
 }
 function mkSection(id,hBn,hEn,pBn,pEn){
+  const prev=document.getElementById(id);if(prev)prev.remove();
   const sec=document.createElement('section');sec.className='section';sec.id=id;
   const head=el('div','section-head');const d=document.createElement('div');
   d.appendChild(el('h2',null,hBn,hEn));d.appendChild(el('p',null,pBn,pEn));head.appendChild(d);sec.appendChild(head);
@@ -862,6 +893,7 @@ function mkSection(id,hBn,hEn,pBn,pEn){
   return body;
 }
 function renderThana(){
+  {const p=document.getElementById('thana');if(p)p.remove()}
   const T=window.THANA_DATA;if(!T)return;
   const body=mkSection('thana','🚓 ভূজপুর থানা','🚓 Bhujpur Thana','থানার পরিচিতি ও যোগাযোগ','About the police station');
   body.appendChild(imgBox(T.photo,'🚓'));
@@ -879,6 +911,7 @@ function renderThana(){
   body.appendChild(c);
 }
 function renderHistory(){
+  {const p=document.getElementById('history');if(p)p.remove()}
   const H=window.HISTORY_DATA;if(!H||!H.length)return;
   const body=mkSection('history','📜 ভূজপুরের ইতিহাস','📜 History of Bhujpur','আমাদের এলাকার অতীত','The past of our area');
   H.forEach(h=>{
@@ -890,6 +923,7 @@ function renderHistory(){
   });
 }
 function renderTourism(){
+  {const p=document.getElementById('tourism');if(p)p.remove()}
   const L=window.TOURISM_DATA;if(!L||!L.length)return;
   const body=mkSection('tourism','🏞️ পর্যটন স্থান','🏞️ Tourist Places','ভূজপুর ও আশপাশের দর্শনীয় স্থান, ইতিহাসসহ','Places to visit in and around Bhujpur, with history');
   L.forEach(p=>{
@@ -912,6 +946,8 @@ const VIEWS={
   madrasas:{icon:'📖',bn:'মাদ্রাসা',en:'Madrasas',secs:['institutions'],dir:'madrasas'},
   hospitals:{icon:'🏥',bn:'হাসপাতাল ও ক্লিনিক',en:'Hospitals & Clinics',secs:['institutions'],dir:'hospitals'},
   doctors:{icon:'🩺',bn:'ডাক্তার',en:'Doctors',secs:['institutions'],dir:'doctors'},
+  transport:{icon:'🚌',bn:'যাতায়াত',en:'Transport',secs:['institutions'],dir:'transport'},
+  market:{icon:'🛍️',bn:'বাজার ও ব্যবসা',en:'Market & Business',secs:['institutions'],dir:'market'},
   unions:{icon:'🏛️',bn:'ইউনিয়ন ও জনপ্রতিনিধি',en:'Unions & Members',secs:['unions']},
   blood:{icon:'🩸',bn:'রক্তদাতা',en:'Blood Donors',secs:['blood']},
   notices:{icon:'📋',bn:'নোটিশ বোর্ড',en:'Notice Board',secs:['noticeboard']},
@@ -922,15 +958,16 @@ const VIEWS={
   emergency:{icon:'🚨',bn:'জরুরি ও সহায়তা',en:'Emergency & Help',secs:['health','help']},
   contact:{icon:'✉️',bn:'যোগাযোগ',en:'Contact',secs:['contact','about']}
 };
-const ID2VIEW={home:'home',services:'home',unions:'unions',blood:'blood',institutions:'schools',noticeboard:'notices',health:'emergency',education:'schools',market:'home',community:'home',tools:'home',map:'map',help:'emergency',contact:'contact',about:'contact',thana:'thana',history:'history',tourism:'tourism'};
+const ID2VIEW={home:'home',services:'home',unions:'unions',blood:'blood',institutions:'schools',noticeboard:'notices',health:'emergency',education:'schools',market:'market',community:'home',tools:'home',map:'map',help:'emergency',contact:'contact',about:'contact',thana:'thana',history:'history',tourism:'tourism'};
 function dirCount(k){const c=DIRS[k];if(!c)return null;const n=(c.src?c.src():(SD[k]||[])).length;return n}
+function refreshCounts(){document.querySelectorAll('.fold[data-k]').forEach(b=>{const k=b.dataset.k,n=dirCount(k);const sm=b.querySelector('small');if(!sm||n===null)return;const bn=n?toBn(n)+'টি':'শীঘ্রই',en=n?n+' listed':'Soon';sm.dataset.bn=bn;sm.dataset.en=en;sm.textContent=english?en:bn})}
 function buildHome(){
   const main=document.querySelector('main')||document.body;
   const f=document.createElement('section');f.className='folders';f.id='folders';
   f.appendChild(el('h2',null,'📂 কী দেখতে চান?','📂 What would you like to see?'));
   const g=el('div','fgrid');f.appendChild(g);
   Object.keys(VIEWS).forEach(k=>{
-    const v=VIEWS[k],b=el('button','fold');b.type='button';
+    const v=VIEWS[k],b=el('button','fold');b.type='button';b.dataset.k=k;
     b.appendChild(el('span','fi2',v.icon));b.appendChild(el('b',null,v.bn,v.en));
     const n=dirCount(k);
     if(n!==null)b.appendChild(n?el('small',null,toBn(n)+'টি',n+' listed'):el('small',null,'শীঘ্রই','Soon'));else b.appendChild(el('small',null,' ',''));
@@ -946,7 +983,7 @@ function buildHome(){
   if(bn){bn.textContent='';[['home','⌂','হোম','Home'],['unions','🏛','ইউনিয়ন','Unions'],['blood','🩸','রক্তদাতা','Blood'],['emergency','🚨','জরুরি','Emergency'],['contact','✉','যোগাযোগ','Contact']].forEach(x=>{
     const a=document.createElement('a');a.href='#'+x[0];a.dataset.v=x[0];const bb=document.createElement('b');bb.textContent=x[1];a.appendChild(bb);a.appendChild(el('span',null,x[2],x[3]));bn.appendChild(a)})}
 }
-function showView(k,push){
+function showView(k,push,keep){
   const v=VIEWS[k];
   document.querySelectorAll('main .section').forEach(sec=>{sec.style.display=(v&&v.secs.indexOf(sec.id)>-1)?'':'none'});
   document.body.classList.toggle('inview',!!v);document.body.classList.toggle('inhome',!v);
@@ -955,11 +992,11 @@ function showView(k,push){
     if(v.dir){
       dirTab=v.dir;const sec=document.getElementById('institutions');
       const h=sec.querySelector('.section-head');if(h)h.style.display='none';
-      const d=document.getElementById('dirSearch');if(d)d.value='';renderDir();
+      const d=document.getElementById('dirSearch');if(d&&!keep)d.value='';renderDir();
     }
   }
   if(push!==false){try{history.pushState({v:k},'','#'+(v?k:'home'))}catch(e){}}
-  window.scrollTo(0,0);
+  if(!keep)window.scrollTo(0,0);
 }
 function go(k){showView(k==='home'?'':k)}
 function viewFromHash(){const h=(location.hash||'').replace('#','');if(VIEWS[h])return h;return ''}
@@ -974,5 +1011,6 @@ if(english)applyLanguage();
 openGate();
 
 </script>
+<script src="admin.js"></script>
 </body>
 </html>
