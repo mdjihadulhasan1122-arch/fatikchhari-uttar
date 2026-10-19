@@ -52,8 +52,21 @@ window.SITE_DATA = {
   unions: [
     {
       bn: 'ভূজপুর ইউনিয়ন', en: 'Bhujpur Union',
-      chairman: '',
-      wards: [ { no: 1, members: [''] }, { no: 2, members: [''] }, { no: 3, members: [''] }, { no: 4, members: [''] }, { no: 5, members: [''] }, { no: 6, members: [''] }, { no: 7, members: [''] }, { no: 8, members: [''] }, { no: 9, members: [''] } ]
+      /* সূত্র: ভূজপুর ইউনিয়ন পরিষদের সরকারি ওয়েবসাইটের "জনপ্রতিনিধি" পাতা */
+      chairman: { bn: 'এস এম এইচ শাহজাহান চৌধুরী', en: 'S M H Shahjahan Chowdhury', phone: '01860705112' },
+      /* ওয়ার্ড নম্বর যাঁর পাশে নেই, তিনি এখানে */
+      others: [ { bn: 'রূপসী রাণী ধর', en: 'Rupasi Rani Dhar', phone: '01814444665' } ],
+      wards: [
+        { no: 1, members: [ { bn: 'মোহাম্মদ নুরুল আলম', en: 'Mohammad Nurul Alam', phone: '01819795209' }, { bn: 'আমেনা বেগম', en: 'Amena Begum', phone: '01875507486' } ] },
+        { no: 2, members: [ { bn: 'দিদারুল আলম', en: 'Didarul Alam', phone: '01819748003' }, { bn: 'বেবী আকতার', en: 'Baby Akter', phone: '01840388582' } ] },
+        { no: 3, members: [ { bn: 'মো: লোকমান', en: 'Md. Lokman', phone: '01818688948' }, { bn: 'বেবী আকতার', en: 'Baby Akter', phone: '01840388582' } ] },
+        { no: 4, members: [ { bn: 'মোহাম্মদ আরশাদ উদ্দীন', en: 'Mohammad Arshad Uddin', phone: '01810587808' }, { bn: 'বেবী আকতার', en: 'Baby Akter', phone: '01840388582' } ] },
+        { no: 5, members: [ { bn: 'মোহাম্মদ লোকমান', en: 'Mohammad Lokman', phone: '01819305650' }, { bn: 'আমেনা বেগম', en: 'Amena Begum', phone: '01875507486' } ] },
+        { no: 6, members: [ { bn: 'মো: হেলাল', en: 'Md. Helal', phone: '01830126446' }, { bn: 'আমেনা বেগম', en: 'Amena Begum', phone: '01875507486' } ] },
+        { no: 7, members: [ { bn: 'মুহাম্মদ সোহেল', en: 'Muhammad Sohel', phone: '01814944559' } ] },
+        { no: 8, members: [ { bn: 'মোহাম্মদ ইব্রাহীম', en: 'Mohammad Ibrahim', phone: '01829381553' } ] },
+        { no: 9, members: [ { bn: 'এস এম মুসলিম উদ্দীন সিকদার', en: 'S M Muslim Uddin Sikder', phone: '01812866690' } ] }
+      ]
     },
     {
       bn: 'নারায়ণহাট ইউনিয়ন', en: 'Narayanhat Union',

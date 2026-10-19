@@ -68,6 +68,26 @@
 .d-info{flex:1;min-width:0}.d-info strong{display:block;font-size:14px}.d-info small{display:block;font-size:11px;color:var(--muted)}
 .tabs{display:flex;gap:6px;overflow-x:auto;margin-bottom:10px;scrollbar-width:none}
 .count{font-size:12px;color:var(--muted);font-weight:700}
+
+.gate{position:fixed;inset:0;z-index:9999;background:linear-gradient(160deg,#0b5d3b,#16875a);overflow-y:auto;display:flex;justify-content:center;align-items:flex-start;padding:18px 14px}
+.gate-card{background:#fff;border-radius:18px;padding:20px 18px;max-width:420px;width:100%;margin:auto;box-shadow:0 10px 40px rgba(0,0,0,.25)}
+.gate-card h1{font-size:19px;margin:0 0 4px;color:var(--deep)}
+.gate-card p.sub{font-size:12.5px;color:#52675a;margin:0 0 6px;line-height:1.55}
+.gate-hero{border-radius:14px;overflow:hidden;height:150px;margin-bottom:12px}.gate-hero svg{width:100%;height:100%;display:block}.gate-wel{font-size:13px;font-weight:800;color:var(--green);letter-spacing:.5px;text-align:center}.gate-card h1{text-align:center}.gate-tag{text-align:center}
+.gate-top{display:flex;justify-content:flex-end;margin-bottom:4px}
+body.gated{overflow:hidden}
+
+.hero-img{border-radius:14px;overflow:hidden;height:170px;background:linear-gradient(135deg,#e3f3e8,#c6e6d2);display:grid;place-items:center;font-size:54px;margin-bottom:12px;position:relative}
+.hero-img img{width:100%;height:100%;object-fit:cover;display:block}
+.hero-img small{position:absolute;bottom:8px;left:0;right:0;text-align:center;font-size:11px;color:#42584b;font-weight:700}
+.info-card{background:#fff;border:1px solid var(--line);border-radius:15px;padding:14px 15px;margin-bottom:12px}
+.info-card h3{margin:0 0 6px;font-size:15px;color:var(--deep)}
+.info-card p{margin:0 0 6px;font-size:13px;line-height:1.65;color:#33473b}
+.info-card .meta{font-size:12px;color:var(--muted);font-weight:700}
+.fact{display:flex;gap:10px;padding:8px 0;border-top:1px solid #edf2ee;font-size:13px}
+.fact:first-child{border-top:0}.fact b{flex:0 0 96px;color:var(--green)}.fact span{flex:1}
+.hist-img{height:130px;font-size:40px}
+.g-head{font-weight:900;font-size:13px;color:var(--red);background:#fff1f2;border-radius:9px;padding:6px 10px;margin:10px 0 2px}
 </style>
 </head>
 <body>
@@ -222,6 +242,9 @@
 <div class="modal" id="infoModal" role="dialog" aria-modal="true" aria-labelledby="modalTitle"><div class="modal-card"><h2 id="modalTitle">তথ্য জমা দিন</h2><p>নিচের তথ্য লিখুন। এটি আপাতত ডেমো ফর্ম—সার্ভার/অ্যাডমিনের সঙ্গে যুক্ত নয়।</p><form id="infoForm"><label for="kind">তথ্যের ধরন</label><select id="kind"><option value="সাধারণ তথ্য">সাধারণ তথ্য</option><option value="ব্যবসা/দোকান">ব্যবসা/দোকান</option><option value="শিক্ষা প্রতিষ্ঠান">শিক্ষা প্রতিষ্ঠান</option><option value="স্বাস্থ্যসেবা">স্বাস্থ্যসেবা</option><option value="জরুরি নম্বর সংশোধন">জরুরি নম্বর সংশোধন</option><option value="চাকরির বিজ্ঞপ্তি">চাকরির বিজ্ঞপ্তি</option><option value="অন্য কিছু">অন্য কিছু</option></select><label for="name">আপনার নাম (ঐচ্ছিক)</label><input id="name" placeholder="নাম লিখুন"><label for="detail">তথ্য / পরামর্শ</label><textarea id="detail" rows="3" required placeholder="যতটা সম্ভব পরিষ্কারভাবে লিখুন"></textarea><div class="modal-actions"><button type="button" class="btn btn-light" onclick="closeModal()">বন্ধ করুন</button><button type="submit" class="btn btn-green">তথ্য তৈরি করুন</button></div></form></div></div>
 <div class="toast" id="toast" role="status"></div>
 <script src="data.js"></script>
+<script src="thana.js"></script>
+<script src="history.js"></script>
+<script src="tourism.js"></script>
 <script>
 const I18N={
 "ফটিকছড়ি উত্তর": "Fatikchhari North",
@@ -450,6 +473,7 @@ function renderUnions(){
       (w.members&&w.members.length?w.members:['']).forEach(m=>who.appendChild(personNode(m)));
       r.appendChild(who);body.appendChild(r);
     });
+    if(u.others&&u.others.length){const r=el('div','u-row');r.appendChild(el('b',null,'অন্যান্য সদস্য','Other members'));const who=el('div','who');u.others.forEach(m=>who.appendChild(personNode(m)));r.appendChild(who);body.appendChild(r)}
     det.appendChild(body);box.appendChild(det);
   });
 }
@@ -578,9 +602,9 @@ function lockDonorForm(){
   const f=document.getElementById('donorForm');if(!f||document.getElementById('donorDone'))return;
   let ph='';try{ph=localStorage.getItem('donorDone')||''}catch(x){}
   if(!ph)return;
-  f.style.display='none';
+  const panel=f.parentNode;panel.style.display='none';
   const m=el('div','form-msg ok','✅ আপনি রক্তদাতা হিসেবে নিবন্ধিত। ধন্যবাদ! একজন একবারই নিবন্ধন করতে পারবেন।','✅ You are registered as a blood donor. Thank you! Each person can register only once.');
-  m.id='donorDone';f.parentNode.appendChild(m);
+  m.id='donorDone';m.style.cssText='background:#e8f6ee;border-radius:12px;padding:12px 14px;margin-bottom:4px';panel.parentNode.insertBefore(m,panel);
 }
 async function submitDonor(e){
   e.preventDefault();
@@ -640,7 +664,11 @@ function renderDonors(){
   list.textContent='';
   cnt.dataset.bn='('+toBn(rows.length)+' জন)';cnt.dataset.en='('+rows.length+')';cnt.textContent=english?cnt.dataset.en:cnt.dataset.bn;
   if(!rows.length){list.appendChild(el('div','placeholder','এই শর্তে কোনো রক্তদাতা পাওয়া যায়নি।','No donors found for this filter.'));return}
+  rows.sort((x,y)=>(GROUPS.indexOf(x.blood_group)-GROUPS.indexOf(y.blood_group))||String(x.name).localeCompare(String(y.name),'bn'));
+  const gcount={};rows.forEach(d=>{gcount[d.blood_group]=(gcount[d.blood_group]||0)+1});
+  let lastG=null;
   rows.forEach(d=>{
+    if(gFilter==='all'&&d.blood_group!==lastG){lastG=d.blood_group;const h=el('div','g-head','🩸 '+d.blood_group+' ('+toBn(gcount[d.blood_group])+' জন)','🩸 '+d.blood_group+' ('+gcount[d.blood_group]+')');list.appendChild(h)}
     const c=el('div','d-card');
     c.appendChild(el('div','bg',d.blood_group));
     const info=el('div','d-info');
@@ -687,6 +715,141 @@ function renderDir(){
 }
 initDonorForm();lockDonorForm();loadDonors();initDir();
 try{if(localStorage.getItem('lang')==='en'){english=true;applyLanguage()}}catch(e){}
+
+const GATE_SVG='<svg viewBox="0 0 400 190" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Bhujpur"><defs><linearGradient id="gsk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#8fd3f4"/><stop offset="1" stop-color="#fdf6d8"/></linearGradient><linearGradient id="gfd" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5dbb63"/><stop offset="1" stop-color="#2e8b4a"/></linearGradient></defs><rect width="400" height="190" fill="url(#gsk)"/><circle cx="318" cy="48" r="26" fill="#ffd54a" opacity=".95"/><circle cx="318" cy="48" r="38" fill="#ffd54a" opacity=".25"/><path d="M0 110 Q60 70 130 100 T270 95 T400 90 V190 H0Z" fill="#7cc48a"/><path d="M0 125 Q80 98 170 122 T400 112 V190 H0Z" fill="url(#gfd)"/><path d="M0 160 Q120 140 230 158 T400 150 V190 H0Z" fill="#256f3b"/><path d="M150 190 Q200 150 215 128 Q225 150 260 190Z" fill="#7fc3e8" opacity=".85"/><g><rect x="52" y="104" width="46" height="26" fill="#f4e4c1"/><path d="M46 105 L75 84 L104 105Z" fill="#b5532f"/><rect x="68" y="114" width="12" height="16" fill="#7a4a2a"/></g><g><rect x="290" y="108" width="40" height="22" fill="#f4e4c1"/><path d="M284 109 L310 91 L336 109Z" fill="#c0603a"/><rect x="302" y="117" width="10" height="13" fill="#7a4a2a"/></g><g><rect x="128" y="96" width="5" height="34" fill="#6b4423"/><circle cx="130" cy="90" r="17" fill="#2f9a4d"/><circle cx="120" cy="98" r="11" fill="#3aae5a"/><circle cx="141" cy="98" r="11" fill="#3aae5a"/></g><g><rect x="354" y="98" width="5" height="32" fill="#6b4423"/><circle cx="356" cy="92" r="15" fill="#2f9a4d"/><circle cx="347" cy="99" r="10" fill="#3aae5a"/></g><g stroke="#fff" stroke-width="2" fill="none" stroke-linecap="round"><path d="M60 40 q5 -5 10 0 q5 -5 10 0"/><path d="M110 28 q4 -4 8 0 q4 -4 8 0"/></g></svg>';
+/* ===== প্রবেশের আগে নিবন্ধন (গেট) ===== */
+function gateDone(){try{return !!localStorage.getItem('visitorReg')}catch(x){return false}}
+function openGate(){
+  if(!SB_OK||gateDone())return;
+  document.body.classList.add('gated');
+  const g=document.createElement('div');g.className='gate';g.id='gate';
+  const c=el('div','gate-card');g.appendChild(c);
+  const top=el('div','gate-top');const lb=el('button','btn btn-light','EN','বাংলা');lb.type='button';lb.id='gateLang';
+  lb.addEventListener('click',()=>{toggleLanguage();lb.textContent=english?'বাংলা':'EN'});top.appendChild(lb);c.appendChild(top);
+  const hero=el('div','gate-hero');
+  if(SD.gateImage){const im=document.createElement('img');im.src=SD.gateImage;im.alt='';im.style.cssText='width:100%;height:100%;object-fit:cover';hero.appendChild(im)}
+  else hero.innerHTML=GATE_SVG;
+  c.appendChild(hero);
+  c.appendChild(el('div','gate-wel','স্বাগতম','Welcome'));
+  c.appendChild(el('h1',null,'ফটিকছড়ি উত্তর · ভূজপুর','Fatikchhari North · Bhujpur'));
+  c.appendChild(el('p','sub gate-tag','আমাদের এলাকা, আমাদের কমিউনিটি — তথ্য, রক্তদাতা, নোটিশ ও জরুরি সেবা এক জায়গায়।','Our area, our community — information, blood donors, notices and emergency help in one place.'));
+  c.appendChild(el('p','sub','সাইটে প্রবেশের আগে একবার নিবন্ধন করুন। পরের বার আর করতে হবে না।','Please register once before entering. You will not need to register again.'));
+  const f=document.createElement('form');f.id='gateForm';c.appendChild(f);
+  function field(id,bn,en,type,extra){const l=el('label','fl',bn,en);l.htmlFor=id;f.appendChild(l);const i=document.createElement('input');i.className='fi';i.id=id;i.type=type||'text';Object.assign(i,extra||{});f.appendChild(i);return i}
+  field('gName','আপনার নাম *','Your name *','text',{autocomplete:'name',maxLength:80});
+  field('gPhone','মোবাইল নম্বর *','Mobile number *','tel',{autocomplete:'tel',inputMode:'tel',maxLength:20});
+  const hp=document.createElement('input');hp.className='hp';hp.id='gHp';hp.tabIndex=-1;hp.autocomplete='off';f.appendChild(hp);
+  const l1=el('label','chk');const c1=document.createElement('input');c1.type='checkbox';c1.id='gConsent';l1.appendChild(c1);
+  l1.appendChild(el('span',null,'আমি আমার নাম ও নম্বর দেওয়ার সম্মতি দিচ্ছি। এই তথ্য প্রকাশ্যে দেখানো হবে না।','I consent to giving my name and number. This information will not be shown publicly.'));f.appendChild(l1);
+  const l2=el('label','chk');const c2=document.createElement('input');c2.type='checkbox';c2.id='gDonate';l2.appendChild(c2);
+  l2.appendChild(el('span',null,'🩸 আমি রক্তদাতা হতে চাই (আমার বয়স ১৮+; নাম, নম্বর ও গ্রুপ রক্তদাতা তালিকায় প্রকাশ্যে দেখা যাবে)','🩸 I want to be a blood donor (I am 18+; my name, number and group will be public in the donor list)'));f.appendChild(l2);
+  const gw=document.createElement('div');gw.id='gGroupWrap';gw.style.display='none';
+  const gl=el('label','fl','রক্তের গ্রুপ *','Blood group *');gl.htmlFor='gGroup';gw.appendChild(gl);
+  const gs=document.createElement('select');gs.className='fi';gs.id='gGroup';gs.appendChild(opt('','বেছে নিন','Select'));GROUPS.forEach(x=>gs.appendChild(opt(x,x,x)));gw.appendChild(gs);f.appendChild(gw);
+  c2.addEventListener('change',()=>{gw.style.display=c2.checked?'block':'none'});
+  const m=el('div','form-msg','','');m.id='gateMsg';f.appendChild(m);
+  const b=el('button','btn btn-green','নিবন্ধন করে প্রবেশ করুন','Register & enter');b.type='submit';b.id='gSubmit';b.style.cssText='width:100%;margin-top:12px';f.appendChild(b);
+  f.addEventListener('submit',submitGate);
+  document.body.appendChild(g);
+  if(english){lb.textContent='বাংলা';applyLanguage()}
+}
+function closeGate(){const g=document.getElementById('gate');if(g)g.remove();document.body.classList.remove('gated')}
+async function submitGate(e){
+  e.preventDefault();
+  if(document.getElementById('gHp').value)return;
+  const name=document.getElementById('gName').value.trim();
+  const phone=normPhone(document.getElementById('gPhone').value);
+  const consent=document.getElementById('gConsent').checked;
+  const donate=document.getElementById('gDonate').checked;
+  const group=document.getElementById('gGroup').value;
+  const M=(a,b2,k)=>setMsg('gateMsg',a,b2,k);
+  if(name.length<2){M('আপনার নাম লিখুন।','Please enter your name.','err');return}
+  if(!/^01[3-9]\d{8}$/.test(phone)){M('সঠিক ১১ সংখ্যার মোবাইল নম্বর দিন (যেমন 01712345678)।','Enter a valid 11-digit mobile number (e.g. 01712345678).','err');return}
+  if(!consent){M('সম্মতির টিক চিহ্ন দিন।','Please tick the consent box.','err');return}
+  if(donate&&!group){M('রক্তের গ্রুপ বেছে নিন।','Please choose your blood group.','err');return}
+  const btn=document.getElementById('gSubmit');btn.disabled=true;M('জমা হচ্ছে…','Submitting…','');
+  const post=(t,body)=>fetch(SB_URL+'/rest/v1/'+t,{method:'POST',headers:sbH({'Content-Type':'application/json',Prefer:'return=minimal'}),body:JSON.stringify(body)});
+  try{
+    const r=await post('visitors',{name:name,phone:phone,consent:true});
+    if(r.status===400&&(await r.text()).indexOf('too many')>-1){
+      M('এই সংযোগ থেকে আজ অনেক নিবন্ধন হয়েছে। আগামীকাল চেষ্টা করুন।','Too many registrations from this connection today. Try again tomorrow.','err');btn.disabled=false;return}
+    if(!r.ok&&r.status!==409){M('নিবন্ধন করা যায়নি। তথ্য দেখে আবার চেষ্টা করুন।','Could not register. Please check and try again.','err');btn.disabled=false;return}
+    /* 409 = এই নম্বর আগেই নিবন্ধিত (অন্য ডিভাইসে) — প্রবেশ করতে দেওয়া হয় */
+    if(donate){
+      try{
+        const d=await post('blood_donors',{name:name,phone:phone,blood_group:group,consent:true});
+        if(d.ok||d.status===409){try{localStorage.setItem('donorDone',phone)}catch(x){}}
+      }catch(x){}
+    }
+    try{localStorage.setItem('visitorReg',phone)}catch(x){}
+    closeGate();lockDonorForm();loadDonors();
+  }catch(x){
+    M('ইন্টারনেট সংযোগে সমস্যা। আবার চেষ্টা করুন।','Network problem. Please try again.','err');btn.disabled=false;
+  }
+}
+
+/* ===== থানা / ইতিহাস / পর্যটন ===== */
+function imgBox(src,icon,cls){
+  const b=el('div','hero-img'+(cls?' '+cls:''));
+  if(src){const i=document.createElement('img');i.src=src;i.alt='';i.loading='lazy';i.onerror=()=>{i.remove();b.textContent=icon;b.appendChild(el('small',null,'ছবি শীঘ্রই','Photo coming soon'))};b.appendChild(i)}
+  else{b.textContent=icon;b.appendChild(el('small',null,'ছবি শীঘ্রই','Photo coming soon'))}
+  return b;
+}
+function mkSection(id,hBn,hEn,pBn,pEn){
+  const sec=document.createElement('section');sec.className='section';sec.id=id;
+  const head=el('div','section-head');const d=document.createElement('div');
+  d.appendChild(el('h2',null,hBn,hEn));d.appendChild(el('p',null,pBn,pEn));head.appendChild(d);sec.appendChild(head);
+  const body=document.createElement('div');sec.appendChild(body);
+  const anchor=document.getElementById('map');anchor.parentNode.insertBefore(sec,anchor);
+  return body;
+}
+function renderThana(){
+  const T=window.THANA_DATA;if(!T)return;
+  const body=mkSection('thana','🚓 ভূজপুর থানা','🚓 Bhujpur Thana','থানার পরিচিতি ও যোগাযোগ','About the police station');
+  body.appendChild(imgBox(T.photo,'🚓'));
+  const c=el('div','info-card');c.appendChild(el('h3',null,T.nameBn,T.nameEn));
+  T.facts.forEach(f=>{
+    const r=el('div','fact');r.appendChild(el('b',null,f.bn,f.en));
+    const v=document.createElement('span');
+    if(f.vBn)v.appendChild(el('span',null,f.vBn,f.vEn||f.vBn));
+    else if(!f.phone)v.appendChild(el('span','tbd','তথ্য যোগ হবে','To be added'));
+    if(f.phone){const a=document.createElement('a');a.href='tel:'+f.phone.replace(/[^\d+]/g,'');a.textContent='📞 '+f.phone;a.style.cssText='color:var(--green);font-weight:700';v.appendChild(a)}
+    else if('phone' in f&&!f.vBn){}
+    r.appendChild(v);c.appendChild(r);
+  });
+  const em=el('a','btn btn-green','🚨 জরুরি পুলিশ: ৯৯৯ এ কল করুন','🚨 Emergency police: call 999');em.href='tel:999';em.style.cssText='display:block;text-align:center;margin-top:10px';c.appendChild(em);
+  body.appendChild(c);
+}
+function renderHistory(){
+  const H=window.HISTORY_DATA;if(!H||!H.length)return;
+  const body=mkSection('history','📜 ভূজপুরের ইতিহাস','📜 History of Bhujpur','আমাদের এলাকার অতীত','The past of our area');
+  H.forEach(h=>{
+    const c=el('div','info-card');
+    if(h.photo)c.appendChild(imgBox(h.photo,'📜','hist-img'));
+    c.appendChild(el('h3',null,h.bn,h.en||h.bn));
+    c.appendChild(el('p',null,h.textBn,h.textEn||h.textBn));
+    body.appendChild(c);
+  });
+}
+function renderTourism(){
+  const L=window.TOURISM_DATA;if(!L||!L.length)return;
+  const body=mkSection('tourism','🏞️ পর্যটন স্থান','🏞️ Tourist Places','ভূজপুর ও আশপাশের দর্শনীয় স্থান, ইতিহাসসহ','Places to visit in and around Bhujpur, with history');
+  L.forEach(p=>{
+    const c=el('div','info-card');
+    c.appendChild(imgBox(p.photo,p.icon||'📍','hist-img'));
+    c.appendChild(el('h3',null,p.bn,p.en||p.bn));
+    c.appendChild(el('div','meta','📍 '+p.placeBn,'📍 '+(p.placeEn||p.placeBn)));
+    if(p.howBn)c.appendChild(el('p',null,'🚌 '+p.howBn,'🚌 '+(p.howEn||p.howBn)));
+    const hh=p.historyBn?el('p',null,p.historyBn,p.historyEn||p.historyBn):el('p','tbd','ইতিহাস যোগ হবে।','History to be added.');
+    c.appendChild(hh);body.appendChild(c);
+  });
+}
+renderThana();renderHistory();renderTourism();
+(function(){const n=document.querySelector('.nav');if(!n)return;
+ [['#thana','থানা','Thana'],['#history','ইতিহাস','History'],['#tourism','পর্যটন','Tourism']].forEach(x=>{const a=el('a',null,x[1],x[2]);a.href=x[0];n.appendChild(a)})})();
+if(english)applyLanguage();
+openGate();
+
 </script>
 </body>
 </html>
