@@ -156,6 +156,82 @@ body.inhome .vbar{display:none}
 .adm-x,.adm-m{position:absolute;top:4px;border:0;background:rgba(255,255,255,.95);border-radius:50%;width:26px;height:26px;font-size:12px;font-weight:900}
 .adm-x{right:4px}.adm-m{left:4px}
 
+
+/* ---- নতুন গেট (প্রথম পর্দা) ---- */
+.gate{background:radial-gradient(circle at 15% 12%,rgba(255,255,255,.16) 0 70px,transparent 71px),radial-gradient(circle at 88% 30%,rgba(255,255,255,.10) 0 110px,transparent 111px),radial-gradient(circle at 20% 92%,rgba(255,255,255,.12) 0 90px,transparent 91px),linear-gradient(165deg,#06402a 0%,#0b6a43 45%,#1a9a62 100%)}
+.gate:before{content:"";position:fixed;inset:0;background-image:radial-gradient(rgba(255,255,255,.14) 1.5px,transparent 1.6px);background-size:26px 26px;opacity:.5;pointer-events:none}
+.gate:after{content:"";position:fixed;left:-60px;bottom:-60px;width:220px;height:220px;border-radius:50%;border:34px solid rgba(255,255,255,.07);animation:gt-spin 28s linear infinite;pointer-events:none}
+@keyframes gt-spin{to{transform:rotate(360deg)}}
+.gate-card{position:relative;padding:0;overflow:hidden;border-radius:24px;box-shadow:0 18px 50px rgba(0,30,18,.45)}
+.gate-hero2{position:relative;height:215px;background:#0b5d3b;overflow:hidden}
+.gh-media{position:absolute;inset:0;margin:0;border-radius:0;box-shadow:none;background:#8fd3f4}
+.gh-media svg{width:100%;height:100%;display:block}
+.gh-media img{width:100%;height:100%;object-fit:cover;display:block}
+.gh-shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,40,25,.28) 0%,rgba(0,40,25,0) 38%,rgba(0,40,25,.82) 100%)}
+.gh-lang{position:absolute;top:10px;right:10px;z-index:3;border:0;border-radius:20px;padding:6px 13px;font-weight:800;font-size:12px;background:rgba(255,255,255,.93);color:var(--deep)}
+.gh-txt{position:absolute;left:0;right:0;bottom:0;padding:0 16px 14px;text-align:center;color:#fff;z-index:2}
+.gh-wel{display:inline-block;background:rgba(255,255,255,.2);border:1px solid rgba(255,255,255,.55);backdrop-filter:blur(3px);border-radius:20px;padding:3px 14px;font-size:12px;font-weight:800;letter-spacing:.6px;margin-bottom:6px}
+.gh-txt h1{margin:0;font-size:21px;line-height:1.25;color:#fff;text-shadow:0 2px 10px rgba(0,30,18,.7)}
+.gate-body{padding:14px 18px 20px}
+.gate-body .gate-tag{margin:0 0 8px}
+body.gated .gate-card h1{text-align:center}
+/* ---- হোমের নিচের স্লাইডার ---- */
+.home-slider{margin:6px 0 18px}
+.home-slider h2{font-size:15px;margin:2px 2px 10px;color:var(--deep)}
+.home-slider .slider{box-shadow:0 6px 20px rgba(11,93,59,.16)}
+body.inview main{min-height:60vh}
+/* ---- যোগাযোগ (বড় ছবি, গ্যালারি, বিজ্ঞাপন) ---- */
+.ct-hero{padding-bottom:104px!important;margin-bottom:-86px!important}
+.ct-photo{width:164px!important;height:164px!important;margin:-82px auto 12px!important;cursor:zoom-in}
+.ct-gal{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin:0 0 14px}
+.ct-gal img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:12px;cursor:zoom-in;display:block}
+.ct-gal-h{font-size:12px;font-weight:800;color:var(--deep);text-align:left;margin:4px 2px 6px}
+.ct-adm{margin-top:14px;padding-top:10px;border-top:1px dashed #cfe3d6;display:flex;justify-content:center;gap:14px;flex-wrap:wrap;font-size:12px}
+.ct-adm a,.ct-adm button{border:0;background:none;color:var(--muted);font:inherit;font-size:12px;text-decoration:underline;padding:2px}
+.ad-h{font-size:16px;margin:18px 4px 4px;color:var(--deep)}
+.ad-sub{font-size:12px;color:var(--muted);margin:0 4px 10px}
+.ad-card{position:relative;background:#fff;border:1px solid var(--line);border-radius:18px;margin:0 6px 12px;overflow:hidden;box-shadow:0 3px 12px rgba(11,93,59,.07)}
+.ad-card .hero-img.ad-img{height:170px;border-radius:0}
+.ad-body{padding:12px 14px 14px}
+.ad-tag{position:absolute;top:8px;left:8px;z-index:2;background:rgba(0,0,0,.6);color:#fff;font-size:10px;font-weight:800;border-radius:10px;padding:2px 8px}
+.ad-body h4{margin:0 0 4px;font-size:15px;color:var(--deep)}
+.ad-body p{margin:0 0 10px;font-size:13px;line-height:1.65;color:#3d5246;white-space:pre-wrap}
+.ad-btns{display:flex;gap:8px;flex-wrap:wrap}
+.ad-btns a{flex:1 1 40%;text-align:center;text-decoration:none;font-weight:800;font-size:13px;border-radius:12px;padding:10px 6px;color:#fff;background:linear-gradient(135deg,#0b5d3b,#16875a)}
+.ad-btns a.alt{background:#e8f6ee;color:var(--deep)}
+.ad-cta{margin:0 6px 12px;border:2px dashed #b9d9c5;border-radius:16px;padding:14px;text-align:center;background:#f6fbf8;font-size:13px;color:#33473b}
+.ad-cta a{display:inline-block;margin-top:8px;background:var(--green);color:#fff;font-weight:800;border-radius:12px;padding:9px 16px;text-decoration:none}
+/* ---- এলাকার সংবাদ ---- */
+.nw-rule{background:#fff7e7;border:1px solid #f2dfb5;border-radius:14px;padding:11px 13px;font-size:12.5px;color:#6b5a30;line-height:1.65;margin-bottom:12px}
+.nw-bar{background:#fff;border:1px solid var(--line);border-radius:16px;padding:12px;margin-bottom:14px;box-shadow:0 2px 10px rgba(11,93,59,.06)}
+.nw-me{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.nw-av{width:42px;height:42px;border-radius:50%;background:var(--mint);overflow:hidden;display:grid;place-items:center;font-size:20px;flex-shrink:0}
+.nw-av img{width:100%;height:100%;object-fit:cover}
+.nw-me b{display:block;font-size:14px;color:var(--deep)}.nw-me small{color:var(--muted);font-size:11px}
+.nw-btns{display:flex;gap:8px;flex-wrap:wrap}
+.nw-btns button{flex:1 1 40%;border:0;border-radius:12px;padding:10px 8px;font:inherit;font-weight:800;font-size:13px;background:var(--mint);color:var(--deep)}
+.nw-btns button.pri{background:var(--green);color:#fff}
+.nw-card{background:#fff;border:1px solid var(--line);border-radius:18px;margin-bottom:14px;overflow:hidden;box-shadow:0 3px 12px rgba(11,93,59,.07)}
+.nw-card .hero-img.nw-img{height:200px;border-radius:0}
+.nw-in{padding:12px 14px 14px}
+.nw-in h3{margin:0 0 6px;font-size:16.5px;line-height:1.4;color:var(--deep)}
+.nw-meta{display:flex;align-items:center;gap:8px;font-size:11.5px;color:var(--muted);margin-bottom:8px;flex-wrap:wrap}
+.nw-meta .nw-av{width:26px;height:26px;font-size:13px}
+.nw-ok{background:#e1f5e8;color:#0b6a43;font-weight:800;border-radius:10px;padding:2px 8px;font-size:10.5px}
+.nw-body{font-size:14px;line-height:1.75;color:#33473b;white-space:pre-wrap;word-break:break-word}
+.nw-body.clamp{display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.nw-more{border:0;background:none;color:var(--green);font:inherit;font-weight:800;font-size:13px;padding:4px 0}
+.nw-place{font-size:12px;color:#5a6e62;margin:0 0 6px}
+.nw-st{display:inline-block;border-radius:10px;padding:2px 9px;font-size:11px;font-weight:800}
+.nw-st.pending{background:#fff1cc;color:#8a6200}.nw-st.approved{background:#e1f5e8;color:#0b6a43}.nw-st.rejected{background:#fde3e1;color:#a3231b}
+.nw-adm{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.nw-adm button{border:0;border-radius:10px;padding:9px 12px;font:inherit;font-weight:800;font-size:13px;color:#fff;background:#0b6a43}
+.nw-adm button.no{background:#c0392b}.nw-adm button.gr{background:#6b7d72}
+.nw-who{background:#f4f7f5;border-radius:10px;padding:8px 10px;font-size:12px;color:#33473b;margin-top:8px;line-height:1.7}
+.nw-tabs{display:flex;gap:6px;margin-bottom:12px}
+.nw-tabs button{flex:1;border:0;border-radius:10px;padding:10px;font:inherit;font-weight:800;background:#e8eee9;color:#42584b}
+.nw-tabs button.on{background:var(--green);color:#fff}
+
 /* ---- হোমের চলতি ছবি ---- */
 .scene{position:relative;border-radius:20px;overflow:hidden;margin:0 0 14px;box-shadow:0 6px 20px rgba(11,93,59,.18);background:#cfeaf7;line-height:0}
 .scene svg{width:100%;height:auto;display:block}
@@ -882,17 +958,37 @@ function openGate(){
   document.body.classList.add('gated');
   const g=document.createElement('div');g.className='gate';g.id='gate';
   const c=el('div','gate-card');g.appendChild(c);
-  const top=el('div','gate-top');const lb=el('button','btn btn-light','EN','বাংলা');lb.type='button';lb.id='gateLang';
-  lb.addEventListener('click',()=>{toggleLanguage();lb.textContent=english?'বাংলা':'EN'});top.appendChild(lb);c.appendChild(top);
-  const hero=el('div','gate-hero');
-  if(SD.gateImage){const im=document.createElement('img');im.src=SD.gateImage;im.alt='';im.style.cssText='width:100%;height:100%;object-fit:cover';hero.appendChild(im)}
-  else hero.innerHTML=GATE_SVG;
+  let GC={};try{GC=JSON.parse(localStorage.getItem('gateCfg')||'{}')||{}}catch(x){GC={}}
+  const hero=el('div','gate-hero2');
+  const media=el('div','gh-media scene');hero.appendChild(media);
+  const okU=u=>/^https?:\/\//i.test(String(u||''));
+  const txt=el('div','gh-txt');
+  const wel=el('span','gh-wel','স্বাগতম','Welcome');txt.appendChild(wel);
+  const h1=el('h1',null,'ফটিকছড়ি উত্তর · ভূজপুর','Fatikchhari North · Bhujpur');txt.appendChild(h1);
+  const tag=el('p','sub gate-tag','আমাদের এলাকা, আমাদের কমিউনিটি — তথ্য, রক্তদাতা, নোটিশ ও জরুরি সেবা এক জায়গায়।','Our area, our community — information, blood donors, notices and emergency help in one place.');
+  function paintGate(cfg){
+    media.textContent='';
+    const u=cfg&&cfg.photo;
+    if(okU(u)){const im=document.createElement('img');im.alt='';im.src=u;im.onerror=()=>{media.innerHTML=SCENE_SVG};media.appendChild(im)}
+    else if(SD.gateImage){const im=document.createElement('img');im.alt='';im.src=SD.gateImage;media.appendChild(im)}
+    else media.innerHTML=SCENE_SVG;
+    if(cfg&&cfg.bn){h1.dataset.bn=cfg.bn;h1.dataset.en=cfg.en||cfg.bn;h1.textContent=english?h1.dataset.en:h1.dataset.bn}
+    if(cfg&&cfg.subBn){tag.dataset.bn=cfg.subBn;tag.dataset.en=cfg.subEn||cfg.subBn;tag.textContent=english?tag.dataset.en:tag.dataset.bn}
+  }
+  paintGate(GC);
+  fetch(SB_URL+'/rest/v1/site_items?collection=eq.gate&select=data&limit=1',{headers:sbH()}).then(r=>r.ok?r.json():null).then(j=>{
+    if(!j)return;const d=(j[0]&&j[0].data)||{};
+    try{if(j[0])localStorage.setItem('gateCfg',JSON.stringify(d));else localStorage.removeItem('gateCfg')}catch(x){}
+    if(document.getElementById('gate'))paintGate(d)}).catch(()=>{});
+  hero.appendChild(el('div','gh-shade'));
+  const lb=el('button','gh-lang','EN','বাংলা');lb.type='button';lb.id='gateLang';
+  lb.addEventListener('click',()=>{toggleLanguage();lb.textContent=english?'বাংলা':'EN'});hero.appendChild(lb);
+  hero.appendChild(txt);
   c.appendChild(hero);
-  c.appendChild(el('div','gate-wel','স্বাগতম','Welcome'));
-  c.appendChild(el('h1',null,'ফটিকছড়ি উত্তর · ভূজপুর','Fatikchhari North · Bhujpur'));
-  c.appendChild(el('p','sub gate-tag','আমাদের এলাকা, আমাদের কমিউনিটি — তথ্য, রক্তদাতা, নোটিশ ও জরুরি সেবা এক জায়গায়।','Our area, our community — information, blood donors, notices and emergency help in one place.'));
-  c.appendChild(el('p','sub','সাইটে প্রবেশের আগে একবার নিবন্ধন করুন। পরের বার আর করতে হবে না।','Please register once before entering. You will not need to register again.'));
-  const f=document.createElement('form');f.id='gateForm';c.appendChild(f);
+  const body=el('div','gate-body');c.appendChild(body);
+  body.appendChild(tag);
+  body.appendChild(el('p','sub','সাইটে প্রবেশের আগে একবার নিবন্ধন করুন। আগে নিবন্ধন করে থাকলে একই নাম ও নম্বর দিলেই ঢুকতে পারবেন।','Please register once before entering. If you registered before, just enter the same name and number to get in.'));
+  const f=document.createElement('form');f.id='gateForm';body.appendChild(f);
   function field(id,bn,en,type,extra){const l=el('label','fl',bn,en);l.htmlFor=id;f.appendChild(l);const i=document.createElement('input');i.className='fi';i.id=id;i.type=type||'text';Object.assign(i,extra||{});f.appendChild(i);return i}
   field('gName','আপনার নাম *','Your name *','text',{autocomplete:'name',maxLength:80});
   field('gPhone','মোবাইল নম্বর *','Mobile number *','tel',{autocomplete:'tel',inputMode:'tel',maxLength:20});
@@ -926,7 +1022,7 @@ async function submitGate(e){
   if(!consent){M('সম্মতির টিক চিহ্ন দিন।','Please tick the consent box.','err');return}
   if(donate&&!group){M('রক্তের গ্রুপ বেছে নিন।','Please choose your blood group.','err');return}
   const btn=document.getElementById('gSubmit');btn.disabled=true;M('জমা হচ্ছে…','Submitting…','');
-  const post=(t,body)=>fetch(SB_URL+'/rest/v1/'+t,{method:'POST',headers:sbH({'Content-Type':'application/json',Prefer:'return=minimal'}),body:JSON.stringify(body)});
+  const post=(t,body)=>{const ac=new AbortController();const tm=setTimeout(()=>ac.abort(),20000);return fetch(SB_URL+'/rest/v1/'+t,{method:'POST',signal:ac.signal,headers:sbH({'Content-Type':'application/json',Prefer:'return=minimal'}),body:JSON.stringify(body)}).finally(()=>clearTimeout(tm))};
   try{
     const r=await post('visitors',{name:name,phone:phone,consent:true});
     if(r.status===400&&(await r.text()).indexOf('too many')>-1){
@@ -1054,6 +1150,7 @@ renderThana();renderHistory();renderTourism();
 
 /* ===== হোম: ফোল্ডার-গ্রিড ও আলাদা পাতা ===== */
 const VIEWS={
+  news:{icon:'📰',bn:'এলাকার সংবাদ',en:'Local News',secs:['news']},
   schools:{icon:'🏫',bn:'স্কুল ও কলেজ',en:'Schools & Colleges',secs:['institutions'],dir:'schools'},
   madrasas:{icon:'📖',bn:'মাদ্রাসা',en:'Madrasas',secs:['institutions'],dir:'madrasas'},
   hospitals:{icon:'🏥',bn:'হাসপাতাল ও ক্লিনিক',en:'Hospitals & Clinics',secs:['institutions'],dir:'hospitals'},
@@ -1071,7 +1168,7 @@ const VIEWS={
   emergency:{icon:'🚨',bn:'জরুরি ও সহায়তা',en:'Emergency & Help',secs:['health','help']},
   contact:{icon:'✉️',bn:'যোগাযোগ',en:'Contact',secs:['contact','about']}
 };
-const ID2VIEW={home:'home',services:'home',unions:'unions',blood:'blood',institutions:'schools',noticeboard:'notices',health:'emergency',education:'schools',market:'market',community:'home',tools:'home',map:'map',help:'emergency',contact:'contact',about:'contact',thana:'thana',history:'history',tourism:'tourism'};
+const ID2VIEW={home:'home',services:'home',unions:'unions',blood:'blood',institutions:'schools',noticeboard:'notices',health:'emergency',education:'schools',market:'market',community:'home',tools:'home',news:'news',map:'map',help:'emergency',contact:'contact',about:'contact',thana:'thana',history:'history',tourism:'tourism'};
 function dirCount(k){const c=DIRS[k];if(!c)return null;const n=(c.src?c.src():(SD[k]||[])).length;return n}
 function refreshCounts(){document.querySelectorAll('.fold[data-k]').forEach(b=>{const k=b.dataset.k,n=dirCount(k);const sm=b.querySelector('small');if(!sm||n===null)return;const bn=n?toBn(n)+'টি':'শীঘ্রই',en=n?n+' listed':'Soon';sm.dataset.bn=bn;sm.dataset.en=en;sm.textContent=english?en:bn})}
 function buildHome(){
@@ -1079,8 +1176,6 @@ function buildHome(){
   const f=document.createElement('section');f.className='folders';f.id='folders';
   const sc=el('div','scene');sc.innerHTML=SCENE_SVG;
   const st=el('div','scene-txt');st.appendChild(el('b',null,'ভূজপুরে স্বাগতম','Welcome to Bhujpur'));st.appendChild(el('span',null,'আমাদের গ্রাম, আমাদের গর্ব','Our village, our pride'));sc.appendChild(st);
-  f.appendChild(sc);
-  const hv=el('div','home-video');hv.id='homeVideo';f.appendChild(hv);
   f.appendChild(el('h2',null,'📂 কী দেখতে চান?','📂 What would you like to see?'));
   const g=el('div','fgrid');f.appendChild(g);
   Object.keys(VIEWS).forEach(k=>{
@@ -1090,6 +1185,8 @@ function buildHome(){
     if(n!==null)b.appendChild(n?el('small',null,toBn(n)+'টি',n+' listed'):el('small',null,'শীঘ্রই','Soon'));else b.appendChild(el('small',null,' ',''));
     b.addEventListener('click',()=>go(k));g.appendChild(b);
   });
+  const hv=el('div','home-video');hv.id='homeVideo';f.appendChild(hv);
+  sc.style.margin='6px 0 18px';f.appendChild(sc);
   const tw=document.querySelector('.top-widget');tw.parentNode.insertBefore(f,tw.nextSibling);
   const bar=el('div','vbar');
   const back=el('button',null,'← হোম','← Home');back.type='button';back.addEventListener('click',()=>go('home'));
@@ -1123,7 +1220,9 @@ document.addEventListener('click',e=>{
   e.preventDefault();const k=VIEWS[id]?id:ID2VIEW[id];go(k==='home'?'':k);
 });
 window.addEventListener('popstate',()=>showView(viewFromHash(),false));
-buildHome();renderVideos();showView(viewFromHash(),false);
+buildHome();renderVideos();
+{const nb=mkSection('news','📰 এলাকার সংবাদ','📰 Local News','এলাকার ঘটনা ও গুরুত্বপূর্ণ খবর','Events and important news of our area');nb.appendChild(el('div','placeholder','সংবাদ বিভাগ শীঘ্রই চালু হবে।','The news section will start soon.'))}
+showView(viewFromHash(),false);
 if(english)applyLanguage();
 openGate();
 
