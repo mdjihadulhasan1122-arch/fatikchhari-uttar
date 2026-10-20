@@ -51,9 +51,13 @@ async function api(path,opt){
   return r;
 }
 async function loadContent(){
+  let _cached=false;
+  try{const c=localStorage.getItem('siteCache');if(c){ROWS=JSON.parse(c);_cached=true;applyAll()}}catch(e){}
   try{
     const r=await fetch(SB_URL+'/rest/v1/site_items?select=id,collection,data,sort,created_at&order=sort.asc,created_at.asc&limit=3000',{headers:sbH()});
-    if(!r.ok)return;ROWS=await r.json();
+    if(!r.ok)return;const j=await r.json();
+    if(JSON.stringify(j)===JSON.stringify(ROWS)&&_cached){return}
+    ROWS=j;
   }catch(e){return}
   applyAll();
 }
@@ -75,6 +79,7 @@ function applyAll(){
   refreshCounts();showView(viewFromHash(),false,true);
   if(english)applyLanguage();
   paintAdminUI();
+  try{localStorage.setItem('siteCache',JSON.stringify(ROWS))}catch(e){}
 }
 
 /* ---------- আমার পরিচয় ও বিজ্ঞাপন (যোগাযোগ পাতায়) ---------- */
@@ -243,7 +248,7 @@ function shrink(file,max){return new Promise((res,rej)=>{
     c.getContext('2d').drawImage(img,0,0,c.width,c.height);URL.revokeObjectURL(u);c.toBlob(b=>b?res(b):rej(new Error('ছবি পড়া যায়নি')),'image/jpeg',0.82)};
   img.onerror=()=>{URL.revokeObjectURL(u);rej(new Error('ছবি পড়া যায়নি'))};img.src=u})}
 async function uploadPhoto(file,folder){
-  const blob=await shrink(file,1280);
+  const blob=await shrink(file,1080);
   const path=folder+'/'+Date.now()+'-'+Math.random().toString(36).slice(2,7)+'.jpg';
   const r=await api('/storage/v1/object/'+BUCKET+'/'+path,{method:'POST',headers:{'Content-Type':'image/jpeg','cache-control':'max-age=31536000'},body:blob});
   if(!r.ok)throw new Error('ছবি আপলোড হয়নি ('+r.status+')');
@@ -415,8 +420,9 @@ const bnDate=i=>{try{return new Date(i).toLocaleDateString('bn-BD',{day:'numeric
 const enDate=i=>{try{return new Date(i).toLocaleDateString('en-GB',{day:'numeric',month:'short',year:'numeric'})}catch(e){return ''}};
 function avatar(u){const a=el('div','nw-av');if(safeUrl(u)){const i=document.createElement('img');i.src=u;i.alt='';i.onerror=()=>{i.remove();a.textContent='👤'};a.appendChild(i)}else a.textContent='👤';return a}
 async function loadNews(){
+  try{const c=localStorage.getItem('newsCache');if(c){NEWS=JSON.parse(c);NEWS_ST='ok';renderNews()}}catch(e){}
   try{const r=await fetch(SB_URL+'/rest/v1/news_posts?select=id,author_name,author_photo,title,body,place,photos,created_at&status=eq.approved&order=created_at.desc&limit=60',{headers:sbH()});
-    if(r.ok){NEWS=await r.json();NEWS_ST='ok'}else NEWS_ST='err'}catch(e){NEWS_ST='err'}
+    if(r.ok){NEWS=await r.json();NEWS_ST='ok';try{localStorage.setItem('newsCache',JSON.stringify(NEWS))}catch(e){}}else NEWS_ST='err'}catch(e){if(NEWS_ST!=='ok')NEWS_ST='err'}
   renderNews();
 }
 async function delPost(p,after){

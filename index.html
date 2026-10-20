@@ -3,6 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://yjlkbzkhqmggcmqhilhd.supabase.co" crossorigin>
+<link rel="dns-prefetch" href="https://yjlkbzkhqmggcmqhilhd.supabase.co">
 <meta name="theme-color" content="#087443">
 <meta name="description" content="ফটিকছড়ি উত্তরের স্থানীয় তথ্য, জরুরি সেবা, শিক্ষা, স্বাস্থ্য, বাজার ও কমিউনিটি পোর্টাল।">
 <title>ফটিকছড়ি উত্তর | ডিজিটাল কমিউনিটি</title>
@@ -259,7 +261,7 @@ body.inview main{min-height:60vh}
 .sc-smoke{animation:sc-smoke 4s ease-out infinite}.sc-smoke.s2{animation-delay:-2s}
 .sc-rays{transform-origin:50% 50%;animation:sc-rays 40s linear infinite}
 .sc-field{animation:sc-wave 6s ease-in-out infinite}
-@media (prefers-reduced-motion:reduce){.scene *{animation:none!important}}
+@media (prefers-reduced-motion:reduce){.scene *{animation:none!important}} .scene.off *{animation-play-state:paused!important}
 /* ---- ভিডিও ---- */
 .vid-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:12px;margin-bottom:14px;box-shadow:0 2px 10px rgba(11,93,59,.06)}
 .vid-card h3{margin:0 0 8px;font-size:15px;color:var(--deep)}
@@ -325,7 +327,6 @@ body.inview main{min-height:60vh}
  </div>
 </section>
 <main class="wrap">
- <div class="notice" id="notice"><div class="icon">📢</div><div><strong>গুরুত্বপূর্ণ ঘোষণা</strong><p>এটি একটি নতুন কমিউনিটি ওয়েবসাইটের ডেমো। স্থানীয় নোটিশ, সরকারি তথ্য ও যোগাযোগ নম্বর যাচাই করে যুক্ত করতে হবে। ভুল বা অসম্পূর্ণ তথ্য দেখলে ব্যবহার করার আগে নিশ্চিত হয়ে নিন।</p></div></div>
  <section class="section" id="services">
   <div class="section-head"><div><h2>🧭 দরকারি সেবাসমূহ</h2><p>এক নজরে প্রয়োজনীয় বিভাগ</p></div><a href="#contact">তথ্য যোগ করুন →</a></div>
   <div class="grid searchable">
@@ -721,7 +722,7 @@ function renderSlider(){
   const dots=el('div','dots');
   slides.forEach((s,i)=>{
     const sl=el('div','slide'+(i===0?' active':''));
-    if(s.src){const im=document.createElement('img');im.src=s.src;im.alt=s.bn||'';im.loading=i===0?'eager':'lazy';sl.appendChild(im)}
+    if(s.src){const im=document.createElement('img');im.src=s.src;im.alt=s.bn||'';im.decoding='async';if(i===0)im.setAttribute('fetchpriority','high');sl.appendChild(im)}
     else sl.appendChild(el('div','ph','🏡'));
     sl.appendChild(el('div','cap',s.bn,s.en||s.bn));
     box.appendChild(sl);dots.appendChild(document.createElement('i'));
@@ -1224,6 +1225,7 @@ document.addEventListener('click',e=>{
 });
 window.addEventListener('popstate',()=>showView(viewFromHash(),false));
 buildHome();renderVideos();
+try{const io=new IntersectionObserver(es=>es.forEach(e=>e.target.classList.toggle('off',!e.isIntersecting)));document.querySelectorAll('.scene').forEach(x=>io.observe(x))}catch(e){}
 {const nb=mkSection('news','📰 এলাকার সংবাদ','📰 Local News','এলাকার ঘটনা ও গুরুত্বপূর্ণ খবর','Events and important news of our area');nb.appendChild(el('div','placeholder','সংবাদ বিভাগ শীঘ্রই চালু হবে।','The news section will start soon.'))}
 showView(viewFromHash(),false);
 if(english)applyLanguage();
