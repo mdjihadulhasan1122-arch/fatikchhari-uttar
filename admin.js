@@ -37,7 +37,7 @@ function jwtSub(t){try{return JSON.parse(atob(t.split('.')[1].replace(/-/g,'+').
 function persist(){try{localStorage.setItem('adm',JSON.stringify(SES))}catch(e){}}
 function saveSes(j,email){const k=SES||{};SES={at:j.access_token,rt:j.refresh_token,exp:Date.now()+(j.expires_in||3600)*1000,email:email||(j.user&&j.user.email)||k.email||'',uid:(j.user&&j.user.id)||k.uid||jwtSub(j.access_token),admin:k.admin,meta:(j.user&&j.user.user_metadata)||k.meta||{}};persist()}
 async function checkAdmin(){if(!loggedIn())return false;try{const r=await api('/rest/v1/rpc/is_admin',{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'});if(r.ok){const v=await r.json();SES.admin=(v===true);persist()}}catch(e){}return isAdmin()}
-async function createProfile(){const m=SES.meta||{};let nm=String(m.name||(SES.email||'').split('@')[0]||'সদস্য').trim().slice(0,80);if(nm.length<2)nm='সদস্য';const ph=/^01[3-9]\d{8}$/.test(m.phone||'')?m.phone:null;
+async function createProfile(){const m=SES.meta||{};let nm=String(m.name||(SES.email||'').split('@')[0]||'সদস্য').trim().slice(0,80);if(nm.length<2)nm='সদস্য';const ph=okPhone(m.phone||'')?m.phone:null;
   try{const r=await api('/rest/v1/profiles',{method:'POST',headers:{'Content-Type':'application/json',Prefer:'return=representation'},body:JSON.stringify({id:SES.uid,name:nm,phone:ph})});if(r.ok){const j=await r.json();return j[0]||null}}catch(e){}return null}
 async function loadProfile(){if(!loggedIn()){PROFILE=null;return null}
   try{const r=await api('/rest/v1/profiles?id=eq.'+encodeURIComponent(SES.uid)+'&select=*');if(r.ok){const j=await r.json();PROFILE=j[0]||null}}catch(e){}
@@ -210,16 +210,16 @@ function authBox(mode,onOk,adminOnly){
           SES=null;saveSes(j,e.value.trim());await checkAdmin();await loadProfile();finish();
         }catch(x){m.className='form-msg err';m.textContent='ইন্টারনেট সংযোগে সমস্যা।';b.disabled=false}});
     }else{
-      const n=field(f,'আপনার নাম *','sName','text','name',80),ph=field(f,'মোবাইল নম্বর *','sPhone','tel','tel',14),e=field(f,'ইমেইল (জিমেইল) *','sEmail','email','email'),p=field(f,'পাসওয়ার্ড * (কমপক্ষে ৮ অক্ষর)','sPass','password','new-password');
+      const n=field(f,'আপনার নাম *','sName','text','name',80),ph=field(f,'মোবাইল নম্বর *','sPhone','tel','tel',20),e=field(f,'ইমেইল (জিমেইল) *','sEmail','email','email'),p=field(f,'পাসওয়ার্ড * (কমপক্ষে ৮ অক্ষর)','sPass','password','new-password');
       const l=el('label','chk');const c=document.createElement('input');c.type='checkbox';l.appendChild(c);
       l.appendChild(el('span',null,'আমার নাম ও ছবি আমার পোস্টের সাথে প্রকাশ্যে দেখানো হবে। আমার ফোন ও ইমেইল শুধু অ্যাডমিন দেখতে পাবেন। আমি সত্য খবর দেব।'));f.appendChild(l);
       const m=el('div','form-msg');f.appendChild(m);
       const b=el('button','adm-btn','অ্যাকাউন্ট খুলুন');b.type='submit';b.style.cssText='width:100%;margin-top:6px';f.appendChild(b);
       f.addEventListener('submit',async ev=>{ev.preventDefault();
-        const name=n.value.trim(),phone=(typeof normPhone==='function'?normPhone(ph.value):ph.value.replace(/\D/g,'')),email=e.value.trim(),pw=p.value;
+        const name=n.value.trim(),phone=(typeof normPhone==='function'?normPhone(ph.value):ph.value.replace(/[^\d+]/g,'')),email=e.value.trim(),pw=p.value;
         const bad=t=>{m.className='form-msg err';m.textContent=t};
         if(name.length<2)return bad('আপনার নাম লিখুন।');
-        if(!/^01[3-9]\d{8}$/.test(phone))return bad('সঠিক ১১ সংখ্যার মোবাইল নম্বর দিন।');
+        if(!okPhone(phone))return bad(PH_BN);
         if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))return bad('সঠিক ইমেইল দিন।');
         if(pw.length<8)return bad('পাসওয়ার্ড কমপক্ষে ৮ অক্ষরের দিন।');
         if(!c.checked)return bad('সম্মতির টিক দিন।');
@@ -574,9 +574,9 @@ function profileBox(){
   const m=el('div','form-msg');f.appendChild(m);
   const sv=el('button','adm-btn','💾 সেভ করুন');sv.type='submit';sv.style.cssText='width:100%;margin-top:6px';f.appendChild(sv);
   f.addEventListener('submit',async ev=>{ev.preventDefault();
-    const name=n.value.trim(),phone=(typeof normPhone==='function'?normPhone(ph.value):ph.value.replace(/\D/g,''));
+    const name=n.value.trim(),phone=(typeof normPhone==='function'?normPhone(ph.value):ph.value.replace(/[^\d+]/g,''));
     if(name.length<2){m.className='form-msg err';m.textContent='নাম লিখুন।';return}
-    if(phone&&!/^01[3-9]\d{8}$/.test(phone)){m.className='form-msg err';m.textContent='সঠিক ১১ সংখ্যার নম্বর দিন।';return}
+    if(phone&&!okPhone(phone)){m.className='form-msg err';m.textContent=PH_BN;return}
     sv.disabled=true;m.className='form-msg';m.textContent='সেভ হচ্ছে…';
     try{if(!PROFILE)await loadProfile();
       const r=await api('/rest/v1/profiles?id=eq.'+encodeURIComponent(SES.uid),{method:'PATCH',headers:{'Content-Type':'application/json',Prefer:'return=representation'},body:JSON.stringify({name:name,phone:phone||null,photo:P.photo||null})});

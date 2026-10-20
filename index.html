@@ -355,7 +355,7 @@ body.inview main{min-height:60vh}
    <h3>রক্তদাতা হিসেবে নিবন্ধন করুন</h3>
    <form id="donorForm" novalidate>
     <label class="fl" for="dName">আপনার নাম *</label><input class="fi" id="dName" maxlength="60" autocomplete="name">
-    <label class="fl" for="dPhone">মোবাইল নম্বর *</label><input class="fi" id="dPhone" inputmode="tel" placeholder="01XXXXXXXXX" maxlength="16" autocomplete="tel">
+    <label class="fl" for="dPhone">মোবাইল নম্বর *</label><input class="fi" id="dPhone" inputmode="tel" placeholder="01XXXXXXXXX বা +966XXXXXXXXX" maxlength="20" autocomplete="tel">
     <label class="fl" for="dGroup">রক্তের গ্রুপ *</label><select class="fi" id="dGroup"></select>
     <label class="fl" for="dUnion">ইউনিয়ন (ঐচ্ছিক)</label><select class="fi" id="dUnion"></select>
     <label class="fl" for="dWard">ওয়ার্ড (ঐচ্ছিক)</label><select class="fi" id="dWard"></select>
@@ -774,10 +774,13 @@ const SB_OK=!!(SB_URL&&CFG.supabaseKey);
 function sbH(extra){const x=Object.assign({apikey:CFG.supabaseKey},extra||{});if(/^eyJ/.test(CFG.supabaseKey))x.Authorization='Bearer '+CFG.supabaseKey;return x}
 function setMsg(id,bn,en,kind){const e=document.getElementById(id);if(!e)return;e.dataset.bn=bn;e.dataset.en=en;e.textContent=english?en:bn;e.className='form-msg '+(kind||'')}
 function normPhone(v){
-  let s=String(v||'').replace(/[০-৯]/g,d=>BN_DIG.indexOf(d)).replace(/[\s\-()]/g,'');
-  if(s.indexOf('+88')===0)s=s.slice(3);else if(s.indexOf('88')===0&&s.length===13)s=s.slice(2);
+  let s=String(v||'').replace(/[০-৯]/g,d=>BN_DIG.indexOf(d)).replace(/[\s\-().]/g,'');
+  if(s.indexOf('00')===0)s='+'+s.slice(2);
+  if(s.indexOf('+8801')===0&&s.length===14)s=s.slice(3);else if(s.indexOf('8801')===0&&s.length===13)s=s.slice(2);
   return s;
 }
+function okPhone(p){return /^(01[3-9]\d{8}|\+[1-9]\d{7,14})$/.test(p)}
+const PH_BN='সঠিক মোবাইল নম্বর দিন। বাংলাদেশের নম্বর: 01712345678। অন্য দেশের নম্বর দেশের কোডসহ: +966501234567',PH_EN='Enter a valid mobile number. Bangladesh: 01712345678. Other countries with country code: +966501234567';
 const GROUPS=['A+','A-','B+','B-','AB+','AB-','O+','O-'];
 let donors=[],gFilter='all';
 function opt(v,bn,en){const o=el('option',null,bn,en);o.value=v;return o}
@@ -819,7 +822,7 @@ async function submitDonor(e){
   const ward=document.getElementById('dWard').value;
   const consent=document.getElementById('dConsent').checked;
   if(name.length<2){setMsg('donorMsg','অনুগ্রহ করে আপনার নাম লিখুন।','Please enter your name.','err');return}
-  if(!/^01[3-9]\d{8}$/.test(phone)){setMsg('donorMsg','সঠিক ১১ সংখ্যার মোবাইল নম্বর দিন (যেমন 01712345678)।','Enter a valid 11-digit mobile number (e.g. 01712345678).','err');return}
+  if(!okPhone(phone)){setMsg('donorMsg',PH_BN,PH_EN,'err');return}
   if(!group){setMsg('donorMsg','রক্তের গ্রুপ বেছে নিন।','Please choose your blood group.','err');return}
   if(!consent){setMsg('donorMsg','নিবন্ধন করতে সম্মতির টিক চিহ্ন দিতে হবে।','Please tick the consent box to register.','err');return}
   try{const last=+localStorage.getItem('donorTs')||0;if(Date.now()-last<20000){setMsg('donorMsg','কিছুক্ষণ পরে আবার চেষ্টা করুন।','Please wait a moment and try again.','err');return}}catch(x){}
@@ -991,7 +994,7 @@ function openGate(){
   const f=document.createElement('form');f.id='gateForm';body.appendChild(f);
   function field(id,bn,en,type,extra){const l=el('label','fl',bn,en);l.htmlFor=id;f.appendChild(l);const i=document.createElement('input');i.className='fi';i.id=id;i.type=type||'text';Object.assign(i,extra||{});f.appendChild(i);return i}
   field('gName','আপনার নাম *','Your name *','text',{autocomplete:'name',maxLength:80});
-  field('gPhone','মোবাইল নম্বর *','Mobile number *','tel',{autocomplete:'tel',inputMode:'tel',maxLength:20});
+  field('gPhone','মোবাইল নম্বর *','Mobile number *','tel',{autocomplete:'tel',inputMode:'tel',maxLength:20,placeholder:'01XXXXXXXXX / +966XXXXXXXXX'});
   const hp=document.createElement('input');hp.className='hp';hp.id='gHp';hp.tabIndex=-1;hp.autocomplete='off';f.appendChild(hp);
   const l1=el('label','chk');const c1=document.createElement('input');c1.type='checkbox';c1.id='gConsent';l1.appendChild(c1);
   l1.appendChild(el('span',null,'আমি আমার নাম ও নম্বর দেওয়ার সম্মতি দিচ্ছি। এই তথ্য প্রকাশ্যে দেখানো হবে না।','I consent to giving my name and number. This information will not be shown publicly.'));f.appendChild(l1);
@@ -1018,7 +1021,7 @@ async function submitGate(e){
   const group=document.getElementById('gGroup').value;
   const M=(a,b2,k)=>setMsg('gateMsg',a,b2,k);
   if(name.length<2){M('আপনার নাম লিখুন।','Please enter your name.','err');return}
-  if(!/^01[3-9]\d{8}$/.test(phone)){M('সঠিক ১১ সংখ্যার মোবাইল নম্বর দিন (যেমন 01712345678)।','Enter a valid 11-digit mobile number (e.g. 01712345678).','err');return}
+  if(!okPhone(phone)){M(PH_BN,PH_EN,'err');return}
   if(!consent){M('সম্মতির টিক চিহ্ন দিন।','Please tick the consent box.','err');return}
   if(donate&&!group){M('রক্তের গ্রুপ বেছে নিন।','Please choose your blood group.','err');return}
   const btn=document.getElementById('gSubmit');btn.disabled=true;M('জমা হচ্ছে…','Submitting…','');
