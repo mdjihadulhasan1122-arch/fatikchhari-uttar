@@ -155,6 +155,62 @@ body.inhome .vbar{display:none}
 .adm-cover{position:absolute;left:4px;bottom:4px;background:#0b5d3b;color:#fff;font-size:10px;font-weight:800;border-radius:8px;padding:2px 6px}
 .adm-x,.adm-m{position:absolute;top:4px;border:0;background:rgba(255,255,255,.95);border-radius:50%;width:26px;height:26px;font-size:12px;font-weight:900}
 .adm-x{right:4px}.adm-m{left:4px}
+
+/* ---- হোমের চলতি ছবি ---- */
+.scene{position:relative;border-radius:20px;overflow:hidden;margin:0 0 14px;box-shadow:0 6px 20px rgba(11,93,59,.18);background:#cfeaf7;line-height:0}
+.scene svg{width:100%;height:auto;display:block}
+.scene-txt{position:absolute;left:0;right:0;top:12px;text-align:center;line-height:1.3;pointer-events:none}
+.scene-txt b{display:block;font-size:20px;color:#fff;text-shadow:0 2px 8px rgba(0,60,40,.55)}
+.scene-txt span{font-size:12px;color:#fff;font-weight:700;text-shadow:0 1px 6px rgba(0,60,40,.6)}
+.scene *{transform-box:fill-box}
+@keyframes sc-drift{from{transform:translateX(-120px)}to{transform:translateX(520px)}}
+@keyframes sc-flap{0%,100%{transform:scaleY(1)}50%{transform:scaleY(.35)}}
+@keyframes sc-fly{from{transform:translate(-40px,0)}to{transform:translate(460px,-26px)}}
+@keyframes sc-sway{0%,100%{transform:rotate(-3deg)}50%{transform:rotate(3deg)}}
+@keyframes sc-flow{from{transform:translateX(0)}to{transform:translateX(-40px)}}
+@keyframes sc-boat{0%,100%{transform:translateX(-28px)}50%{transform:translateX(28px)}}
+@keyframes sc-kite{0%,100%{transform:translate(0,0) rotate(-8deg)}50%{transform:translate(-8px,-12px) rotate(8deg)}}
+@keyframes sc-smoke{0%{opacity:0;transform:translateY(6px) scale(.6)}40%{opacity:.8}100%{opacity:0;transform:translateY(-22px) scale(1.5)}}
+@keyframes sc-rays{to{transform:rotate(360deg)}}
+@keyframes sc-wave{0%,100%{transform:translateX(0)}50%{transform:translateX(-14px)}}
+.sc-c1{animation:sc-drift 55s linear infinite}.sc-c2{animation:sc-drift 80s linear -30s infinite}.sc-c3{animation:sc-drift 68s linear -12s infinite}
+.sc-b{animation:sc-fly 22s linear infinite}.sc-b2{animation:sc-fly 30s linear -11s infinite}
+.sc-wing{transform-origin:50% 100%;animation:sc-flap .55s ease-in-out infinite}
+.sc-tree{transform-origin:50% 100%;animation:sc-sway 4s ease-in-out infinite}.sc-tree.t2{animation-delay:-1.4s}.sc-tree.t3{animation-delay:-2.6s}
+.sc-flow{animation:sc-flow 3s linear infinite}
+.sc-boat{animation:sc-boat 14s ease-in-out infinite}
+.sc-kite{transform-origin:50% 100%;animation:sc-kite 5s ease-in-out infinite}
+.sc-smoke{animation:sc-smoke 4s ease-out infinite}.sc-smoke.s2{animation-delay:-2s}
+.sc-rays{transform-origin:50% 50%;animation:sc-rays 40s linear infinite}
+.sc-field{animation:sc-wave 6s ease-in-out infinite}
+@media (prefers-reduced-motion:reduce){.scene *{animation:none!important}}
+/* ---- ভিডিও ---- */
+.vid-card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:12px;margin-bottom:14px;box-shadow:0 2px 10px rgba(11,93,59,.06)}
+.vid-card h3{margin:0 0 8px;font-size:15px;color:var(--deep)}
+.vid-media{position:relative;border-radius:12px;overflow:hidden;background:#000;aspect-ratio:16/9}
+.vid-media iframe,.vid-media video{position:absolute;inset:0;width:100%;height:100%;border:0}
+.vid-card p{margin:8px 0 0;font-size:13px;line-height:1.65;color:#33473b}
+.home-video{margin:0 0 14px}
+/* ---- যোগাযোগ পাতা ---- */
+#contact{background:radial-gradient(circle at 12% 8%,#d6efe0 0,transparent 42%),radial-gradient(circle at 92% 30%,#fdeccb 0,transparent 38%),linear-gradient(180deg,#eaf7ef 0%,#f6fbf8 45%,#ffffff 100%);border-radius:22px;padding:14px 12px 18px!important;margin-top:8px}
+#contact .panel{border-radius:18px;box-shadow:0 4px 16px rgba(11,93,59,.08)}
+.ct-hero{position:relative;border-radius:20px;overflow:hidden;background:linear-gradient(135deg,#0b5d3b 0%,#16875a 55%,#3aa66d 100%);color:#fff;padding:22px 16px 74px;margin-bottom:-58px;text-align:center}
+.ct-hero:before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 20% 20%,rgba(255,255,255,.18) 0 40px,transparent 41px),radial-gradient(circle at 85% 70%,rgba(255,255,255,.12) 0 60px,transparent 61px),radial-gradient(circle at 60% 10%,rgba(255,255,255,.1) 0 26px,transparent 27px)}
+.ct-hero h2{position:relative;margin:0;font-size:20px}
+.ct-hero p{position:relative;margin:4px 0 0;font-size:12.5px;opacity:.92}
+.ct-card{position:relative;background:#fff;border-radius:20px;box-shadow:0 8px 26px rgba(11,93,59,.16);padding:0 16px 18px;margin:0 6px 16px;text-align:center}
+.ct-photo{width:118px;height:118px;border-radius:50%;margin:-59px auto 10px;border:5px solid #fff;overflow:hidden;background:linear-gradient(135deg,#e3f3e8,#c6e6d2);display:grid;place-items:center;font-size:48px;box-shadow:0 6px 18px rgba(0,0,0,.18)}
+.ct-photo img{width:100%;height:100%;object-fit:cover}
+.ct-tag{display:inline-block;background:#e8f6ee;color:var(--deep);font-size:11.5px;font-weight:800;border-radius:20px;padding:4px 12px;margin-bottom:6px}
+.ct-name{margin:0;font-size:19px;color:var(--deep)}
+.ct-role{font-size:13px;color:var(--green);font-weight:800;margin:3px 0 10px}
+.ct-bio{margin:0 0 14px;font-size:13.5px;line-height:1.75;color:#3d5246;text-align:left}
+.ct-btns{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:12px}
+.ct-btns a{flex:1 1 42%;text-decoration:none;font-weight:800;font-size:14px;border-radius:14px;padding:12px 8px;color:#fff;display:flex;align-items:center;justify-content:center;gap:6px}
+.ct-call{background:linear-gradient(135deg,#0b5d3b,#16875a)}.ct-wa{background:linear-gradient(135deg,#128c4a,#25d366)}
+.ct-soc{display:flex;justify-content:center;gap:10px;flex-wrap:wrap}
+.ct-soc a{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;color:#fff;font-weight:900;font-size:17px;text-decoration:none;box-shadow:0 3px 10px rgba(0,0,0,.18)}
+.ct-soc .web{background:#0b5d3b}.ct-soc .fb{background:#1877f2}.ct-soc .li{background:#0a66c2}.ct-soc .ig{background:linear-gradient(45deg,#f9a03f,#dd2a7b,#8134af)}
 </style>
 </head>
 <body>
@@ -910,6 +966,35 @@ function galleryBox(it,icon,cls){
   const n=el('span','gal-n','1/'+L.length);
   g.addEventListener('scroll',()=>{const k=Math.round(g.scrollLeft/Math.max(1,g.clientWidth));n.textContent=(k+1)+'/'+L.length},{passive:true});
   b.appendChild(g);b.appendChild(n);return b}
+
+const SCENE_SVG='<svg viewBox="0 0 400 210" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><defs><linearGradient id="scsk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#7fcdee"/><stop offset=".65" stop-color="#e5f5fb"/><stop offset="1" stop-color="#fff4d6"/></linearGradient><linearGradient id="scfd" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#6cc46f"/><stop offset="1" stop-color="#2f8f4c"/></linearGradient><linearGradient id="scrv" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#8ed0ee"/><stop offset="1" stop-color="#5eb6df"/></linearGradient></defs><rect width="400" height="210" fill="url(#scsk)"/><g transform="translate(330 52)"><g class="sc-rays" opacity=".45"><path d="M0-44V-30M0 44V30M-44 0H-30M44 0H30M-31-31l9 9M31 31l-9-9M-31 31l9-9M31-31l-9 9" stroke="#ffd54a" stroke-width="3" stroke-linecap="round"/></g><circle r="22" fill="#ffd54a"/></g><g class="sc-c1" opacity=".95"><ellipse cx="40" cy="38" rx="26" ry="9" fill="#fff"/><ellipse cx="56" cy="32" rx="16" ry="10" fill="#fff"/><ellipse cx="28" cy="33" rx="13" ry="8" fill="#fff"/></g><g class="sc-c2" opacity=".85"><ellipse cx="0" cy="68" rx="22" ry="7" fill="#fff"/><ellipse cx="14" cy="63" rx="13" ry="8" fill="#fff"/></g><g class="sc-c3" opacity=".9"><ellipse cx="10" cy="22" rx="18" ry="6" fill="#fff"/><ellipse cx="22" cy="18" rx="10" ry="7" fill="#fff"/></g><g class="sc-b"><g transform="translate(0 56)"><g class="sc-wing"><path d="M0 0q5-6 10 0q5-6 10 0" fill="none" stroke="#34495e" stroke-width="1.8" stroke-linecap="round"/></g></g></g><g class="sc-b2"><g transform="translate(0 40)"><g class="sc-wing" style="animation-delay:-.2s"><path d="M0 0q4-5 8 0q4-5 8 0" fill="none" stroke="#34495e" stroke-width="1.6" stroke-linecap="round"/></g></g></g><g class="sc-kite"><g transform="translate(262 30)"><path d="M0-14L9 0 0 18-9 0Z" fill="#e8504a"/><path d="M0-14L9 0 0 0Z" fill="#ffd54a"/><path d="M0 18q-6 14 4 26" fill="none" stroke="#7a8a95" stroke-width="1"/></g></g><path d="M0 118Q55 82 120 108T250 98T400 104V210H0Z" fill="#8fcf9a"/><path d="M0 126Q70 100 140 122T290 112T400 120V210H0Z" fill="#5fb878"/><g opacity=".35" stroke="#2f8f4c" stroke-width="1.2" fill="none"><path d="M20 120q40-16 90 0"/><path d="M40 128q50-14 100 0"/><path d="M250 118q40-12 90 2"/><path d="M270 126q40-10 80 2"/></g><path d="M0 150Q90 136 180 150T400 146V210H0Z" fill="url(#scrv)"/><g class="sc-flow" opacity=".7"><path d="M10 160q10-5 20 0t20 0t20 0M110 168q10-5 20 0t20 0t20 0M230 158q10-5 20 0t20 0t20 0M330 170q10-5 20 0t20 0t20 0M-30 168q10-5 20 0t20 0" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/></g><g class="sc-boat"><g transform="translate(150 158)"><path d="M0 0h42l-7 9H7Z" fill="#8a5a32"/><path d="M21-22V0" stroke="#5a3a1f" stroke-width="2"/><path d="M21-22L36-5H21Z" fill="#fff"/></g></g><path d="M0 178Q100 166 200 178T400 174V210H0Z" fill="url(#scfd)"/><g class="sc-field" opacity=".5" stroke="#bfe8a8" stroke-width="2" stroke-linecap="round"><path d="M-10 190h420M-10 198h420"/></g><g><rect x="34" y="124" width="40" height="24" fill="#f6e7c8"/><path d="M28 125L54 104 80 125Z" fill="#b5532f"/><rect x="48" y="134" width="11" height="14" fill="#7a4a2a"/><rect x="66" y="108" width="5" height="10" fill="#8a4a2a"/></g><g class="sc-smoke"><circle cx="68" cy="104" r="4" fill="#fff" opacity=".8"/></g><g class="sc-smoke s2"><circle cx="70" cy="100" r="3" fill="#fff" opacity=".8"/></g><g><rect x="198" y="118" width="46" height="30" fill="#fbf3e0"/><path d="M198 118a23 18 0 0 1 46 0Z" fill="#2f9a6a"/><rect x="219" y="86" width="4" height="14" fill="#fbf3e0"/><circle cx="221" cy="84" r="3" fill="#ffd54a"/><path d="M219 100h4" stroke="#fbf3e0"/><rect x="214" y="132" width="14" height="16" fill="#1d6b46" rx="7"/></g><g><rect x="316" y="128" width="36" height="22" fill="#f6e7c8"/><path d="M310 129L334 110 358 129Z" fill="#c0603a"/><rect x="328" y="137" width="10" height="13" fill="#7a4a2a"/></g><g class="sc-tree"><rect x="108" y="108" width="4" height="40" fill="#6b4423"/><path d="M110 110q-26 0-34 14q18-6 34-8M110 110q26 0 34 14q-18-6-34-8M110 108q-8-18-26-18q14 4 26 14M110 108q8-18 26-18q-14 4-26 14" fill="#2f9a4d"/></g><g class="sc-tree t2"><rect x="278" y="112" width="4" height="36" fill="#6b4423"/><path d="M280 114q-24 0-30 12q16-6 30-8M280 114q24 0 30 12q-16-6-30-8M280 112q-6-16-24-16q12 4 24 12M280 112q6-16 24-16q-12 4-24 12" fill="#3aae5a"/></g><g class="sc-tree t3"><rect x="372" y="118" width="3" height="30" fill="#6b4423"/><circle cx="373" cy="112" r="14" fill="#2f9a4d"/><circle cx="365" cy="118" r="9" fill="#3aae5a"/></g></svg>';
+function toEmbed(u){
+  u=String(u||'').trim();if(!/^https?:\/\//i.test(u))return null;
+  let m=u.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?(?:.*&)?v=|shorts\/|embed\/|live\/))([\w-]{11})/i);
+  if(m)return{t:'iframe',src:'https://www.youtube-nocookie.com/embed/'+m[1]+'?rel=0'};
+  if(/^https?:\/\/(www\.|m\.|web\.)?(facebook\.com|fb\.watch)\//i.test(u))return{t:'iframe',src:'https://www.facebook.com/plugins/video.php?href='+encodeURIComponent(u)+'&show_text=false'};
+  if(/\.(mp4|webm|mov)(\?|$)/i.test(u))return{t:'video',src:u};
+  return null}
+function videoCard(v){
+  const c=el('div','vid-card');c.appendChild(el('h3',null,v.bn||'ভূজপুরের ভিডিও',v.en||v.bn||'Video of Bhujpur'));
+  const media=el('div','vid-media');let ok=false;
+  const poster=/^(https?:\/\/|images\/)/i.test(v.poster||'')?v.poster:'';
+  if(v.file&&/^(https?:\/\/|images\/)/i.test(v.file)){const vd=document.createElement('video');vd.controls=true;vd.playsInline=true;vd.preload='metadata';if(poster)vd.poster=poster;vd.src=v.file;media.appendChild(vd);ok=true}
+  else{const e=toEmbed(v.link);
+    if(e&&e.t==='iframe'){const f=document.createElement('iframe');f.src=e.src;f.loading='lazy';f.allowFullscreen=true;f.setAttribute('allow','accelerometer; autoplay; encrypted-media; picture-in-picture; fullscreen');f.referrerPolicy='strict-origin-when-cross-origin';media.appendChild(f);ok=true}
+    else if(e&&e.t==='video'){const vd=document.createElement('video');vd.controls=true;vd.playsInline=true;vd.preload='metadata';if(poster)vd.poster=poster;vd.src=e.src;media.appendChild(vd);ok=true}}
+  if(ok)c.appendChild(media);
+  else if(/^https?:\/\//i.test(v.link||'')){const a=el('a','btn btn-green','▶ ভিডিও দেখুন','▶ Watch video');a.href=v.link;a.target='_blank';a.rel='noopener';a.style.display='block';a.style.textAlign='center';c.appendChild(a)}
+  if(v.textBn)c.appendChild(el('p',null,v.textBn,v.textEn||v.textBn));
+  return c}
+function renderVideos(){
+  {const p=document.getElementById('videos');if(p)p.remove()}
+  const L=(SD.videos||[]);
+  const hv=document.getElementById('homeVideo');if(hv){hv.textContent='';if(L.length){hv.appendChild(videoCard(L[0]));}}
+  const body=mkSection('videos','🎬 ভূজপুরের ভিডিও','🎬 Videos of Bhujpur','আমাদের এলাকার ভিডিও','Videos of our area');
+  if(!L.length)body.appendChild(el('div','placeholder','ভিডিও শীঘ্রই যোগ হবে।','Videos will be added soon.'));
+  L.forEach(v=>body.appendChild(videoCard(v)));
+}
 function mkSection(id,hBn,hEn,pBn,pEn){
   const prev=document.getElementById(id);if(prev)prev.remove();
   const sec=document.createElement('section');sec.className='section';sec.id=id;
@@ -978,6 +1063,7 @@ const VIEWS={
   unions:{icon:'🏛️',bn:'ইউনিয়ন ও জনপ্রতিনিধি',en:'Unions & Members',secs:['unions']},
   blood:{icon:'🩸',bn:'রক্তদাতা',en:'Blood Donors',secs:['blood']},
   notices:{icon:'📋',bn:'নোটিশ বোর্ড',en:'Notice Board',secs:['noticeboard']},
+  videos:{icon:'🎬',bn:'ভিডিও',en:'Videos',secs:['videos']},
   thana:{icon:'🚓',bn:'ভূজপুর থানা',en:'Bhujpur Thana',secs:['thana']},
   history:{icon:'📜',bn:'ভূজপুরের ইতিহাস',en:'History',secs:['history']},
   tourism:{icon:'🏞️',bn:'পর্যটন স্থান',en:'Tourist Places',secs:['tourism']},
@@ -991,6 +1077,10 @@ function refreshCounts(){document.querySelectorAll('.fold[data-k]').forEach(b=>{
 function buildHome(){
   const main=document.querySelector('main')||document.body;
   const f=document.createElement('section');f.className='folders';f.id='folders';
+  const sc=el('div','scene');sc.innerHTML=SCENE_SVG;
+  const st=el('div','scene-txt');st.appendChild(el('b',null,'ভূজপুরে স্বাগতম','Welcome to Bhujpur'));st.appendChild(el('span',null,'আমাদের গ্রাম, আমাদের গর্ব','Our village, our pride'));sc.appendChild(st);
+  f.appendChild(sc);
+  const hv=el('div','home-video');hv.id='homeVideo';f.appendChild(hv);
   f.appendChild(el('h2',null,'📂 কী দেখতে চান?','📂 What would you like to see?'));
   const g=el('div','fgrid');f.appendChild(g);
   Object.keys(VIEWS).forEach(k=>{
@@ -1033,7 +1123,7 @@ document.addEventListener('click',e=>{
   e.preventDefault();const k=VIEWS[id]?id:ID2VIEW[id];go(k==='home'?'':k);
 });
 window.addEventListener('popstate',()=>showView(viewFromHash(),false));
-buildHome();showView(viewFromHash(),false);
+buildHome();renderVideos();showView(viewFromHash(),false);
 if(english)applyLanguage();
 openGate();
 

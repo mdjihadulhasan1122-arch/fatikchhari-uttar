@@ -55,11 +55,11 @@ function applyAll(){
   SD.slides=eff('slides',STATIC.slides,imp);SD.notices=eff('notices',STATIC.notices,imp);
   SD.schools=eff('schools',STATIC.schools,imp);SD.hospitals=eff('hospitals',STATIC.hospitals,imp);SD.doctors=eff('doctors',STATIC.doctors,imp);
   SD.transport=eff('transport',STATIC.transport,imp);SD.market=eff('market',STATIC.market,imp);
-  window.HISTORY_DATA=eff('history',STATIC.history,imp);window.TOURISM_DATA=eff('tourism',STATIC.tourism,imp);
+  SD.videos=eff('videos',[],imp);window.HISTORY_DATA=eff('history',STATIC.history,imp);window.TOURISM_DATA=eff('tourism',STATIC.tourism,imp);
   const T=JSON.parse(JSON.stringify(STATIC.thana)),tr=rowsOf('thana')[0];
   if(tr&&tr.data){if(tr.data.photo)T.photo=tr.data.photo;if(tr.data.phone){const f=(T.facts||[]).find(x=>'phone' in x);if(f)f.phone=tr.data.phone}}
   window.THANA_DATA=T;
-  renderSlider();renderNotices();renderDir();renderHistory();renderTourism();renderThana();renderAbout();
+  renderSlider();renderNotices();renderDir();renderHistory();renderTourism();renderThana();renderVideos();renderAbout();
   if(window.refreshDynamic)refreshDynamic();
   refreshCounts();showView(viewFromHash(),false,true);
   if(english)applyLanguage();
@@ -71,20 +71,27 @@ function renderAbout(){
   const old=$('aboutMe');if(old)old.remove();
   const sec=$('contact');if(!sec)return;
   const row=rowsOf('about')[0];const d=Object.assign({},ABOUT_DEFAULT,(row&&row.data)||{});
-  const box=el('div','about-me');box.id='aboutMe';
-  box.appendChild(el('h2',null,'👤 কে বানিয়েছেন','👤 Who made this'));
-  const ph=el('div','am-photo');
+  const box=document.createElement('div');box.id='aboutMe';
+  const hero=el('div','ct-hero');hero.appendChild(el('h2',null,'📞 যোগাযোগ','📞 Contact'));hero.appendChild(el('p',null,'আমাদের সাথে থাকুন, তথ্য ও পরামর্শ জানান','Stay with us — share information and suggestions'));box.appendChild(hero);
+  const card=el('div','ct-card');
+  const ph=el('div','ct-photo');
   if(safeUrl(d.photo)){const i=document.createElement('img');i.src=d.photo;i.alt='';i.onerror=()=>{i.remove();ph.textContent='👤'};ph.appendChild(i)}else ph.textContent='👤';
-  box.appendChild(ph);
-  const nm=el('p','am-name');nm.appendChild(el('b',null,d.bn,d.en||d.bn));
-  box.appendChild(nm);
-  if(d.roleBn)box.appendChild(el('div','am-role',d.roleBn,d.roleEn||d.roleBn));
-  if(d.bioBn)box.appendChild(el('p','am-bio',d.bioBn,d.bioEn||d.bioBn));
-  const soc=el('div','am-soc');
-  [['website','🌐','Website'],['facebook','f','Facebook'],['linkedin','in','LinkedIn'],['instagram','◎','Instagram']].forEach(s=>{
-    const u=safeUrl(d[s[0]]);if(!u)return;const a=document.createElement('a');a.href=u;a.target='_blank';a.rel='noopener';a.textContent=s[1];a.setAttribute('aria-label',s[2]);soc.appendChild(a)});
-  if(d.phone){const a=document.createElement('a');a.href='tel:'+String(d.phone).replace(/[^\d+]/g,'');a.textContent='📞';a.setAttribute('aria-label','Call');soc.appendChild(a)}
-  if(soc.children.length)box.appendChild(soc);
+  card.appendChild(ph);
+  card.appendChild(el('div','ct-tag','👤 কে বানিয়েছেন','👤 Who made this'));
+  card.appendChild(el('h3','ct-name',d.bn,d.en||d.bn));
+  if(d.roleBn)card.appendChild(el('div','ct-role',d.roleBn,d.roleEn||d.roleBn));
+  if(d.bioBn)card.appendChild(el('p','ct-bio',d.bioBn,d.bioEn||d.bioBn));
+  const bt=el('div','ct-btns');
+  const link=(href,cls,bn,en,ext)=>{const a=el('a',cls,bn,en);a.href=href;if(ext){a.target='_blank';a.rel='noopener'}bt.appendChild(a)};
+  if(d.phone)link('tel:'+String(d.phone).replace(/[^\d+]/g,''),'ct-call','📞 কল করুন','📞 Call');
+  if(d.whatsapp){const n=String(d.whatsapp).replace(/\D/g,'');if(n)link('https://wa.me/'+(n.length===11&&n[0]==='0'?'88'+n:n),'ct-wa','💬 হোয়াটসঅ্যাপ','💬 WhatsApp',1)}
+  if(/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(d.email||''))link('mailto:'+d.email,'ct-call','✉ ইমেইল','✉ Email');
+  if(bt.children.length)card.appendChild(bt);
+  const soc=el('div','ct-soc');
+  [['website','🌐','web','Website'],['facebook','f','fb','Facebook'],['linkedin','in','li','LinkedIn'],['instagram','◎','ig','Instagram']].forEach(s=>{
+    const u=safeUrl(d[s[0]]);if(!u)return;const x=document.createElement('a');x.href=u;x.target='_blank';x.rel='noopener';x.className=s[2];x.textContent=s[1];x.setAttribute('aria-label',s[3]);soc.appendChild(x)});
+  if(soc.children.length)card.appendChild(soc);
+  box.appendChild(card);
   sec.insertBefore(box,sec.firstChild);
 }
 
@@ -116,11 +123,12 @@ const COLS={
   market:{icon:'🛍️',t:'বাজার ও ব্যবসা',title:'bn',fields:[photos(),bi('bn','en','দোকান / ব্যবসার নাম *','text',1),
     sel('type','ধরন',[['কাঁচাবাজার','Fresh market'],['মুদি দোকান','Grocery'],['রেস্টুরেন্ট ও খাবার','Restaurant & food'],['মিস্ত্রি ও সার্ভিস','Services & repair'],['ফার্মেসি','Pharmacy'],['কাপড় ও ফ্যাশন','Clothing & fashion'],['ইলেকট্রনিক্স','Electronics'],['অন্যান্য','Other']]),
     bi('address','addressEn','ঠিকানা'),bi('time','timeEn','খোলার সময়'),bi('products','productsEn','কী কী পাওয়া যায়','area'),one('phone','ফোন','tel'),bi('historyBn','historyEn','অন্য বিবরণ','area')]},
+  videos:{icon:'🎬',t:'ভিডিও',title:'bn',fields:[bi('bn','en','ভিডিওর শিরোনাম *','text',1),one('link','YouTube বা Facebook ভিডিওর লিংক (লম্বা ভিডিওর জন্য এটাই সেরা)'),{k:'file',l:'অথবা ভিডিও ফাইল আপলোড (সর্বোচ্চ ৫০ MB)',t:'video'},bi('textBn','textEn','বর্ণনা','area')]},
   thana:{icon:'🚓',t:'থানার ছবি ও ওসির নম্বর',single:true,fields:[photo(),one('phone','ওসি / ডিউটি অফিসারের ফোন','tel')]},
   about:{icon:'👤',t:'আমার পরিচয় (যোগাযোগ পাতা)',single:true,fields:[photo(),bi('bn','en','আপনার নাম *','text',1),bi('roleBn','roleEn','পরিচয় (যেমন: ওয়েবসাইট নির্মাতা)'),bi('bioBn','bioEn','নিজের সম্পর্কে কয়েক লাইন','area'),
-    one('website','ওয়েবসাইট লিংক (https://...)'),one('facebook','ফেসবুক লিংক'),one('linkedin','লিংকডইন লিংক'),one('instagram','ইনস্টাগ্রাম লিংক'),one('phone','ফোন','tel')]}
+    one('whatsapp','হোয়াটসঅ্যাপ নম্বর'),one('email','ইমেইল'),one('website','ওয়েবসাইট লিংক (https://...)'),one('facebook','ফেসবুক লিংক'),one('linkedin','লিংকডইন লিংক'),one('instagram','ইনস্টাগ্রাম লিংক'),one('phone','ফোন','tel')]}
 };
-const VIEWCOL={home:'slides',schools:'schools',madrasas:'schools',hospitals:'hospitals',doctors:'doctors',history:'history',tourism:'tourism',transport:'transport',market:'market',notices:'notices',thana:'thana',contact:'about'};
+const VIEWCOL={home:'slides',schools:'schools',madrasas:'schools',hospitals:'hospitals',doctors:'doctors',history:'history',tourism:'tourism',transport:'transport',market:'market',notices:'notices',thana:'thana',contact:'about',videos:'videos'};
 
 /* ---------- ছোট সহায়ক UI ---------- */
 function toast(msg,bad){const t=el('div','adm-toast',msg);if(bad)t.style.background='#b3261e';document.body.appendChild(t);setTimeout(()=>t.remove(),3200)}
@@ -158,6 +166,16 @@ async function uploadPhoto(file,folder){
   if(!r.ok)throw new Error('ছবি আপলোড হয়নি ('+r.status+')');
   return PUB+path;
 }
+function uploadVideo(file,onp){return new Promise(async(res,rej)=>{
+  if(file.size>50*1024*1024){rej(new Error('ফাইল ৫০ MB-এর বেশি। বড় ভিডিও YouTube-এ আপলোড করে লিংক দিন।'));return}
+  const t=await token();const ext=(file.name.match(/\.(mp4|mov|webm|m4v)$/i)||['','mp4'])[1].toLowerCase();
+  const path='video/'+Date.now()+'-'+Math.random().toString(36).slice(2,7)+'.'+ext;
+  const x=new XMLHttpRequest();x.open('POST',SB_URL+'/storage/v1/object/'+BUCKET+'/'+path);
+  x.setRequestHeader('apikey',CFG.supabaseKey);if(t)x.setRequestHeader('Authorization','Bearer '+t);
+  x.setRequestHeader('Content-Type',file.type||'video/mp4');x.setRequestHeader('cache-control','max-age=31536000');
+  x.upload.onprogress=e=>{if(e.lengthComputable&&onp)onp(Math.round(e.loaded*100/e.total))};
+  x.onload=()=>x.status>=200&&x.status<300?res(PUB+path):rej(new Error('ভিডিও আপলোড হয়নি ('+x.status+')'));
+  x.onerror=()=>rej(new Error('ইন্টারনেট সংযোগে সমস্যা'));x.send(file)})}
 function dropPhoto(url){if(url&&url.indexOf(PUB)===0){api('/storage/v1/object/'+BUCKET+'/'+url.slice(PUB.length),{method:'DELETE'}).catch(()=>{})}}
 
 /* ---------- যোগ / এডিট ফর্ম ---------- */
@@ -168,6 +186,18 @@ function editor(colKey,row,preset,done){
   const f=document.createElement('form');ov.body.appendChild(f);const get={};
   C.fields.forEach((fd,ix)=>{
     const id='af'+ix;
+    if(fd.t==='video'){
+      const st={url:d[fd.k]||''};get[fd.k]=()=>st.url;
+      f.appendChild(el('div','fl',fd.l));const box=el('div','adm-ph');const info=el('div','adm-prev');box.appendChild(info);
+      const paint=()=>{info.textContent=st.url?'🎬 ভিডিও আপলোড করা আছে':'ভিডিও ফাইল নেই'};paint();
+      const inp=document.createElement('input');inp.type='file';inp.accept='video/*';inp.style.display='none';
+      const pick=el('button','adm-btn','🎬 ভিডিও বাছুন');pick.type='button';pick.onclick=()=>inp.click();
+      const rm=el('button','adm-btn light','🗑 সরান');rm.type='button';rm.onclick=()=>{st.url='';paint()};
+      const msg=el('div','form-msg');
+      inp.onchange=async()=>{const fl=inp.files[0];if(!fl)return;pick.disabled=true;msg.className='form-msg';msg.textContent='আপলোড হচ্ছে… ০%';
+        try{st.url=await uploadVideo(fl,p=>{msg.textContent='আপলোড হচ্ছে… '+p+'%'});paint();msg.className='form-msg ok';msg.textContent='✅ আপলোড হয়েছে (সেভ করুন)'}catch(e){msg.className='form-msg err';msg.textContent=e.message}pick.disabled=false;inp.value=''};
+      const bar=el('div','adm-row');bar.appendChild(pick);bar.appendChild(rm);box.appendChild(bar);box.appendChild(inp);box.appendChild(msg);f.appendChild(box);return;
+    }
     if(fd.t==='photos'){
       let arr=Array.isArray(d.photos)&&d.photos.length?d.photos.slice():(d.photo?[d.photo]:[]);
       get.photos=()=>arr;get.photo=()=>arr[0]||'';
@@ -223,8 +253,9 @@ function editor(colKey,row,preset,done){
     const data=Object.assign({},(row&&row.data)||{},preset||{});
     for(const k in get){const v=get[k]();if(v===''||v==null||(Array.isArray(v)&&!v.length))delete data[k];else data[k]=v}
     for(const fd of C.fields){if(fd.req&&!data[fd.k]){m.className='form-msg err';m.textContent='"'+fd.l.replace(' *','')+'" লিখুন।';return}
-      if(fd.t==='photo'&&row&&row.data&&row.data[fd.k]&&row.data[fd.k]!==data[fd.k])dropPhoto(row.data[fd.k])
+      if((fd.t==='photo'||fd.t==='video')&&row&&row.data&&row.data[fd.k]&&row.data[fd.k]!==data[fd.k])dropPhoto(row.data[fd.k])
       if(fd.t==='photos'&&row&&row.data){const old=(row.data.photos||[]).concat(row.data.photo||[]),now=data.photos||[];old.forEach(u=>{if(now.indexOf(u)<0&&data.photo!==u)dropPhoto(u)})}}
+    if(colKey==='videos'&&!data.link&&!data.file){m.className='form-msg err';m.textContent='ভিডিওর লিংক দিন অথবা ভিডিও ফাইল আপলোড করুন।';return}
     if(colKey==='slides'&&!data.src){m.className='form-msg err';m.textContent='ছবি বাছুন।';return}
     sv.disabled=true;m.className='form-msg';m.textContent='সেভ হচ্ছে…';
     try{await saveRow(colKey,row,data);ov.close();toast('✅ সেভ হয়েছে');if(done)done()}catch(e){m.className='form-msg err';m.textContent=e.message;sv.disabled=false}
@@ -278,7 +309,7 @@ async function manager(colKey,filter,preset){
       btn('🗑',async()=>{if(!confirm('"'+(r.data[C.title||'bn']||'এটি')+'" মুছে ফেলবেন?'))return;
         try{const x=await api('/rest/v1/site_items?id=eq.'+encodeURIComponent(r.id),{method:'DELETE',headers:{Prefer:'return=representation'}});
           if(!x.ok)throw new Error('মোছা যায়নি ('+x.status+')');const j=await x.json();if(!j.length)throw new Error('মোছা যায়নি — অ্যাডমিন অনুমতি নেই।');
-          dropPhoto(r.data[C.img||'photo']);ROWS=ROWS.filter(z=>z.id!==r.id);applyAll();draw();toast('🗑 মুছে ফেলা হয়েছে')}catch(e){toast(e.message,true)}},'del');
+          dropPhoto(r.data[C.img||'photo']);dropPhoto(r.data.file);ROWS=ROWS.filter(z=>z.id!==r.id);applyAll();draw();toast('🗑 মুছে ফেলা হয়েছে')}catch(e){toast(e.message,true)}},'del');
       c.appendChild(bt);ov.body.appendChild(c)});
   };
   draw();
